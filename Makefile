@@ -52,12 +52,13 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = Articolo.cpp \
-		Rivista.cpp \
-		test.cpp 
-OBJECTS       = Articolo.o \
+SOURCES       = test.cpp \
+		src/Articolo.cpp \
+		src/Rivista.cpp qrc_resources.cpp
+OBJECTS       = test.o \
+		Articolo.o \
 		Rivista.o \
-		test.o
+		qrc_resources.o
 DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/device_config.prf \
 		/opt/homebrew/Cellar/qt/6.7.3/share/qt/mkspecs/common/unix.conf \
@@ -401,10 +402,10 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/exceptions.prf \
 		/opt/homebrew/share/qt/mkspecs/features/yacc.prf \
 		/opt/homebrew/share/qt/mkspecs/features/lex.prf \
-		biblioteca.pro Articolo.h \
-		Rivista.h Articolo.cpp \
-		Rivista.cpp \
-		test.cpp
+		biblioteca.pro src/Articolo.h \
+		src/Rivista.h test.cpp \
+		src/Articolo.cpp \
+		src/Rivista.cpp
 QMAKE_TARGET  = biblioteca
 DESTDIR       = 
 TARGET        = biblioteca.app/Contents/MacOS/biblioteca
@@ -773,6 +774,7 @@ Makefile: biblioteca.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /o
 		/opt/homebrew/share/qt/mkspecs/features/yacc.prf \
 		/opt/homebrew/share/qt/mkspecs/features/lex.prf \
 		biblioteca.pro \
+		resources.qrc \
 		/opt/homebrew/lib/QtWidgets.framework/Resources/QtWidgets.prl \
 		/opt/homebrew/lib/QtGui.framework/Resources/QtGui.prl \
 		/opt/homebrew/lib/QtCore.framework/Resources/QtCore.prl
@@ -1121,6 +1123,7 @@ Makefile: biblioteca.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /o
 /opt/homebrew/share/qt/mkspecs/features/yacc.prf:
 /opt/homebrew/share/qt/mkspecs/features/lex.prf:
 biblioteca.pro:
+resources.qrc:
 /opt/homebrew/lib/QtWidgets.framework/Resources/QtWidgets.prl:
 /opt/homebrew/lib/QtGui.framework/Resources/QtGui.prl:
 /opt/homebrew/lib/QtCore.framework/Resources/QtCore.prl:
@@ -1148,9 +1151,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Articolo.h Rivista.h $(DISTDIR)/
-	$(COPY_FILE) --parents Articolo.cpp Rivista.cpp test.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/Articolo.h src/Rivista.h $(DISTDIR)/
+	$(COPY_FILE) --parents test.cpp src/Articolo.cpp src/Rivista.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1177,8 +1181,14 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_resources.cpp
+qrc_resources.cpp: resources.qrc \
+		/opt/homebrew/share/qt/libexec/rcc \
+		save.svg
+	/opt/homebrew/share/qt/libexec/rcc -name resources resources.qrc -o qrc_resources.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -1201,24 +1211,31 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean 
 
 ####### Compile
 
-Articolo.o: Articolo.cpp Articolo.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Articolo.o Articolo.cpp
-
-Rivista.o: Rivista.cpp Rivista.h \
-		Articolo.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Rivista.o Rivista.cpp
-
-test.o: test.cpp Rivista.h \
-		Articolo.h \
+test.o: test.cpp src/Rivista.h \
+		src/Articolo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qapplication.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QString \
+		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o test.o test.cpp
+
+Articolo.o: src/Articolo.cpp src/Articolo.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Articolo.o src/Articolo.cpp
+
+Rivista.o: src/Rivista.cpp src/Rivista.h \
+		src/Articolo.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Rivista.o src/Rivista.cpp
+
+qrc_resources.o: qrc_resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
 ####### Install
 
