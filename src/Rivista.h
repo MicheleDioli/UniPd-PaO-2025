@@ -12,14 +12,15 @@ private:
     std::string pubblicatore;
     int intervalloPubblicazione;
     int edizione;
+    int difficolta;
 public:
-    Rivista(std::string codice, std::string descrizione, std::string genere, std::string breveDescrizione, int anno, std::string editore, int pagine, std::string pubblicatore, int intervalloPubblicazione, int edizione);
+    Rivista(std::string codice, std::string descrizione, std::string genere, std::string breveDescrizione, int anno, std::string editore, int pagine, std::string pubblicatore, int intervalloPubblicazione, int edizione, int diffi);
     std::string getEditore();
     int getPagine();
     std::string getPubblicatore();
     int getIntervalloPubblicazione();
     int getEdizione();
-    int difficoltaLettura();
+    int getDifficolta();
     int velocitaLettura();
 };
 

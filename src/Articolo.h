@@ -15,6 +15,7 @@ private:
     std::string genere;
     std::string breveDescrizione;
     int anno;
+    std::list<Articolo*> articoli;
 public:
     Articolo(std::string codice, std::string descrizione, std::string genere, std::string breveDescrizione, int anno);
     virtual ~Articolo();
@@ -23,6 +24,7 @@ public:
     std::string getGenere();
     std::string getBreveDescrizione();
     int getAnno();
+
 };
 
 #endif //ARTICOLO_H
