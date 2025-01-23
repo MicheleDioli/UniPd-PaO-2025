@@ -13,12 +13,11 @@ private:
     int edizione;
     int difficolta;
 
-    // Costruttore privato, chiamato solo dal Builder
+public:
+
     Rivista(const std::string& codice, const std::string& descrizione, const std::string& genere,
             const std::string& breveDescrizione, int anno, const std::string& editore, int pagine,
             const std::string& pubblicatore, int intervalloPubblicazione, int edizione, int difficolta);
-
-public:
 
     std::string getEditore() const;
     int getPagine() const;
@@ -29,37 +28,39 @@ public:
     int velocitaLettura() const;
     std::string informazioniArticolo(const Articolo* art) const override;
 
-
-    class Builder {
-    private:
-
-        std::string codice;
-        std::string descrizione;
-        std::string genere;
-        std::string breveDescrizione;
-        int anno;
+     void setEditore(const std::string& editore);
+     void setPagine(int pagine);
+     void setPubblicatore(const std::string& pubblicatore);
+     void setIntervalloPubblicazione(int intervallo);
+     void setEdizione(int edizione);
+     void setDifficolta(int difficolta);
 
 
-        std::string editore = "N/A";
-        int pagine = 0;
-        std::string pubblicatore = "N/A";
-        int intervalloPubblicazione = 0;
-        int edizione = 1;
-        int difficolta = 1;
-
-    public:
-        Builder(const std::string& codice, const std::string& descrizione, const std::string& genere,
-                const std::string& breveDescrizione, int anno);
-
-        Builder& setEditore(const std::string& editore);
-        Builder& setPagine(int pagine);
-        Builder& setPubblicatore(const std::string& pubblicatore);
-        Builder& setIntervalloPubblicazione(int intervallo);
-        Builder& setEdizione(int edizione);
-        Builder& setDifficolta(int difficolta);
-
-        Rivista build() const;
-    };
 };
+/*
+class Builder {
+private:
+
+    std::string codice;
+    std::string descrizione;
+    std::string genere;
+    std::string breveDescrizione;
+    int anno;
+
+
+    std::string editore = "N/A";
+    int pagine = 0;
+    std::string pubblicatore = "N/A";
+    int intervalloPubblicazione = 0;
+    int edizione = 1;
+    int difficolta = 1;
+
+public:
+    Builder(const std::string& codice, const std::string& descrizione, const std::string& genere,
+            const std::string& breveDescrizione, int anno);
+
+    Rivista build() const;
+};
+*/
 
 #endif

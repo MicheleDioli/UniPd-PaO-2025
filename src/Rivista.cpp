@@ -38,6 +38,19 @@ std::string Rivista::informazioniArticolo(const Articolo* art) const {
     }
 }
 
+void Rivista::setEditore(const std::string& editore) { this->editore = editore; }
+
+void Rivista::setPagine(int pagine) { this->pagine = pagine; }
+
+void Rivista::setPubblicatore(const std::string& pubblicatore) { this->pubblicatore = pubblicatore; }
+
+void Rivista::setIntervalloPubblicazione(int intervallo) { this->intervalloPubblicazione = intervallo; }
+
+void Rivista::setEdizione(int edizione) { this->edizione = edizione; }
+
+void Rivista::setDifficolta(int difficolta) { this->difficolta = difficolta; }
+
+/*
 Rivista::Builder::Builder(const std::string& codice, const std::string& descrizione,
                           const std::string& genere, const std::string& breveDescrizione, int anno)
     : codice(codice), descrizione(descrizione), genere(genere),
@@ -77,3 +90,4 @@ Rivista Rivista::Builder::build() const {
     return Rivista(codice, descrizione, genere, breveDescrizione, anno, editore, pagine, pubblicatore,
                    intervalloPubblicazione, edizione, difficolta);
 }
+*/
