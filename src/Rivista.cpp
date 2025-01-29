@@ -1,11 +1,12 @@
 #include "Rivista.h"
+#include "ConstVisitorInterface.h"
 
 Rivista::Rivista(const std::string& codice, const std::string& descrizione, const std::string& genere,
-                 const std::string& breveDescrizione, int anno, const std::string& editore, int pagine,
-                 const std::string& pubblicatore, int intervalloPubblicazione, int edizione, int difficolta)
-    : Articolo(codice, descrizione, genere, breveDescrizione, anno),
-      editore(editore), pagine(pagine), pubblicatore(pubblicatore),
-      intervalloPubblicazione(intervalloPubblicazione), edizione(edizione), difficolta(difficolta) {}
+        int anno, int copie, const::std::string&lingua, const std::string& editore, int pagine,
+        const std::string& pubblicatore, int intervalloPubblicazione, int edizione, int difficolta)
+    : Articolo(codice, descrizione, genere, anno, copie, lingua), editore(editore), pagine(pagine),
+      pubblicatore(pubblicatore), intervalloPubblicazione(intervalloPubblicazione), edizione(edizione),
+      difficolta(difficolta) {}
 
 std::string Rivista::getEditore() const { return editore; }
 
@@ -25,17 +26,13 @@ int Rivista::velocitaLettura() const {
     return minutoxpag * pagine;
 }
 
-std::string Rivista::informazioniArticolo(const Articolo* art) const {
-    if (art) {
-        return "Codice: " + art->getCodice() + "\nDescrizione: " + art->getDescrizione() + "\nGenere: " +
-               art->getGenere() + "\nBreve Descrizione: " + art->getBreveDescrizione() + "\nAnno: " +
-               std::to_string(art->getAnno()) + "\nEditore: " + editore + "\nPagine: " + std::to_string(pagine) +
-               "\nPubblicatore: " + pubblicatore + "\nIntervallo Pubblicazione: " +
-               std::to_string(intervalloPubblicazione) + "\nEdizione: " + std::to_string(edizione) +
-               "\nDifficolta: " + std::to_string(difficolta);
-    } else {
-        return "Articolo non trovato";
-    }
+std::string Rivista::informazioniArticolo() const {
+    return "Codice: " + getCodice() + "\nDescrizione: " + getDescrizione() + "\nGenere: " +
+           getGenere() + "\nAnno: " +
+           std::to_string(getAnno()) + "\nEditore: " + editore + "\nPagine: " + std::to_string(pagine) +
+           "\nPubblicatore: " + pubblicatore + "\nIntervallo Pubblicazione: " +
+           std::to_string(intervalloPubblicazione) + "\nEdizione: " + std::to_string(edizione) +
+           "\nDifficolta: " + std::to_string(difficolta);
 }
 
 void Rivista::setEditore(const std::string& editore) { this->editore = editore; }
@@ -49,6 +46,15 @@ void Rivista::setIntervalloPubblicazione(int intervallo) { this->intervalloPubbl
 void Rivista::setEdizione(int edizione) { this->edizione = edizione; }
 
 void Rivista::setDifficolta(int difficolta) { this->difficolta = difficolta; }
+
+void Rivista::accept(VisitorInterface& visitor) {
+    visitor.visitRivista(*this);
+}
+
+void Rivista::accept(ConstVisitorInterface& visitor) const {
+    visitor.visitRivista(*this);
+}
+
 
 /*
 Rivista::Builder::Builder(const std::string& codice, const std::string& descrizione,

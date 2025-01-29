@@ -1,8 +1,8 @@
 // Articolo.cpp
 #include "Articolo.h"
 
-Articolo::Articolo(const std::string& codice, const std::string& descrizione, const std::string& genere, const std::string& breveDescrizione, int anno)
-    : codice(codice), descrizione(descrizione), genere(genere), breveDescrizione(breveDescrizione), anno(anno) {}
+Articolo::Articolo(const std::string& codice, const std::string& descrizione, const std::string& genere, int anno, int copie, const std::string& lingua)
+    : codice(codice), descrizione(descrizione), genere(genere), anno(anno), copie(copie), lingua(lingua){}
 
 Articolo::~Articolo() {
 }
@@ -19,21 +19,20 @@ std::string Articolo::getGenere() const {
     return genere;
 }
 
-std::string Articolo::getBreveDescrizione() const {
-    return breveDescrizione;
-}
-
 int Articolo::getAnno() const {
     return anno;
 }
 
-std::string Articolo::informazioniArticolo(const Articolo* art) const {
-	if(art){
-	    return "Codice: " + art->getCodice() + "\nDescrizione: " + art->getDescrizione() + "\nGenere: " + art->getGenere() + "\nBreve Descrizione: " + art->getBreveDescrizione() + "\nAnno: " + std::to_string(art->getAnno());
-    }
-    else{
-    	return "Articolo non trovato";
-    }
+std::string Articolo::getLingua() const {
+    return lingua;
+}
+
+int Articolo::getCopie() const {
+    return copie;
+}
+
+std::string Articolo::informazioniArticolo() const {
+	    return "Codice: " + getCodice() + "\nDescrizione: " + getDescrizione() + "\nGenere: " + getGenere() + "\nAnno: " + std::to_string(getAnno());
 }
 
 int Articolo::numeroArticoli(const std::list<Articolo*>& articoli) const {

@@ -1,6 +1,9 @@
 #ifndef ARTICOLO_H
 #define ARTICOLO_H
 
+#include "VisitorInterface.h"
+#include "ConstVisitorInterface.h"
+
 #include <string>
 #include <iostream>
 #include <list>
@@ -10,25 +13,28 @@ private:
     std::string codice;
     std::string descrizione;
     std::string genere;
-    std::string breveDescrizione;
     int anno;
-
+    int copie;
+    std::string lingua;
 public:
-    Articolo(const std::string& codice, const std::string& descrizione, const std::string& genere, const std::string& breveDescrizione, int anno);
-    Articolo() = default;
+    Articolo(const std::string& codice, const std::string& descrizione, const std::string& genere, int anno, int copie, const std::string& lingua);
     virtual ~Articolo();
 
     std::string getCodice() const;
     std::string getDescrizione() const;
     std::string getGenere() const;
-    std::string getBreveDescrizione() const;
     int getAnno() const;
+    std::string getLingua() const;
+    int getCopie() const;
 
-    virtual std::string informazioniArticolo(const Articolo* art) const;
+    virtual std::string informazioniArticolo() const;
     int numeroArticoli(const std::list<Articolo*>& articoli) const;
     Articolo* getArticoloPrecendete(const Articolo* art, const std::list<Articolo*>& articoli) const;
     Articolo* getArticoloSuccessivo(const Articolo* art, const std::list<Articolo*>& articoli) const;
     int getNumeroSerie(const Articolo* art, const std::list<Articolo*>& articoli) const;
+
+    virtual void accept(VisitorInterface& visitor) = 0;
+    virtual void accept(ConstVisitorInterface& visitor) const = 0;
 };
 
 #endif // ARTICOLO_H

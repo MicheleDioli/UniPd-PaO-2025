@@ -2,7 +2,7 @@
 #define RIVISTA_H
 
 #include <string>
-#include "Articolo.h" // Dipende dalla struttura del progetto
+#include "Articolo.h"
 
 class Rivista : public Articolo {
 private:
@@ -14,11 +14,9 @@ private:
     int difficolta;
 
 public:
-
     Rivista(const std::string& codice, const std::string& descrizione, const std::string& genere,
-            const std::string& breveDescrizione, int anno, const std::string& editore, int pagine,
+            int anno, int copie, const::std::string&lingua, const std::string& editore, int pagine,
             const std::string& pubblicatore, int intervalloPubblicazione, int edizione, int difficolta);
-
     std::string getEditore() const;
     int getPagine() const;
     std::string getPubblicatore() const;
@@ -26,7 +24,7 @@ public:
     int getEdizione() const;
     int getDifficolta() const;
     int velocitaLettura() const;
-    std::string informazioniArticolo(const Articolo* art) const override;
+    std::string informazioniArticolo() const override;
 
      void setEditore(const std::string& editore);
      void setPagine(int pagine);
@@ -35,7 +33,8 @@ public:
      void setEdizione(int edizione);
      void setDifficolta(int difficolta);
 
-
+    virtual void accept(VisitorInterface& visitor);
+    virtual void accept(ConstVisitorInterface& visitor) const;
 };
 /*
 class Builder {
