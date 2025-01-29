@@ -57,6 +57,7 @@ SOURCES       = test.cpp \
 		src/Film.cpp \
 		src/Libro.cpp \
 		src/Rivista.cpp \
+		src/view/JsonImporter.cpp \
 		src/view/JsonVisitor.cpp \
 		src/view/salva.cpp moc_text.cpp
 OBJECTS       = test.o \
@@ -64,6 +65,7 @@ OBJECTS       = test.o \
 		Film.o \
 		Libro.o \
 		Rivista.o \
+		JsonImporter.o \
 		JsonVisitor.o \
 		salva.o \
 		moc_text.o
@@ -417,12 +419,14 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		src/Libro.h \
 		src/Rivista.h \
 		src/VisitorInterface.h \
+		src/view/JsonImporter.h \
 		src/view/JsonVisitor.h \
 		src/view/Salva.h test.cpp \
 		src/Articolo.cpp \
 		src/Film.cpp \
 		src/Libro.cpp \
 		src/Rivista.cpp \
+		src/view/JsonImporter.cpp \
 		src/view/JsonVisitor.cpp \
 		src/view/salva.cpp
 QMAKE_TARGET  = biblioteca
@@ -1169,8 +1173,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents text.h src/Articolo.h src/ConstVisitorInterface.h src/Film.h src/Libro.h src/Rivista.h src/VisitorInterface.h src/view/JsonVisitor.h src/view/Salva.h $(DISTDIR)/
-	$(COPY_FILE) --parents test.cpp src/Articolo.cpp src/Film.cpp src/Libro.cpp src/Rivista.cpp src/view/JsonVisitor.cpp src/view/salva.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents text.h src/Articolo.h src/ConstVisitorInterface.h src/Film.h src/Libro.h src/Rivista.h src/VisitorInterface.h src/view/JsonImporter.h src/view/JsonVisitor.h src/view/Salva.h $(DISTDIR)/
+	$(COPY_FILE) --parents test.cpp src/Articolo.cpp src/Film.cpp src/Libro.cpp src/Rivista.cpp src/view/JsonImporter.cpp src/view/JsonVisitor.cpp src/view/salva.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1307,6 +1311,31 @@ Rivista.o: src/Rivista.cpp src/Rivista.h \
 		src/VisitorInterface.h \
 		src/ConstVisitorInterface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Rivista.o src/Rivista.cpp
+
+JsonImporter.o: src/view/JsonImporter.cpp src/view/JsonImporter.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QString \
+		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonArray \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonarray.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QFile \
+		/opt/homebrew/lib/QtCore.framework/Headers/qfile.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QTextStream \
+		/opt/homebrew/lib/QtCore.framework/Headers/qtextstream.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Libro.h \
+		src/Film.h \
+		src/Rivista.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QMessageBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o JsonImporter.o src/view/JsonImporter.cpp
 
 JsonVisitor.o: src/view/JsonVisitor.cpp /opt/homebrew/lib/QtCore.framework/Headers/QJsonValue \
 		/opt/homebrew/lib/QtCore.framework/Headers/qjsonvalue.h \

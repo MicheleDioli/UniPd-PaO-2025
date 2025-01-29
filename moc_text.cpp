@@ -38,8 +38,7 @@ constexpr auto qt_meta_stringdata_CLASStextENDCLASS = QtMocHelpers::stringData(
     "text",
     "salvaQT",
     "",
-    "importaQT",
-    "Articolo*"
+    "importaQT"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -65,7 +64,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASStextENDCLASS[] = {
 
  // slots: parameters
     QMetaType::Void,
-    0x80000000 | 4,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -82,7 +81,7 @@ Q_CONSTINIT const QMetaObject text::staticMetaObject = { {
         // method 'salvaQT'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'importaQT'
-        QtPrivate::TypeAndForceComplete<Articolo *, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -94,11 +93,11 @@ void text::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         (void)_t;
         switch (_id) {
         case 0: _t->salvaQT(); break;
-        case 1: { Articolo* _r = _t->importaQT();
-            if (_a[0]) *reinterpret_cast< Articolo**>(_a[0]) = std::move(_r); }  break;
+        case 1: _t->importaQT(); break;
         default: ;
         }
     }
+    (void)_a;
 }
 
 const QMetaObject *text::metaObject() const

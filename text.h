@@ -15,13 +15,15 @@ class text : public QWidget {
     Q_OBJECT
 private:
     Articolo* a;
+    QVBoxLayout *layout;
+    Articolo* salva;
     Json json;
 public:
     explicit text(QWidget *parent = nullptr, Articolo* a = nullptr);
 
     public slots:
         void salvaQT();
-        Articolo* importaQT();
+        void importaQT();
 };
 
 #endif // TEXT_H

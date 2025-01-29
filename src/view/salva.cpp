@@ -31,8 +31,7 @@ void Json::salvaJson(const Articolo& a)const {
 
 Articolo* Json::importa(){
     JsonImporter importer;
-    QString fileName = QFileDialog::getOpenFileName(nullptr, "Open File", "", "JSON files (*.json)");
-    return importer.importJson(fileName);
+    return importer.importJson();
 }
 
 Articolo* Json::importaJson(){

@@ -1,11 +1,21 @@
 #include "JsonImporter.h"
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QFile>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QString>
+#include <QMessageBox>
+#include <iostream>
 
-Articolo* JsonImporter::importJson(const QString& filePath) {
-    QFile file(filePath);
+
+Articolo* JsonImporter::importJson() {
+    QString fileName = QFileDialog::getOpenFileName(nullptr, "Open File", "", "Json files (*.json)");
+    QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly)) {
-        std::cerr << "Impossibile aprire il file JSON!" << std::endl;
-        return nullptr;
-    }
+        QMessageBox::information(0, "error", file.errorString());
+        }
 
     QByteArray data = file.readAll();
     QJsonDocument doc = QJsonDocument::fromJson(data);
@@ -19,48 +29,18 @@ Articolo* JsonImporter::importJson(const QString& filePath) {
 
     QString tipo = json["tipo"].toString();
 
-    if (tipo == "Libro") {
-
-        QString codice = json["codice"].toString();
-        QString descrizione = json["descrizione"].toString();
-        QString autore = json["autore"].toString();
-        int anno = json["anno"].toInt();
-        QString genere = json["genere"].toString();
-        int pagine = json["pagine"].toInt();
-        QString casaEditrice = json["casaEditrice"].toString();
-
-        return new Libro(codice.toStdString(), descrizione.toStdString(), 0.0, autore.toStdString(), genere.toStdString());
-    } else if (tipo == "Film") {
-
-        QString codice = json["codice"].toString();
-        QString descrizione = json["descrizione"].toString();
-        QString regista = json["regista"].toString();
-        int durata = json["durata"].toInt();
-        int valutazioneCritica = json["valutazioneCritica"].toInt();
-        int valutazionePubblico = json["valutazionePubblico"].toInt();
-        QString genere = json["genere"].toString();
-
-        QJsonArray attoriArray = json["attori"].toArray();
-        std::list<std::string> attori;
-        for (auto& actor : attoriArray) {
-            attori.push_back(actor.toString().toStdString());
-        }
-
-        return new Film(codice.toStdString(), descrizione.toStdString(), 0.0, regista.toStdString(), genere.toStdString(), durata, attori);
-    } else if (tipo == "Rivista") {
-        // Creare oggetto Rivista
-        QString codice = json["codice"].toString();
-        QString descrizione = json["descrizione"].toString();
-        QString editore = json["editore"].toString();
-        QString pubblicatore = json["pubblicatore"].toString();
-        int pagine = json["pagine"].toInt();
-        int intervalloPubblicazione = json["intervalloPubblicazione"].toInt();
-        int edizione = json["edizione"].toInt();
-        QString genere = json["genere"].toString();
-
-        return new Rivista(codice.toStdString(), descrizione.toStdString(), 0.0, editore.toStdString(), genere.toStdString(), pagine);
+    if( tipo == "Libro" || tipo == "libro"){
+        return  new Libro(json["codice"].toString().toStdString(), json["descrizione"].toString().toStdString(), json["genere"].toString().toStdString(), json["anno"].toInt(), json["copie"].toInt(), json["lingua"].toString().toStdString(), json["casaEditrice"].toString().toStdString(), json["capitoli"].toInt(), json["pagine"].toInt(), json["autore"].toString().toStdString());
     }
-
-    std::cerr << "Tipo di articolo non riconosciuto!" << std::endl;
-    return nullptr;
+    else if( tipo == "Rivista" || tipo == "rivista"){
+        return new Rivista(json["codice"].toString().toStdString(), json["descrizione"].toString().toStdString(), json["genere"].toString().toStdString(), json["anno"].toInt(), json["copie"].toInt(), json["lingua"].toString().toStdString(), json["editore"].toString().toStdString(), json["pagine"].toInt(), json["pubblicatore"].toString().toStdString(), json["intervalloPubblicazione"].toInt(), json["edizione"].toInt(), json["difficolta"].toInt());
+    }
+    else if( tipo == "Film" || tipo == "film"){
+        return new Film(json["codice"].toString().toStdString(), json["descrizione"].toString().toStdString(), json["genere"].toString().toStdString(), json["anno"].toInt(), json["copie"].toInt(), json["lingua"].toString().toStdString(), json["regista"].toString().toStdString(), json["durata"].toInt(), json["attori"].toString().toStdString(), json["produttore"].toString().toStdString());
+    }
+    else{
+        std::cerr << "Tipo non riconosciuto!" << std::endl;
+        return nullptr;
+    }
+        
 }
