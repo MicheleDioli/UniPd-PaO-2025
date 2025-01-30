@@ -1,13 +1,4 @@
 #include "JsonImporter.h"
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QFile>
-#include <QTextStream>
-#include <QFileDialog>
-#include <QString>
-#include <QMessageBox>
-#include <iostream>
 
 
 Articolo* JsonImporter::importJson() {
@@ -27,7 +18,7 @@ Articolo* JsonImporter::importJson() {
 
     QJsonObject json = doc.object();
 
-    QString tipo = json["tipo"].toString();
+    QString tipo = json["type"].toString();
 
     if( tipo == "Libro" || tipo == "libro"){
         return  new Libro(json["codice"].toString().toStdString(), json["descrizione"].toString().toStdString(), json["genere"].toString().toStdString(), json["anno"].toInt(), json["copie"].toInt(), json["lingua"].toString().toStdString(), json["casaEditrice"].toString().toStdString(), json["capitoli"].toInt(), json["pagine"].toInt(), json["autore"].toString().toStdString());
@@ -38,9 +29,7 @@ Articolo* JsonImporter::importJson() {
     else if( tipo == "Film" || tipo == "film"){
         return new Film(json["codice"].toString().toStdString(), json["descrizione"].toString().toStdString(), json["genere"].toString().toStdString(), json["anno"].toInt(), json["copie"].toInt(), json["lingua"].toString().toStdString(), json["regista"].toString().toStdString(), json["durata"].toInt(), json["attori"].toString().toStdString(), json["produttore"].toString().toStdString());
     }
-    else{
-        std::cerr << "Tipo non riconosciuto!" << std::endl;
-        return nullptr;
-    }
-        
+
+    std::cerr << "Tipo non riconosciuto!" << std::endl;
+    return nullptr;
 }

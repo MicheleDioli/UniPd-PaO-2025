@@ -5,12 +5,21 @@
 #ifndef JSONVISITOR_H
 #define JSONVISITOR_H
 
-#include <iostream>
+#include <QString>
+#include <QJsonDocument>
 #include <QJsonObject>
-#include "../ConstVisitorInterface.h"
-#include "../Libro.h"
-#include "../Rivista.h"
-#include "../Film.h"
+#include <QJsonArray>
+#include <QFile>
+#include <QTextStream>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QString>
+#include <QMessageBox>
+
+#include "../../ConstVisitorInterface.h"
+#include "../../Libro.h"
+#include "../../Rivista.h"
+#include "../../Film.h"
 
 class JsonVisitor : public ConstVisitorInterface{
 private:

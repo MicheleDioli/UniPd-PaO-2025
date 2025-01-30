@@ -17,6 +17,7 @@ public:
     Rivista(const std::string& codice, const std::string& descrizione, const std::string& genere,
             int anno, int copie, const::std::string&lingua, const std::string& editore, int pagine,
             const std::string& pubblicatore, int intervalloPubblicazione, int edizione, int difficolta);
+
     std::string getEditore() const;
     int getPagine() const;
     std::string getPubblicatore() const;
@@ -26,15 +27,15 @@ public:
     int velocitaLettura() const;
     std::string informazioniArticolo() const override;
 
-     void setEditore(const std::string& editore);
-     void setPagine(int pagine);
-     void setPubblicatore(const std::string& pubblicatore);
-     void setIntervalloPubblicazione(int intervallo);
-     void setEdizione(int edizione);
-     void setDifficolta(int difficolta);
+     void setEditore(const std::string&);
+     void setPagine(int);
+     void setPubblicatore(const std::string&);
+     void setIntervalloPubblicazione(int);
+     void setEdizione(int);
+     void setDifficolta(int);
 
-    virtual void accept(VisitorInterface& visitor);
-    virtual void accept(ConstVisitorInterface& visitor) const;
+    virtual void accept(VisitorInterface&);
+    virtual void accept(ConstVisitorInterface&) const;
 };
 /*
 class Builder {

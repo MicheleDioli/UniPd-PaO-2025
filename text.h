@@ -8,8 +8,15 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "src/view/Salva.h"
+#include <iostream>
+#include <QApplication>
+#include <QPushButton>
+#include <QVBoxLayout>
+
+
 #include "src/Articolo.h"
+#include "src/view/Json/Salva.h"
+
 
 class text : public QWidget {
     Q_OBJECT

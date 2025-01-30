@@ -10,11 +10,18 @@
 #include <QJsonArray>
 #include <QFile>
 #include <QTextStream>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QString>
+#include <QMessageBox>
+
 #include <list>
-#include "../Articolo.h"
-#include "../Libro.h"
-#include "../Film.h"
-#include "../Rivista.h"
+#include <iostream>
+
+#include "../../Articolo.h"
+#include "../../Libro.h"
+#include "../../Film.h"
+#include "../../Rivista.h"
 
 class JsonImporter{
 public:

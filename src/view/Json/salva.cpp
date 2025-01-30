@@ -1,14 +1,4 @@
 #include "Salva.h"
-#include "JsonVisitor.h"
-#include "JsonImporter.h"
-
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QFileDialog>
-#include <QHeaderView>
-#include <QMessageBox>
 
 QJsonObject Json::salva(const Articolo& a)const{
     JsonVisitor json_visitor;
@@ -16,7 +6,7 @@ QJsonObject Json::salva(const Articolo& a)const{
     return json_visitor.getObject();
 }
 
-void Json::salvaJson(const Articolo& a)const {
+void Json::salvaJson(const Articolo& a){
     QJsonObject obj = salva(a);
     QJsonDocument doc(obj);
     QString fileName = QFileDialog::getSaveFileName(nullptr, "Save File", "", "JSON files (*.json)");
