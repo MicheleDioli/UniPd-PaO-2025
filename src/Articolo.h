@@ -19,6 +19,7 @@ private:
 public:
     Articolo(const std::string& codice, const std::string& descrizione, const std::string& genere, int anno, int copie, const std::string& lingua);
     virtual ~Articolo();
+    Articolo();
 
     std::string getCodice() const;
     std::string getDescrizione() const;
@@ -26,6 +27,13 @@ public:
     int getAnno() const;
     std::string getLingua() const;
     int getCopie() const;
+
+    void setCodice(const std::string& codice);
+    void setDescrizione(const std::string& descrizione);
+    void setGenere(const std::string& genere);
+    void setAnno(int anno);
+    void setLingua(const std::string& lingua);
+    void setCopie(int copie);
 
     virtual std::string informazioniArticolo() const;
     int numeroArticoli(const std::list<Articolo*>& articoli) const;

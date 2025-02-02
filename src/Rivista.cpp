@@ -8,6 +8,8 @@ Rivista::Rivista(const std::string& codice, const std::string& descrizione, cons
       pubblicatore(pubblicatore), intervalloPubblicazione(intervalloPubblicazione), edizione(edizione),
       difficolta(difficolta) {}
 
+Rivista::Rivista(){}
+
 std::string Rivista::getEditore() const { return editore; }
 
 int Rivista::getPagine() const { return pagine; }

@@ -1,4 +1,4 @@
-#include "Salva.h"
+#include "Json.h"
 
 QJsonObject Json::salva(const Articolo& a)const{
     JsonVisitor json_visitor;

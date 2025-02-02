@@ -52,23 +52,39 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = test.cpp \
+SOURCES       = main.cpp \
 		src/Articolo.cpp \
 		src/Film.cpp \
 		src/Libro.cpp \
 		src/Rivista.cpp \
+		src/view/Json/Json.cpp \
 		src/view/Json/JsonImporter.cpp \
 		src/view/Json/JsonVisitor.cpp \
-		src/view/Json/salva.cpp moc_text.cpp
-OBJECTS       = test.o \
+		src/view/Modifica/editVisitor.cpp \
+		src/view/Modifica/ModificaArticolo.cpp \
+		src/view/Modifica/ModificaFilm.cpp \
+		src/view/Modifica/ModificaLibro.cpp \
+		src/view/Modifica/ModificaRivista.cpp moc_ModificaArticolo.cpp \
+		moc_ModificaFilm.cpp \
+		moc_ModificaLibro.cpp \
+		moc_ModificaRivista.cpp
+OBJECTS       = main.o \
 		Articolo.o \
 		Film.o \
 		Libro.o \
 		Rivista.o \
+		Json.o \
 		JsonImporter.o \
 		JsonVisitor.o \
-		salva.o \
-		moc_text.o
+		editVisitor.o \
+		ModificaArticolo.o \
+		ModificaFilm.o \
+		ModificaLibro.o \
+		ModificaRivista.o \
+		moc_ModificaArticolo.o \
+		moc_ModificaFilm.o \
+		moc_ModificaLibro.o \
+		moc_ModificaRivista.o
 DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/device_config.prf \
 		/opt/homebrew/Cellar/qt/6.7.3/share/qt/mkspecs/common/unix.conf \
@@ -412,23 +428,32 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/exceptions.prf \
 		/opt/homebrew/share/qt/mkspecs/features/yacc.prf \
 		/opt/homebrew/share/qt/mkspecs/features/lex.prf \
-		biblioteca.pro text.h \
-		src/Articolo.h \
+		biblioteca.pro src/Articolo.h \
 		src/ConstVisitorInterface.h \
 		src/Film.h \
 		src/Libro.h \
 		src/Rivista.h \
 		src/VisitorInterface.h \
+		src/view/Json/Json.h \
 		src/view/Json/JsonImporter.h \
 		src/view/Json/JsonVisitor.h \
-		src/view/Json/Salva.h test.cpp \
+		src/view/Modifica/editVisitor.h \
+		src/view/Modifica/ModificaArticolo.h \
+		src/view/Modifica/ModificaFilm.h \
+		src/view/Modifica/ModificaLibro.h \
+		src/view/Modifica/ModificaRivista.h main.cpp \
 		src/Articolo.cpp \
 		src/Film.cpp \
 		src/Libro.cpp \
 		src/Rivista.cpp \
+		src/view/Json/Json.cpp \
 		src/view/Json/JsonImporter.cpp \
 		src/view/Json/JsonVisitor.cpp \
-		src/view/Json/salva.cpp
+		src/view/Modifica/editVisitor.cpp \
+		src/view/Modifica/ModificaArticolo.cpp \
+		src/view/Modifica/ModificaFilm.cpp \
+		src/view/Modifica/ModificaLibro.cpp \
+		src/view/Modifica/ModificaRivista.cpp
 QMAKE_TARGET  = biblioteca
 DESTDIR       = 
 TARGET        = biblioteca.app/Contents/MacOS/biblioteca
@@ -1173,8 +1198,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents text.h src/Articolo.h src/ConstVisitorInterface.h src/Film.h src/Libro.h src/Rivista.h src/VisitorInterface.h src/view/Json/JsonImporter.h src/view/Json/JsonVisitor.h src/view/Json/Salva.h $(DISTDIR)/
-	$(COPY_FILE) --parents test.cpp src/Articolo.cpp src/Film.cpp src/Libro.cpp src/Rivista.cpp src/view/Json/JsonImporter.cpp src/view/Json/JsonVisitor.cpp src/view/Json/salva.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/Articolo.h src/ConstVisitorInterface.h src/Film.h src/Libro.h src/Rivista.h src/VisitorInterface.h src/view/Json/Json.h src/view/Json/JsonImporter.h src/view/Json/JsonVisitor.h src/view/Modifica/editVisitor.h src/view/Modifica/ModificaArticolo.h src/view/Modifica/ModificaFilm.h src/view/Modifica/ModificaLibro.h src/view/Modifica/ModificaRivista.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp src/Articolo.cpp src/Film.cpp src/Libro.cpp src/Rivista.cpp src/view/Json/Json.cpp src/view/Json/JsonImporter.cpp src/view/Json/JsonVisitor.cpp src/view/Modifica/editVisitor.cpp src/view/Modifica/ModificaArticolo.cpp src/view/Modifica/ModificaFilm.cpp src/view/Modifica/ModificaLibro.cpp src/view/Modifica/ModificaRivista.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1209,46 +1234,103 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp
 	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra -dM -E -o moc_predefs.h /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_text.cpp
+compiler_moc_header_make_all: moc_ModificaArticolo.cpp moc_ModificaFilm.cpp moc_ModificaLibro.cpp moc_ModificaRivista.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_text.cpp
-moc_text.cpp: text.h \
+	-$(DEL_FILE) moc_ModificaArticolo.cpp moc_ModificaFilm.cpp moc_ModificaLibro.cpp moc_ModificaRivista.cpp
+moc_ModificaArticolo.cpp: src/view/Modifica/ModificaArticolo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qapplication.h \
 		src/Articolo.h \
 		src/VisitorInterface.h \
 		src/ConstVisitorInterface.h \
-		src/view/Json/Salva.h \
-		src/view/Json/JsonVisitor.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QString \
-		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonArray \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsonarray.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QFile \
-		/opt/homebrew/lib/QtCore.framework/Headers/qfile.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QTextStream \
-		/opt/homebrew/lib/QtCore.framework/Headers/qtextstream.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QMessageBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		src/Film.h \
 		src/Libro.h \
 		src/Rivista.h \
-		src/Film.h \
-		src/view/Json/JsonImporter.h \
 		moc_predefs.h \
 		/opt/homebrew/share/qt/libexec/moc
-	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/biblioteca/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib text.h -o moc_text.cpp
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/biblioteca/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/view/Modifica/ModificaArticolo.h -o moc_ModificaArticolo.cpp
+
+moc_ModificaFilm.cpp: src/view/Modifica/ModificaFilm.h \
+		src/view/Modifica/ModificaArticolo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Film.h \
+		src/Libro.h \
+		src/Rivista.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/biblioteca/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/view/Modifica/ModificaFilm.h -o moc_ModificaFilm.cpp
+
+moc_ModificaLibro.cpp: src/view/Modifica/ModificaLibro.h \
+		src/view/Modifica/ModificaArticolo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Film.h \
+		src/Libro.h \
+		src/Rivista.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/biblioteca/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/view/Modifica/ModificaLibro.h -o moc_ModificaLibro.cpp
+
+moc_ModificaRivista.cpp: src/view/Modifica/ModificaRivista.h \
+		src/view/Modifica/ModificaArticolo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Film.h \
+		src/Libro.h \
+		src/Rivista.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/biblioteca/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/view/Modifica/ModificaRivista.h -o moc_ModificaRivista.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1268,41 +1350,33 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-test.o: test.cpp text.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qapplication.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qapplication.h \
-		src/Articolo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDoubleSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		src/view/Modifica/editVisitor.h \
 		src/VisitorInterface.h \
-		src/ConstVisitorInterface.h \
-		src/view/Json/Salva.h \
-		src/view/Json/JsonVisitor.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QString \
-		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonArray \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsonarray.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QFile \
-		/opt/homebrew/lib/QtCore.framework/Headers/qfile.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QTextStream \
-		/opt/homebrew/lib/QtCore.framework/Headers/qtextstream.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QMessageBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h \
-		src/Libro.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
 		src/Rivista.h \
-		src/Film.h \
-		src/view/Json/JsonImporter.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o test.o test.cpp
+		src/Articolo.h \
+		src/ConstVisitorInterface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 Articolo.o: src/Articolo.cpp src/Articolo.h \
 		src/VisitorInterface.h \
@@ -1327,6 +1401,33 @@ Rivista.o: src/Rivista.cpp src/Rivista.h \
 		src/ConstVisitorInterface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Rivista.o src/Rivista.cpp
 
+Json.o: src/view/Json/Json.cpp src/view/Json/Json.h \
+		src/view/Json/JsonVisitor.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QString \
+		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QJsonArray \
+		/opt/homebrew/lib/QtCore.framework/Headers/qjsonarray.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QFile \
+		/opt/homebrew/lib/QtCore.framework/Headers/qfile.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QTextStream \
+		/opt/homebrew/lib/QtCore.framework/Headers/qtextstream.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QMessageBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		src/ConstVisitorInterface.h \
+		src/Libro.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/Rivista.h \
+		src/Film.h \
+		src/view/Json/JsonImporter.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Json.o src/view/Json/Json.cpp
+
 JsonImporter.o: src/view/Json/JsonImporter.cpp src/view/Json/JsonImporter.h \
 		/opt/homebrew/lib/QtCore.framework/Headers/QString \
 		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
@@ -1348,8 +1449,8 @@ JsonImporter.o: src/view/Json/JsonImporter.cpp src/view/Json/JsonImporter.h \
 		src/VisitorInterface.h \
 		src/ConstVisitorInterface.h \
 		src/Libro.h \
-		src/Film.h \
-		src/Rivista.h
+		src/Rivista.h \
+		src/Film.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o JsonImporter.o src/view/Json/JsonImporter.cpp
 
 JsonVisitor.o: src/view/Json/JsonVisitor.cpp src/view/Json/JsonVisitor.h \
@@ -1377,35 +1478,123 @@ JsonVisitor.o: src/view/Json/JsonVisitor.cpp src/view/Json/JsonVisitor.h \
 		src/Film.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o JsonVisitor.o src/view/Json/JsonVisitor.cpp
 
-salva.o: src/view/Json/salva.cpp src/view/Json/Salva.h \
-		src/view/Json/JsonVisitor.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QString \
-		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonDocument \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsondocument.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonObject \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsonobject.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QJsonArray \
-		/opt/homebrew/lib/QtCore.framework/Headers/qjsonarray.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QFile \
-		/opt/homebrew/lib/QtCore.framework/Headers/qfile.h \
-		/opt/homebrew/lib/QtCore.framework/Headers/QTextStream \
-		/opt/homebrew/lib/QtCore.framework/Headers/qtextstream.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QFileDialog \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qfiledialog.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QMessageBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qmessagebox.h \
+editVisitor.o: src/view/Modifica/editVisitor.cpp src/view/Modifica/editVisitor.h \
+		src/VisitorInterface.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		src/Film.h \
+		src/Articolo.h \
 		src/ConstVisitorInterface.h \
 		src/Libro.h \
+		src/Rivista.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o editVisitor.o src/view/Modifica/editVisitor.cpp
+
+ModificaArticolo.o: src/view/Modifica/ModificaArticolo.cpp src/view/Modifica/ModificaArticolo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		src/Articolo.h \
 		src/VisitorInterface.h \
-		src/Rivista.h \
+		src/ConstVisitorInterface.h \
 		src/Film.h \
-		src/view/Json/JsonImporter.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o salva.o src/view/Json/salva.cpp
+		src/Libro.h \
+		src/Rivista.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ModificaArticolo.o src/view/Modifica/ModificaArticolo.cpp
 
-moc_text.o: moc_text.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_text.o moc_text.cpp
+ModificaFilm.o: src/view/Modifica/ModificaFilm.cpp src/view/Modifica/ModificaFilm.h \
+		src/view/Modifica/ModificaArticolo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Film.h \
+		src/Libro.h \
+		src/Rivista.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ModificaFilm.o src/view/Modifica/ModificaFilm.cpp
+
+ModificaLibro.o: src/view/Modifica/ModificaLibro.cpp src/view/Modifica/ModificaLibro.h \
+		src/view/Modifica/ModificaArticolo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Film.h \
+		src/Libro.h \
+		src/Rivista.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ModificaLibro.o src/view/Modifica/ModificaLibro.cpp
+
+ModificaRivista.o: src/view/Modifica/ModificaRivista.cpp src/view/Modifica/ModificaRivista.h \
+		src/view/Modifica/ModificaArticolo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Film.h \
+		src/Libro.h \
+		src/Rivista.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ModificaRivista.o src/view/Modifica/ModificaRivista.cpp
+
+moc_ModificaArticolo.o: moc_ModificaArticolo.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ModificaArticolo.o moc_ModificaArticolo.cpp
+
+moc_ModificaFilm.o: moc_ModificaFilm.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ModificaFilm.o moc_ModificaFilm.cpp
+
+moc_ModificaLibro.o: moc_ModificaLibro.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ModificaLibro.o moc_ModificaLibro.cpp
+
+moc_ModificaRivista.o: moc_ModificaRivista.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ModificaRivista.o moc_ModificaRivista.cpp
 
 ####### Install
 

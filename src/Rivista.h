@@ -17,7 +17,7 @@ public:
     Rivista(const std::string& codice, const std::string& descrizione, const std::string& genere,
             int anno, int copie, const::std::string&lingua, const std::string& editore, int pagine,
             const std::string& pubblicatore, int intervalloPubblicazione, int edizione, int difficolta);
-
+    Rivista();
     std::string getEditore() const;
     int getPagine() const;
     std::string getPubblicatore() const;

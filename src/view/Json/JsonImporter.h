@@ -15,17 +15,16 @@
 #include <QString>
 #include <QMessageBox>
 
-#include <list>
-#include <iostream>
-
 #include "../../Articolo.h"
 #include "../../Libro.h"
-#include "../../Film.h"
 #include "../../Rivista.h"
+#include "../../Film.h"
+
 
 class JsonImporter{
 public:
     Articolo* importJson();
+    Articolo* createArticolo(const QString&, const QJsonObject&);
 };
 
 #endif //JSONIMPORTER_H

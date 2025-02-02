@@ -1,12 +1,11 @@
 //
 // Created by Michele Dioli on 1/29/25.
 //
-#ifndef SALVA_H
-#define SALVA_H
+#ifndef JSON_H
+#define JSON_H
 
 #include "JsonVisitor.h"
 #include "JsonImporter.h"
-
 
 #include "../../Articolo.h"
 

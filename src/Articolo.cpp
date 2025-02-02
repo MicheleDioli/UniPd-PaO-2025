@@ -1,6 +1,8 @@
 // Articolo.cpp
 #include "Articolo.h"
 
+Articolo::Articolo() {}
+
 Articolo::Articolo(const std::string& codice, const std::string& descrizione, const std::string& genere, int anno, int copie, const std::string& lingua)
     : codice(codice), descrizione(descrizione), genere(genere), anno(anno), copie(copie), lingua(lingua){}
 
@@ -86,4 +88,28 @@ int Articolo::getNumeroSerie(const Articolo* art, const std::list<Articolo*>& ar
         ++it;
     }
     return -1;
+}
+
+void Articolo::setCodice(const std::string& codice) {
+    this->codice = codice;
+}
+
+void Articolo::setDescrizione(const std::string& descrizione) {
+    this->descrizione = descrizione;
+}
+
+void Articolo::setGenere(const std::string& genere) {
+    this->genere = genere;
+}
+
+void Articolo::setAnno(int anno) {
+    this->anno = anno;
+}
+
+void Articolo::setLingua(const std::string& lingua) {
+    this->lingua = lingua;
+}
+
+void Articolo::setCopie(int copie) {
+    this->copie = copie;
 }
