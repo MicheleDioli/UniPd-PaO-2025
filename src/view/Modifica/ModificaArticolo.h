@@ -23,7 +23,7 @@ class ModificaArticolo : public QWidget {
 public:
   ModificaArticolo(QWidget* parent = nullptr);
   ~ModificaArticolo();
-  virtual Articolo* New() = 0;
+  virtual void edit(Articolo*) = 0;
     virtual QVBoxLayout* getLayout() const = 0;
 };
 

@@ -1,7 +1,6 @@
 //
 // Created by Michele Dioli on 2/2/25.
 //
-
 #ifndef MODIFICALIBRO_H
 #define MODIFICALIBRO_H
 
@@ -14,6 +13,7 @@ private:
 
     //asstratta
     QLineEdit *codiceInput;
+    QLineEdit *titoloInput;
     QLineEdit *descrizioneInput;
     QLineEdit *genereInput;
     QLineEdit *linguaInput;
@@ -30,7 +30,7 @@ private:
 
 public:
     ModificaLibro(QWidget* parent = nullptr, Libro* libro = nullptr);
-    Libro* New() override;
+    void edit(Articolo*) override;
     virtual QVBoxLayout* getLayout() const;
 };
 

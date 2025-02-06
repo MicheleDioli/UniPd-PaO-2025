@@ -3,6 +3,7 @@
 Articolo* JsonImporter::createArticolo(const QString& type, const QJsonObject& json) {
         if (type.compare("Libro", Qt::CaseInsensitive) == 0) {
             return new Libro(
+                json["titolo"].toString().toStdString(),
                 json["codice"].toString().toStdString(),
                 json["descrizione"].toString().toStdString(),
                 json["genere"].toString().toStdString(),
@@ -16,6 +17,7 @@ Articolo* JsonImporter::createArticolo(const QString& type, const QJsonObject& j
             );
         } else if (type.compare("Rivista", Qt::CaseInsensitive) == 0) {
             return new Rivista(
+                json["titolo"].toString().toStdString(),
                 json["codice"].toString().toStdString(),
                 json["descrizione"].toString().toStdString(),
                 json["genere"].toString().toStdString(),
@@ -31,6 +33,7 @@ Articolo* JsonImporter::createArticolo(const QString& type, const QJsonObject& j
             );
         } else if (type.compare("Film", Qt::CaseInsensitive) == 0) {
             return new Film(
+                json["titolo"].toString().toStdString(),
                 json["codice"].toString().toStdString(),
                 json["descrizione"].toString().toStdString(),
                 json["genere"].toString().toStdString(),

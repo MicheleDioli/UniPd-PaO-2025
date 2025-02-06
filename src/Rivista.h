@@ -14,7 +14,7 @@ private:
     int difficolta;
 
 public:
-    Rivista(const std::string& codice, const std::string& descrizione, const std::string& genere,
+    Rivista(const std::string& titolo, const std::string& codice, const std::string& descrizione, const std::string& genere,
             int anno, int copie, const::std::string&lingua, const std::string& editore, int pagine,
             const std::string& pubblicatore, int intervalloPubblicazione, int edizione, int difficolta);
     Rivista();

@@ -1,10 +1,11 @@
 #include "Rivista.h"
 #include "ConstVisitorInterface.h"
 
-Rivista::Rivista(const std::string& codice, const std::string& descrizione, const std::string& genere,
-        int anno, int copie, const::std::string&lingua, const std::string& editore, int pagine,
-        const std::string& pubblicatore, int intervalloPubblicazione, int edizione, int difficolta)
-    : Articolo(codice, descrizione, genere, anno, copie, lingua), editore(editore), pagine(pagine),
+Rivista::Rivista(const std::string& titolo, const std::string& codice, const std::string& descrizione,
+                 const std::string& genere, int anno, int copie, const std::string& lingua,
+                 const std::string& editore, int pagine, const std::string& pubblicatore,
+                 int intervalloPubblicazione, int edizione, int difficolta)
+    : Articolo(titolo, codice, descrizione, genere, anno, copie, lingua), editore(editore), pagine(pagine),
       pubblicatore(pubblicatore), intervalloPubblicazione(intervalloPubblicazione), edizione(edizione),
       difficolta(difficolta) {}
 

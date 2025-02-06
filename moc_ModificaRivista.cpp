@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'ModificaRivista.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.7.3)
+** Created by: The Qt Meta Object Compiler version 68 (Qt 6.8.2)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -19,7 +19,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'ModificaRivista.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.7.3. It"
+#error "This file was generated using the moc from 6.8.2. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -32,18 +32,19 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
+struct qt_meta_tag_ZN15ModificaRivistaE_t {};
+} // unnamed namespace
+
 
 #ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSModificaRivistaENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSModificaRivistaENDCLASS = QtMocHelpers::stringData(
+static constexpr auto qt_meta_stringdata_ZN15ModificaRivistaE = QtMocHelpers::stringData(
     "ModificaRivista"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
 #endif // !QT_MOC_HAS_STRINGDATA
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSModificaRivistaENDCLASS[] = {
+Q_CONSTINIT static const uint qt_meta_data_ZN15ModificaRivistaE[] = {
 
  // content:
       12,       // revision
@@ -61,11 +62,11 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSModificaRivistaENDCLASS[] = {
 
 Q_CONSTINIT const QMetaObject ModificaRivista::staticMetaObject = { {
     QMetaObject::SuperData::link<ModificaArticolo::staticMetaObject>(),
-    qt_meta_stringdata_CLASSModificaRivistaENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSModificaRivistaENDCLASS,
+    qt_meta_stringdata_ZN15ModificaRivistaE.offsetsAndSizes,
+    qt_meta_data_ZN15ModificaRivistaE,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSModificaRivistaENDCLASS_t,
+    qt_incomplete_metaTypeArray<qt_meta_tag_ZN15ModificaRivistaE_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<ModificaRivista, std::true_type>
     >,
@@ -74,9 +75,10 @@ Q_CONSTINIT const QMetaObject ModificaRivista::staticMetaObject = { {
 
 void ModificaRivista::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    (void)_o;
-    (void)_id;
+    auto *_t = static_cast<ModificaRivista *>(_o);
+    (void)_t;
     (void)_c;
+    (void)_id;
     (void)_a;
 }
 
@@ -88,7 +90,7 @@ const QMetaObject *ModificaRivista::metaObject() const
 void *ModificaRivista::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSModificaRivistaENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_ZN15ModificaRivistaE.stringdata0))
         return static_cast<void*>(this);
     return ModificaArticolo::qt_metacast(_clname);
 }

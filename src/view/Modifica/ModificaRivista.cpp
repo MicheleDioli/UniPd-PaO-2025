@@ -9,6 +9,11 @@ ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista) : ModificaAr
     codiceInput->setText(QString::fromStdString(rivista->getCodice()));
     layout->addWidget(codiceInput);
 
+    layout->addWidget(new QLabel("Titolo:"));
+    titoloInput = new QLineEdit();
+    titoloInput->setText(QString::fromStdString(rivista->getTitolo()));
+    layout->addWidget(titoloInput);
+
     layout->addWidget(new QLabel("Descrizione:"));
     descrizioneInput = new QLineEdit();
     descrizioneInput->setText(QString::fromStdString(rivista->getDescrizione()));
@@ -59,19 +64,19 @@ ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista) : ModificaAr
     layout->addWidget(pagineRivistaInput);
 }
 
-Rivista* ModificaRivista::New(){
-    return new Rivista(codiceInput->text().toStdString(),
-                       descrizioneInput->text().toStdString(),
-                       genereInput->text().toStdString(),
-                       annoInput->date().year(),
-                       copieInput->value(),
-                       linguaInput->text().toStdString(),
-                        editoreRivistaInput->text().toStdString(),
-                        pagineRivistaInput->value(),
-                        pubblicatoreInput->text().toStdString(),
-                        periodicitaInput->value(),
-                        numeroInput->value(),
-                        difficoltaInput->value());
+void ModificaRivista::edit(Articolo* a) {
+    Rivista* rivista = dynamic_cast<Rivista*>(a);
+    rivista->setCodice(codiceInput->text().toStdString());
+    rivista->setTitolo(titoloInput->text().toStdString());
+    rivista->setDescrizione(descrizioneInput->text().toStdString());
+    rivista->setGenere(genereInput->text().toStdString());
+    rivista->setLingua(linguaInput->text().toStdString());
+    rivista->setAnno(annoInput->date().year());
+    rivista->setCopie(copieInput->value());
+    rivista->setIntervalloPubblicazione(periodicitaInput->value());
+    rivista->setEdizione(numeroInput->value());
+    rivista->setEditore(editoreRivistaInput->text().toStdString());
+    rivista->setPagine(pagineRivistaInput->value());
 }
 
 QVBoxLayout* ModificaRivista::getLayout() const {

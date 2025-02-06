@@ -14,6 +14,7 @@ private:
 
     //asstratta
     QLineEdit *codiceInput;
+    QLineEdit *titoloInput;
     QLineEdit *descrizioneInput;
     QLineEdit *genereInput;
     QLineEdit *linguaInput;
@@ -32,7 +33,7 @@ private:
 
 public:
     ModificaRivista(QWidget* parent = nullptr, Rivista* rivista = nullptr);
-    Rivista* New() override;
+    virtual void edit(Articolo*) override;
     virtual QVBoxLayout* getLayout() const;
 };
 

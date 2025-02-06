@@ -1,10 +1,10 @@
 #include "Film.h"
 #include "ConstVisitorInterface.h"
 
-Film::Film(const std::string& codice, const std::string& descrizione, const std::string& genere,
+Film::Film(const std::string& titolo, const std::string& codice, const std::string& descrizione, const std::string& genere,
            int anno, int copie, const std::string& lingua, const std::string& regista, int durata,
            const std::string& attori, const std::string& produttore)
-    : Articolo(codice, descrizione, genere, anno, copie, lingua), regista(regista), durata(durata),
+    : Articolo(titolo, codice, descrizione, genere, anno, copie, lingua), regista(regista), durata(durata),
       attori(attori), produttore(produttore) {}
 
 std::string Film::getRegista() const {return regista;}

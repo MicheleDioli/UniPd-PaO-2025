@@ -3,6 +3,8 @@
 ModificaFilm::ModificaFilm(QWidget* parent, Film* film) : ModificaArticolo(parent) {
     codiceInput = new QLineEdit();
     codiceInput->setText(QString::fromStdString(film->getCodice()));
+    titoloInput = new QLineEdit();
+    titoloInput->setText(QString::fromStdString(film->getTitolo()));
     descrizioneInput = new QLineEdit();
     descrizioneInput->setText(QString::fromStdString(film->getDescrizione()));
     genereInput = new QLineEdit();
@@ -17,6 +19,9 @@ ModificaFilm::ModificaFilm(QWidget* parent, Film* film) : ModificaArticolo(paren
 
     layout->addWidget(new QLabel("Codice:"));
     layout->addWidget(codiceInput);
+
+    layout->addWidget(new QLabel("Titolo:"));
+    layout->addWidget(titoloInput);
 
     layout->addWidget(new QLabel("Descrizione:"));
     layout->addWidget(descrizioneInput);
@@ -56,17 +61,19 @@ ModificaFilm::ModificaFilm(QWidget* parent, Film* film) : ModificaArticolo(paren
     layout->addWidget(produttoreInput);
 }
 
-Film* ModificaFilm::New() {
-    return new Film(codiceInput->text().toStdString(),
-                    descrizioneInput->text().toStdString(),
-                    genereInput->text().toStdString(),
-                    annoInput->date().year(),
-                    copieInput->value(),
-                    linguaInput->text().toStdString(),
-                    registaInput->text().toStdString(),
-                    durataInput->value(),
-                    attoriInput->text().toStdString(),
-                    produttoreInput->text().toStdString());
+void ModificaFilm::edit(Articolo* a) {
+    Film* film = dynamic_cast<Film*>(a);
+    film->setCodice(codiceInput->text().toStdString());
+    film->setTitolo(titoloInput->text().toStdString());
+    film->setDescrizione(descrizioneInput->text().toStdString());
+    film->setGenere(genereInput->text().toStdString());
+    film->setAnno(annoInput->date().year());
+    film->setCopie(copieInput->value());
+    film->setLingua(linguaInput->text().toStdString());
+    film->setRegista(registaInput->text().toStdString());
+    film->setDurata(durataInput->value());
+    film->setAttori(attoriInput->text().toStdString());
+    film->setProduttore(produttoreInput->text().toStdString());
 }
 
 QVBoxLayout* ModificaFilm::getLayout() const {

@@ -1,11 +1,10 @@
 #include "Libro.h"
 #include "ConstVisitorInterface.h"
 
-Libro::Libro(const std::string& codice, const std::string& descrizione, const std::string& genere,
-             int anno, int copie, const std::string& lingua, const std::string& casaEditrice, int capitoli,
-             int pagine, const std::string& autore)
-    : Articolo(codice, descrizione, genere, anno, copie, lingua), casaEditrice(casaEditrice), capitoli(capitoli),
-      pagine(pagine), autore(autore) {}
+Libro::Libro(const std::string titolo, const std::string &codice, const std::string &descrizione, const std::string &genere,
+             int anno, int copie, const std::string &lingua, const std::string &casaEditrice, int capitoli,
+             int pagine, const std::string &autore) : Articolo(titolo, codice, descrizione, genere, anno, copie, lingua),
+                                                      casaEditrice(casaEditrice), capitoli(capitoli), pagine(pagine), autore(autore) {}
 
 std::string Libro::getCasaEditrice() const {return casaEditrice;}
 

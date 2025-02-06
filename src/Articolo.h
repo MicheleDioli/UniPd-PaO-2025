@@ -10,6 +10,7 @@
 
 class Articolo {
 private:
+    std::string titolo;
     std::string codice;
     std::string descrizione;
     std::string genere;
@@ -17,7 +18,7 @@ private:
     int copie;
     std::string lingua;
 public:
-    Articolo(const std::string& codice, const std::string& descrizione, const std::string& genere, int anno, int copie, const std::string& lingua);
+    Articolo(const std::string& titolo, const std::string& codice, const std::string& descrizione, const std::string& genere, int anno, int copie, const std::string& lingua);
     virtual ~Articolo();
     Articolo();
 
@@ -27,6 +28,7 @@ public:
     int getAnno() const;
     std::string getLingua() const;
     int getCopie() const;
+    std::string getTitolo() const;
 
     void setCodice(const std::string& codice);
     void setDescrizione(const std::string& descrizione);
@@ -34,6 +36,7 @@ public:
     void setAnno(int anno);
     void setLingua(const std::string& lingua);
     void setCopie(int copie);
+    void setTitolo(const std::string& titolo);
 
     virtual std::string informazioniArticolo() const;
     int numeroArticoli(const std::list<Articolo*>& articoli) const;

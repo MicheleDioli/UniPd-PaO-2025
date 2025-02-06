@@ -11,6 +11,7 @@ QJsonObject JsonVisitor::getObject() const {
 void JsonVisitor::visitLibro(const Libro& libro) {
     QJsonObject libro_object;
     libro_object.insert("type", QJsonValue::fromVariant("libro"));
+    libro_object.insert("titolo", QJsonValue::fromVariant(libro.getTitolo().c_str()));
     libro_object.insert("codice", QJsonValue::fromVariant(libro.getCodice().c_str()));
     libro_object.insert("descrizione", QJsonValue::fromVariant(libro.getDescrizione().c_str()));
     libro_object.insert("genere", QJsonValue::fromVariant(libro.getGenere().c_str()));
@@ -28,6 +29,7 @@ void JsonVisitor::visitLibro(const Libro& libro) {
 void JsonVisitor::visitRivista(const Rivista& rivista){
     QJsonObject rivista_object;
     rivista_object.insert("type", QJsonValue::fromVariant("rivista"));
+    rivista_object.insert("titolo", QJsonValue::fromVariant(rivista.getTitolo().c_str()));
     rivista_object.insert("codice", QJsonValue::fromVariant(rivista.getCodice().c_str()));
     rivista_object.insert("descrizione", QJsonValue::fromVariant(rivista.getDescrizione().c_str()));
     rivista_object.insert("genere", QJsonValue::fromVariant(rivista.getGenere().c_str()));
@@ -47,6 +49,7 @@ void JsonVisitor::visitRivista(const Rivista& rivista){
 void JsonVisitor::visitFilm(const Film& film){
     QJsonObject film_object;
     film_object.insert("type", QJsonValue::fromVariant("film"));
+    film_object.insert("titolo", QJsonValue::fromVariant(film.getTitolo().c_str()));
     film_object.insert("codice", QJsonValue::fromVariant(film.getCodice().c_str()));
     film_object.insert("descrizione", QJsonValue::fromVariant(film.getDescrizione().c_str()));
     film_object.insert("genere", QJsonValue::fromVariant(film.getGenere().c_str()));

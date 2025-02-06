@@ -6,6 +6,11 @@ ModificaLibro::ModificaLibro(QWidget* parent, Libro* libro) : ModificaArticolo(p
     codiceInput->setText(QString::fromStdString(libro->getCodice()));
     layout->addWidget(codiceInput);
 
+    layout->addWidget(new QLabel("Titolo:"));
+    titoloInput = new QLineEdit();
+    titoloInput->setText(QString::fromStdString(libro->getTitolo()));
+    layout->addWidget(titoloInput);
+
     layout->addWidget(new QLabel("Descrizione:"));
     descrizioneInput = new QLineEdit();
     descrizioneInput->setText(QString::fromStdString(libro->getDescrizione()));
@@ -55,17 +60,19 @@ ModificaLibro::ModificaLibro(QWidget* parent, Libro* libro) : ModificaArticolo(p
     layout->addWidget(capitoliInput);
 }
 
-Libro* ModificaLibro::New(){
-    return new Libro(codiceInput->text().toStdString(),
-                     descrizioneInput->text().toStdString(),
-                     genereInput->text().toStdString(),
-                     annoInput->date().year(),
-                     copieInput->value(),
-                     linguaInput->text().toStdString(),
-                     casaEditriceInput->text().toStdString(),
-                     capitoliInput->value(),
-                     pagineInput->value(),
-                     autoreInput->text().toStdString());
+void ModificaLibro::edit(Articolo* a) {
+    Libro* libro = dynamic_cast<Libro*>(a);
+    libro->setCodice(codiceInput->text().toStdString());
+    libro->setTitolo(titoloInput->text().toStdString());
+    libro->setDescrizione(descrizioneInput->text().toStdString());
+    libro->setGenere(genereInput->text().toStdString());
+    libro->setAnno(annoInput->date().year());
+    libro->setCopie(copieInput->value());
+    libro->setLingua(linguaInput->text().toStdString());
+    libro->setAutore(autoreInput->text().toStdString());
+    libro->setCasaEditrice(casaEditriceInput->text().toStdString());
+    libro->setPagine(pagineInput->value());
+    libro->setCapitoli(capitoliInput->value());
 }
 
 QVBoxLayout* ModificaLibro::getLayout() const {

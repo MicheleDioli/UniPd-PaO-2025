@@ -3,8 +3,8 @@
 
 Articolo::Articolo() {}
 
-Articolo::Articolo(const std::string& codice, const std::string& descrizione, const std::string& genere, int anno, int copie, const std::string& lingua)
-    : codice(codice), descrizione(descrizione), genere(genere), anno(anno), copie(copie), lingua(lingua){}
+Articolo::Articolo(const std::string& titolo, const std::string& codice, const std::string& descrizione, const std::string& genere, int anno, int copie, const std::string& lingua)
+    : titolo(titolo), codice(codice), descrizione(descrizione), genere(genere), anno(anno), copie(copie), lingua(lingua){}
 
 Articolo::~Articolo() {
 }
@@ -112,4 +112,12 @@ void Articolo::setLingua(const std::string& lingua) {
 
 void Articolo::setCopie(int copie) {
     this->copie = copie;
+}
+
+std::string Articolo::getTitolo() const {
+    return titolo;
+}
+
+void Articolo::setTitolo(const std::string& titolo) {
+    this->titolo = titolo;
 }

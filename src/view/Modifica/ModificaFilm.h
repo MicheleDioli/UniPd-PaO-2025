@@ -14,6 +14,7 @@ private:
 
     //asstratta
     QLineEdit *codiceInput;
+    QLineEdit *titoloInput;
     QLineEdit *descrizioneInput;
     QLineEdit *genereInput;
     QLineEdit *linguaInput;
@@ -28,7 +29,7 @@ private:
 
 public:
     explicit ModificaFilm(QWidget* parent = nullptr, Film* film = nullptr);
-    Film* New() override;
+    void edit(Articolo*) override;
     virtual QVBoxLayout* getLayout() const;
 };
 
