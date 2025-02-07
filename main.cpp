@@ -13,7 +13,6 @@
 #include "src/Rivista.h"
 #include "src/Libro.h"
 #include "src/Film.h"
-#include "src/view/Crea/Nuovo.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
@@ -33,9 +32,8 @@ int main(int argc, char *argv[]) {
         articoli.push_back(&film2);
         articoli.push_back(&film3);
         articoli.push_back(&film4);
-        Nuovo nuovo(nullptr, articoli);
-       // FiltroLayout filtro(nullptr, articoli);
-    //filtro.show();
-        nuovo.show();
+        FiltroLayout filtro(nullptr, articoli);
+    filtro.show();
+
     return app.exec();
 }

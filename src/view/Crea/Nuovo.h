@@ -16,6 +16,12 @@
 #include <QPushButton>
 #include <QGridLayout>
 #include <QSpacerItem>
+#include <QSizePolicy>
+
+
+#include "../../Rivista.h"
+#include "../../Libro.h"
+#include "../../Film.h"
 
 #include "../Sensoriqt/ListaQT.h"
 
@@ -24,10 +30,11 @@ class Articolo;
 class Nuovo : public QWidget {
     Q_OBJECT
 private:
+    std::list<Articolo*> articoli;
+   //QT
+    ListaQT *l;
 
-    ListaQT l;
-
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    QVBoxLayout *layout;
     QVBoxLayout *mezzo = new QVBoxLayout();
 
     QGroupBox *infoArticolo;
@@ -38,29 +45,41 @@ private:
     QRadioButton *radioButton2;
     QRadioButton *radioButton3;
 
+    QPushButton *salva;
+
     QGroupBox *tipo = new QGroupBox("Tipo");
 
     QHBoxLayout *lay = new QHBoxLayout();
 
+    //Articol0
+
+    QLineEdit *titolo = new QLineEdit();
+    QLineEdit *codice = new QLineEdit();
+    QComboBox *genere = new QComboBox();
+    QComboBox *lingua = new QComboBox();
+    QSpinBox *copie = new QSpinBox();
+    QSpinBox *anno = new QSpinBox();
+
+    //Film
+    QLineEdit *regista;
+    QLineEdit* attore;
+    QLineEdit* produttore;
+    QSpinBox* durata;
+
+    //Libro
+    QLineEdit *casaEditrice;
+    QLineEdit *autore;
+    QSpinBox *capitoli;
+    QSpinBox *pagine;
+
+    //Rivista
+    QLineEdit *editore;
+    QLineEdit *pubblicatore;
+    QSpinBox *edizione;
+    QComboBox *intervalloPubblicazione;
+    QSpinBox *difficolta;
 public:
     Nuovo(QWidget *parent = nullptr, std::list<Articolo*> articoli = {});
-    void pulisciLayout(QLayout* layout) {
-        if (!layout) return;
-
-        // Per evitare problemi, rimuoviamo il layout dal suo genitore prima di procedere
-        layout->setParent(nullptr);
-
-        while (QLayoutItem* item = layout->takeAt(0)) {
-            if (QWidget* widget = item->widget()) {
-                widget->deleteLater();  // Cancella i widget in modo sicuro
-            }
-            if (QLayout* childLayout = item->layout()) {
-                pulisciLayout(childLayout);  // Rimuove ricorsivamente i child layout
-                delete childLayout;  // Elimina il child layout
-            }
-            delete item;  // Elimina l'item di layout
-        }
-    }
 
 protected:
     QHBoxLayout* creaFilm();
@@ -69,4 +88,6 @@ protected:
 
 public slots:
     void cambiaIcona();
+    void salvataggio();
+    void annulla();
 };

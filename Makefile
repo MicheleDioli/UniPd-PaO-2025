@@ -441,7 +441,6 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -516,7 +515,7 @@ TARGET        = biblioteca.app/Contents/MacOS/biblioteca
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 15.2
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Library/Developer/CommandLineTools
-EXPORT__QMAKE_STASH_ = /Users/jeff/Desktop/UniPd-PaO-2025/biblioteca/.qmake.stash
+EXPORT__QMAKE_STASH_ = 
 EXPORT_VALID_ARCHS = arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -866,7 +865,6 @@ Makefile: biblioteca.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /o
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -1235,7 +1233,6 @@ Makefile: biblioteca.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /o
 /opt/homebrew/share/qt/mkspecs/features/qt_config.prf:
 /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf:
 /opt/homebrew/share/qt/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf:
 /opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf:
 /opt/homebrew/share/qt/mkspecs/features/toolchain.prf:
@@ -1306,7 +1303,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r biblioteca.app
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -1383,15 +1379,22 @@ moc_Nuovo.cpp: src/view/Crea/Nuovo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSizePolicy \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		src/Rivista.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Libro.h \
+		src/Film.h \
 		src/view/Sensoriqt/ListaQT.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QTableWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtablewidget.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QIcon \
 		/opt/homebrew/lib/QtGui.framework/Headers/qicon.h \
 		src/view/Sensoriqt/ListaVisitor.h \
-		src/VisitorInterface.h \
 		src/view/Sensoriqt/Cliccabile.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QMouseEvent \
 		/opt/homebrew/lib/QtGui.framework/Headers/qevent.h \
@@ -1399,8 +1402,6 @@ moc_Nuovo.cpp: src/view/Crea/Nuovo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qmenu.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
-		src/Articolo.h \
-		src/ConstVisitorInterface.h \
 		moc_predefs.h \
 		/opt/homebrew/share/qt/libexec/moc
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/biblioteca/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/view/Crea/Nuovo.h -o moc_Nuovo.cpp
@@ -1531,30 +1532,50 @@ moc_Cliccabile.cpp: src/view/Sensoriqt/Cliccabile.h \
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/biblioteca/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/view/Sensoriqt/Cliccabile.h -o moc_Cliccabile.cpp
 
 moc_FiltroLayout.cpp: src/view/Sensoriqt/FiltroLayout.h \
-		src/view/Sensoriqt/ListaQT.h \
+		src/view/Crea/Nuovo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QTableWidget \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qtablewidget.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		/opt/homebrew/lib/QtGui.framework/Headers/QIcon \
-		/opt/homebrew/lib/QtGui.framework/Headers/qicon.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpacerItem \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
-		src/view/Sensoriqt/ListaVisitor.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QRadioButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
-		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
-		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpacerItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSizePolicy \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		src/Rivista.h \
+		src/Articolo.h \
 		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Libro.h \
+		src/Film.h \
+		src/view/Sensoriqt/ListaQT.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTableWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QIcon \
+		/opt/homebrew/lib/QtGui.framework/Headers/qicon.h \
+		src/view/Sensoriqt/ListaVisitor.h \
 		src/view/Sensoriqt/Cliccabile.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QMouseEvent \
 		/opt/homebrew/lib/QtGui.framework/Headers/qevent.h \
@@ -1562,14 +1583,10 @@ moc_FiltroLayout.cpp: src/view/Sensoriqt/FiltroLayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qmenu.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
-		src/Articolo.h \
-		src/ConstVisitorInterface.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
 		moc_predefs.h \
@@ -1661,15 +1678,27 @@ main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
 		src/view/Sensoriqt/FiltroLayout.h \
+		src/view/Crea/Nuovo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QRadioButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpacerItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSizePolicy \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		src/Rivista.h \
+		src/Articolo.h \
+		src/ConstVisitorInterface.h \
+		src/Libro.h \
+		src/Film.h \
 		src/view/Sensoriqt/ListaQT.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QTableWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtablewidget.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QIcon \
 		/opt/homebrew/lib/QtGui.framework/Headers/qicon.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpacerItem \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
 		src/view/Sensoriqt/Cliccabile.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QMouseEvent \
 		/opt/homebrew/lib/QtGui.framework/Headers/qevent.h \
@@ -1677,20 +1706,12 @@ main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qmenu.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
-		src/Articolo.h \
-		src/ConstVisitorInterface.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
-		src/Rivista.h \
-		src/Libro.h \
-		src/Film.h \
-		src/view/Crea/Nuovo.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QRadioButton \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qradiobutton.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 Articolo.o: src/Articolo.cpp src/Articolo.h \
@@ -1744,24 +1765,29 @@ Nuovo.o: src/view/Crea/Nuovo.cpp src/view/Crea/Nuovo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSizePolicy \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		src/Rivista.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Libro.h \
+		src/Film.h \
 		src/view/Sensoriqt/ListaQT.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QTableWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtablewidget.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QIcon \
 		/opt/homebrew/lib/QtGui.framework/Headers/qicon.h \
 		src/view/Sensoriqt/ListaVisitor.h \
-		src/VisitorInterface.h \
 		src/view/Sensoriqt/Cliccabile.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QMouseEvent \
 		/opt/homebrew/lib/QtGui.framework/Headers/qevent.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QMenu \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qmenu.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
-		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
-		src/Articolo.h \
-		src/ConstVisitorInterface.h
+		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Nuovo.o src/view/Crea/Nuovo.cpp
 
 Json.o: src/view/Json/Json.cpp src/view/Json/Json.h \
@@ -1982,30 +2008,50 @@ Cliccabile.o: src/view/Sensoriqt/Cliccabile.cpp src/view/Sensoriqt/Cliccabile.h 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Cliccabile.o src/view/Sensoriqt/Cliccabile.cpp
 
 FiltroLayout.o: src/view/Sensoriqt/FiltroLayout.cpp src/view/Sensoriqt/FiltroLayout.h \
-		src/view/Sensoriqt/ListaQT.h \
+		src/view/Crea/Nuovo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QTableWidget \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qtablewidget.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		/opt/homebrew/lib/QtGui.framework/Headers/QIcon \
-		/opt/homebrew/lib/QtGui.framework/Headers/qicon.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpacerItem \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
-		src/view/Sensoriqt/ListaVisitor.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QRadioButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
-		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
-		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpacerItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSizePolicy \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		src/Rivista.h \
+		src/Articolo.h \
 		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Libro.h \
+		src/Film.h \
+		src/view/Sensoriqt/ListaQT.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTableWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QIcon \
+		/opt/homebrew/lib/QtGui.framework/Headers/qicon.h \
+		src/view/Sensoriqt/ListaVisitor.h \
 		src/view/Sensoriqt/Cliccabile.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QMouseEvent \
 		/opt/homebrew/lib/QtGui.framework/Headers/qevent.h \
@@ -2013,14 +2059,10 @@ FiltroLayout.o: src/view/Sensoriqt/FiltroLayout.cpp src/view/Sensoriqt/FiltroLay
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qmenu.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
-		src/Articolo.h \
-		src/ConstVisitorInterface.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FiltroLayout.o src/view/Sensoriqt/FiltroLayout.cpp

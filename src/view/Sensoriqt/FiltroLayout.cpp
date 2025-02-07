@@ -3,10 +3,10 @@
 //
 #include "FiltroLayout.h"
 
-FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWidget(parent), l(), articoli(articoli) {
+FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWidget(parent), l(new ListaQT(articoli)), articoli(articoli) {
+    main = new QVBoxLayout(this);
 
-
-    layout = new QVBoxLayout(this);
+    layout = new QVBoxLayout();
 
     layout2 = new QHBoxLayout();
 
@@ -46,8 +46,6 @@ FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWi
     filtri->addWidget(label);
     filtri->addWidget(ricerca);
 
-
-
     filtro->addItem("Tutti");
     filtro->addItem("Libri");
     filtro->addItem("Riviste");
@@ -60,7 +58,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWi
     gruppoFiltri->setLayout(filtri);
     layout2->addWidget(gruppoFiltri);
 
-    lista = l.getArticoli(articoli);
+    lista = l->getArticoli(articoli);
 
     layout2->addLayout(lista);
 
@@ -71,13 +69,19 @@ FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWi
 
     layout->addLayout(layout2);
 
+    main->addLayout(layout);
+
     connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::ricercaScelta);
     connect(ricerca, &QLineEdit::textChanged, this, &FiltroLayout::ricercaScelta);
+    connect(nuovo, &QAction::triggered, this, &FiltroLayout::nuovoClicked);
+
+    //connect(ListaQT::nuovo, &QPushButton::clicked, this, &FiltroLayout::nuovoClicked);
 }
 
-void FiltroLayout::ricercaScelta() {
 
-    std::list<Articolo*> tmp = l.ricerca(articoli, ricerca->text().toStdString());
+
+void FiltroLayout::ricercaScelta() {
+    std::list<Articolo*> tmp = l->ricerca(articoli, ricerca->text().toStdString());
     filtra(tmp);
 }
 
@@ -91,16 +95,52 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
     }*/
 
     if (filtro->currentText() == "Libri") {
-        tmp = l.soloLibri(tmp);
+        tmp = l->soloLibri(tmp);
     } else if (filtro->currentText() == "Riviste") {
-        tmp = l.soloRiviste(tmp);
+        tmp = l->soloRiviste(tmp);
     } else if (filtro->currentText() == "Film") {
-        tmp = l.soloFilm(tmp);
+        tmp = l->soloFilm(tmp);
     }
 
-    lista = l.getArticoli(tmp);
+
+
+    lista = l->getArticoli(tmp);
     layout2->addLayout(lista);
     layout->addLayout(layout2);
 
 }
 
+void FiltroLayout::nuovoClicked() {
+    mostraSalva = new QVBoxLayout();
+
+    //rimuoviLayout(layout, layout2);
+    /*
+
+    l->pulisciLayout(layout2);
+
+    creazioneArticolo = new Nuovo(this, articoli);
+
+    layout->addWidget(creazioneArticolo);
+
+    main->update();
+
+     */
+    creazioneArticolo = new Nuovo(this, articoli);
+    mostraSalva->addWidget(creazioneArticolo);
+    switchLayout(main, layout, mostraSalva);
+}
+
+void FiltroLayout::rimuoviLayout(QLayout* layout, QLayout* layoutToRemove) {
+
+    if (!layout || !layoutToRemove) return;
+
+    for (int i = 0; i < layout->count(); ++i) {
+        QLayoutItem* item = layout->itemAt(i);
+        if (item->layout() == layoutToRemove) {
+            layout->removeItem(item);
+            std::cout<<"Rimosso"<<std::endl;
+            delete layoutToRemove;
+            return;
+        }
+    }
+}

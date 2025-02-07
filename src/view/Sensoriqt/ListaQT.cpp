@@ -5,6 +5,10 @@
 #include "../../Libro.h"
 #include "../../Film.h"
 
+ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
+
+}
+
 QGridLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
 
     pulisciLayout(layout);
@@ -36,7 +40,7 @@ QGridLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
     QWidget* tmp2 = new QWidget();
     tmp2->setLayout(tmp);
 
-    //connect(nuovo, &QPush    Button::clicked, this, &ListaQT::nuovo);
+    //connect(nuovo, &QPushButton::clicked, this, &ListaQT::nuovoClicked);
 
     layout->addWidget(tmp2, i / righe, i % righe);
 
@@ -72,11 +76,6 @@ std::list<Articolo*> ListaQT::soloFilm(std::list<Articolo*> articoli) {
     }
     return film;
 }
-/*
-void ListaQT::nuovoClicked() {
-    //crea();
-    return;
-}*/
 
 void ListaQT::pulisciLayout(QLayout* layout) {
     if (!layout) return;
