@@ -66,6 +66,7 @@ SOURCES       = main.cpp \
 		src/view/Modifica/ModificaFilm.cpp \
 		src/view/Modifica/ModificaLibro.cpp \
 		src/view/Modifica/ModificaRivista.cpp \
+		src/view/Mostra/MostraVisitor.cpp \
 		src/view/Sensoriqt/Cliccabile.cpp \
 		src/view/Sensoriqt/FiltroLayout.cpp \
 		src/view/Sensoriqt/ListaArticoli.cpp \
@@ -93,6 +94,7 @@ OBJECTS       = main.o \
 		ModificaFilm.o \
 		ModificaLibro.o \
 		ModificaRivista.o \
+		MostraVisitor.o \
 		Cliccabile.o \
 		FiltroLayout.o \
 		ListaArticoli.o \
@@ -484,6 +486,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		src/view/Modifica/ModificaFilm.h \
 		src/view/Modifica/ModificaLibro.h \
 		src/view/Modifica/ModificaRivista.h \
+		src/view/Mostra/MostraVisitor.h \
 		src/view/Sensoriqt/Cliccabile.h \
 		src/view/Sensoriqt/FiltroLayout.h \
 		src/view/Sensoriqt/ListaArticoli.h \
@@ -502,6 +505,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		src/view/Modifica/ModificaFilm.cpp \
 		src/view/Modifica/ModificaLibro.cpp \
 		src/view/Modifica/ModificaRivista.cpp \
+		src/view/Mostra/MostraVisitor.cpp \
 		src/view/Sensoriqt/Cliccabile.cpp \
 		src/view/Sensoriqt/FiltroLayout.cpp \
 		src/view/Sensoriqt/ListaArticoli.cpp \
@@ -1292,8 +1296,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents src/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/Articolo.h src/ConstVisitorInterface.h src/Film.h src/Libro.h src/Rivista.h src/VisitorInterface.h src/view/Crea/Nuovo.h src/view/Json/Json.h src/view/Json/JsonImporter.h src/view/Json/JsonVisitor.h src/view/Modifica/editVisitor.h src/view/Modifica/ModificaArticolo.h src/view/Modifica/ModificaFilm.h src/view/Modifica/ModificaLibro.h src/view/Modifica/ModificaRivista.h src/view/Sensoriqt/Cliccabile.h src/view/Sensoriqt/FiltroLayout.h src/view/Sensoriqt/ListaArticoli.h src/view/Sensoriqt/ListaQT.h src/view/Sensoriqt/ListaVisitor.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp src/Articolo.cpp src/Film.cpp src/Libro.cpp src/Rivista.cpp src/view/Crea/Nuovo.cpp src/view/Json/Json.cpp src/view/Json/JsonImporter.cpp src/view/Json/JsonVisitor.cpp src/view/Modifica/editVisitor.cpp src/view/Modifica/ModificaArticolo.cpp src/view/Modifica/ModificaFilm.cpp src/view/Modifica/ModificaLibro.cpp src/view/Modifica/ModificaRivista.cpp src/view/Sensoriqt/Cliccabile.cpp src/view/Sensoriqt/FiltroLayout.cpp src/view/Sensoriqt/ListaArticoli.cpp src/view/Sensoriqt/ListaQT.cpp src/view/Sensoriqt/ListaVisitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/Articolo.h src/ConstVisitorInterface.h src/Film.h src/Libro.h src/Rivista.h src/VisitorInterface.h src/view/Crea/Nuovo.h src/view/Json/Json.h src/view/Json/JsonImporter.h src/view/Json/JsonVisitor.h src/view/Modifica/editVisitor.h src/view/Modifica/ModificaArticolo.h src/view/Modifica/ModificaFilm.h src/view/Modifica/ModificaLibro.h src/view/Modifica/ModificaRivista.h src/view/Mostra/MostraVisitor.h src/view/Sensoriqt/Cliccabile.h src/view/Sensoriqt/FiltroLayout.h src/view/Sensoriqt/ListaArticoli.h src/view/Sensoriqt/ListaQT.h src/view/Sensoriqt/ListaVisitor.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp src/Articolo.cpp src/Film.cpp src/Libro.cpp src/Rivista.cpp src/view/Crea/Nuovo.cpp src/view/Json/Json.cpp src/view/Json/JsonImporter.cpp src/view/Json/JsonVisitor.cpp src/view/Modifica/editVisitor.cpp src/view/Modifica/ModificaArticolo.cpp src/view/Modifica/ModificaFilm.cpp src/view/Modifica/ModificaLibro.cpp src/view/Modifica/ModificaRivista.cpp src/view/Mostra/MostraVisitor.cpp src/view/Sensoriqt/Cliccabile.cpp src/view/Sensoriqt/FiltroLayout.cpp src/view/Sensoriqt/ListaArticoli.cpp src/view/Sensoriqt/ListaQT.cpp src/view/Sensoriqt/ListaVisitor.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1585,8 +1589,8 @@ moc_FiltroLayout.cpp: src/view/Sensoriqt/FiltroLayout.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
 		moc_predefs.h \
@@ -1708,10 +1712,13 @@ main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		src/view/Mostra/MostraVisitor.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QString \
+		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 Articolo.o: src/Articolo.cpp src/Articolo.h \
@@ -1979,6 +1986,26 @@ ModificaRivista.o: src/view/Modifica/ModificaRivista.cpp src/view/Modifica/Modif
 		src/Rivista.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ModificaRivista.o src/view/Modifica/ModificaRivista.cpp
 
+MostraVisitor.o: src/view/Mostra/MostraVisitor.cpp src/view/Mostra/MostraVisitor.h \
+		src/VisitorInterface.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QString \
+		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
+		src/Libro.h \
+		src/Articolo.h \
+		src/ConstVisitorInterface.h \
+		src/Rivista.h \
+		src/Film.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MostraVisitor.o src/view/Mostra/MostraVisitor.cpp
+
 Cliccabile.o: src/view/Sensoriqt/Cliccabile.cpp src/view/Sensoriqt/Cliccabile.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -2061,8 +2088,8 @@ FiltroLayout.o: src/view/Sensoriqt/FiltroLayout.cpp src/view/Sensoriqt/FiltroLay
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FiltroLayout.o src/view/Sensoriqt/FiltroLayout.cpp

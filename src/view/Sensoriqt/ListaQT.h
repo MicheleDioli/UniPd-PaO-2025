@@ -23,7 +23,7 @@
 class ListaQT : public QWidget {
     Q_OBJECT
 private:
-   QGridLayout* layout = new QGridLayout();
+   QGridLayout* layout = new QGridLayout(this);
     QPushButton* nuovo = new QPushButton();
     std::list<Articolo*> articoli;
 public:

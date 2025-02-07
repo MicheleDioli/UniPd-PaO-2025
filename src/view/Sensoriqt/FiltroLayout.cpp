@@ -1,10 +1,9 @@
-//
-// Created by Michele Dioli on 2/4/25.
-//
 #include "FiltroLayout.h"
 
 FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWidget(parent), l(new ListaQT(articoli)), articoli(articoli) {
-    main = new QVBoxLayout(this);
+    lll = new QStackedLayout(this);
+    widgetmain = new QWidget();
+    main = new QVBoxLayout();
 
     layout = new QVBoxLayout();
 
@@ -58,9 +57,10 @@ FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWi
     gruppoFiltri->setLayout(filtri);
     layout2->addWidget(gruppoFiltri);
 
-    lista = l->getArticoli(articoli);
+    //lista = l->getArticoli(articoli);
+    l = new ListaQT(articoli);
 
-    layout2->addLayout(lista);
+    layout2->addWidget(l);
 
     QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -70,6 +70,12 @@ FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWi
     layout->addLayout(layout2);
 
     main->addLayout(layout);
+
+    widgetmain->setLayout(main);
+
+    lll->addWidget(widgetmain);
+    creazioneArticolo = new Nuovo();
+    lll->addWidget(creazioneArticolo);
 
     connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::ricercaScelta);
     connect(ricerca, &QLineEdit::textChanged, this, &FiltroLayout::ricercaScelta);
@@ -93,7 +99,6 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
     } else {
         tmp = articoli;
     }*/
-
     if (filtro->currentText() == "Libri") {
         tmp = l->soloLibri(tmp);
     } else if (filtro->currentText() == "Riviste") {
@@ -102,45 +107,18 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
         tmp = l->soloFilm(tmp);
     }
 
+    l = new ListaQT(tmp);
+    mostraSalva->addWidget(l);
 
-
-    lista = l->getArticoli(tmp);
-    layout2->addLayout(lista);
-    layout->addLayout(layout2);
+    QWidget *container = new QWidget();
+    container->setLayout(mostraSalva);
 
 }
 
 void FiltroLayout::nuovoClicked() {
-    mostraSalva = new QVBoxLayout();
-
-    //rimuoviLayout(layout, layout2);
-    /*
-
-    l->pulisciLayout(layout2);
-
-    creazioneArticolo = new Nuovo(this, articoli);
-
-    layout->addWidget(creazioneArticolo);
-
-    main->update();
-
-     */
-    creazioneArticolo = new Nuovo(this, articoli);
-    mostraSalva->addWidget(creazioneArticolo);
-    switchLayout(main, layout, mostraSalva);
+    lll->setCurrentIndex(1);
 }
 
-void FiltroLayout::rimuoviLayout(QLayout* layout, QLayout* layoutToRemove) {
-
-    if (!layout || !layoutToRemove) return;
-
-    for (int i = 0; i < layout->count(); ++i) {
-        QLayoutItem* item = layout->itemAt(i);
-        if (item->layout() == layoutToRemove) {
-            layout->removeItem(item);
-            std::cout<<"Rimosso"<<std::endl;
-            delete layoutToRemove;
-            return;
-        }
-    }
+void FiltroLayout::nuovoSalvato() {
+    lll->setCurrentIndex(0);
 }

@@ -13,52 +13,44 @@
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QStackedWidget>
+#include <QStackedLayout>
 #include <QToolBar>
 
 class FiltroLayout : public QWidget {
     Q_OBJECT
 private:
-    QVBoxLayout *main;
+    std::list<Articolo*> articoli;
+
     Nuovo* creazioneArticolo;
     ListaQT *l;
+
+    QStackedLayout* lll;
+
+    QWidget* salvaWidger;
+    QWidget* widgetmain;
+
+    QVBoxLayout *main;
+    QVBoxLayout* mostraSalva;
     QVBoxLayout* filtri;
     QVBoxLayout* layout;
     QHBoxLayout* layout2;
+    QVBoxLayout* v;
+
     QPushButton* salva;
     QComboBox* filtro;
-    std::list<Articolo*> articoli;
+
     QGridLayout* lista;
     QLineEdit* ricerca;
     QSplitter* splitter;
     QToolBar*  barra;
-    QVBoxLayout* mostraSalva;
 
-    QVBoxLayout* v;
 public:
     FiltroLayout(QWidget* parent = nullptr, std::list<Articolo*> articoli = std::list<Articolo*>());
     void filtra(std::list<Articolo*>);
-    void rimuoviLayout(QLayout* layout, QLayout* layoutToRemove);
-    void switchLayout(QVBoxLayout *mainLayout, QLayout *oldLayout, QLayout *newLayout) {
-        // 1. Rimuovi il vecchio layout
-        while (QLayoutItem* item = oldLayout->takeAt(0)) {
-            if (QWidget* widget = item->widget()) {
-                widget->hide();  // Nasconde il widget
-                widget->setParent(nullptr);  // Rimuove il parent
-            }
-            delete item;  // Elimina l'elemento del layout
-        }
-
-        mainLayout->removeItem(oldLayout); // Rimuove il layout stesso
-
-        // 2. Aggiungi il nuovo layout
-        mainLayout->addLayout(newLayout);
-    }
-
-
 public slots:
     void ricercaScelta();
     void nuovoClicked();
+    void nuovoSalvato();
 };
 
 
