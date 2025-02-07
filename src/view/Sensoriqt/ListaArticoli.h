@@ -17,7 +17,7 @@ public:
   void addArticolo(Articolo*);
   void removeArticolo(Articolo*);
   std::list<Articolo*> getArticoli() const;
-  bool contralla(std::list<Articolo*>, std::string);
+  int contralla(std::list<Articolo*>, Articolo*);
   void clear();
   ~ListaArticoli();
 };

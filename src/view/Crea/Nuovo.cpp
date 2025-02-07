@@ -7,8 +7,6 @@ Nuovo::Nuovo(QWidget *parent, std::list<Articolo*> articoli) : QWidget(parent), 
 
     QHBoxLayout *sopra = new QHBoxLayout();
 
-
-
     QGroupBox *box = new QGroupBox("Seleziona il tipo di articolo");
 
     radioButton = new QRadioButton("Film");
@@ -46,13 +44,25 @@ Nuovo::Nuovo(QWidget *parent, std::list<Articolo*> articoli) : QWidget(parent), 
     QSpinBox *anno = new QSpinBox();
 */
 
+    erroreCodice = new QLabel();
+    erroreCodice->setStyleSheet("color: red;");
+    erroreCodice->setText("Codice già esistente");
+    erroreCodice->hide();
+
+    erroreTitolo = new QLabel();
+    erroreTitolo->setStyleSheet("color: red;");
+    erroreTitolo->setText("Articolo con Titolo, Genere e Anno già esistente");
+    erroreTitolo->hide();
+
     genere->addItems({"Fantascenza", "Giallo", "Horror", "Scienza", "Storico", "Thriller"});
     lingua->addItems({"Italiano", "Inglese", "Spagnolo", "Francese", "Tedesco"});
 
     anno->setRange(0, 2025);
     copie->setRange(0, 1000);
 
+    infoA1->addRow(erroreTitolo);
     infoA1->addRow("Titolo:", titolo);
+    infoA1->addRow(erroreCodice);
     infoA1->addRow("Codice:", codice);
     infoA1->addRow("Genere:", genere);
 
@@ -153,10 +163,10 @@ QHBoxLayout* Nuovo::creaLibro() {
     QFormLayout *infoL1 = new QFormLayout();
     QFormLayout *infoL2 = new QFormLayout();
 
-    QLineEdit *casaEditrice = new QLineEdit();
-    QLineEdit *autore = new QLineEdit();
-    QSpinBox *capitoli = new QSpinBox();
-    QSpinBox *pagine = new QSpinBox();
+    casaEditrice = new QLineEdit();
+    autore = new QLineEdit();
+    capitoli = new QSpinBox();
+    pagine = new QSpinBox();
 
     capitoli->setRange(0, 999);
     pagine->setRange(0, 9999);
@@ -202,27 +212,56 @@ QHBoxLayout* Nuovo::creaRivista() {
 }
 
 void Nuovo::salvataggio() {
+
+    erroreCodice->hide();
+
     if (radioButton->isChecked()) {
         Film *f = new Film(titolo->text().toStdString(), codice->text().toStdString(), descrizione->toPlainText().toStdString(), genere->currentText().toStdString(), anno->value(), copie->value(), lingua->currentText().toStdString(), regista->text().toStdString(), durata->value(), attore->text().toStdString(), produttore->text().toStdString());
-        articoli.push_back(f);
+        if(l1->contralla(articoli, f) == 0){
+            articoli.push_back(f);
+            std::cout<<f->getTitolo()<<std::endl;
+            return;
+        }else{
+            if(l1->contralla(articoli, f) == -1){
+                codice->clear();
+                erroreCodice->show();
+                codice->setFocus();
+            }
+            if(l1->contralla(articoli, f) == -2){
+                titolo->clear();
+                erroreTitolo->show();
+                titolo->setFocus();
+            }
+        }
         std::cout<<f->getTitolo()<<std::endl;
-        this->close();
         return;
 
-    } else if (radioButton2->isChecked()) {
-        Libro *l = new Libro(titolo->text().toStdString(), codice->text().toStdString(), descrizione->toPlainText().toStdString(), genere->currentText().toStdString(), anno->value(), copie->value(), lingua->currentText().toStdString(), casaEditrice->text().toStdString(), capitoli->value(), pagine->value(), autore->text().toStdString());
-        articoli.push_back(l);
-        std::cout<<l->getTitolo()<<std::endl;
-        this->close();
-        return;
+    }
+    if (radioButton2->isChecked()) {
+        Libro* lili = new Libro(titolo->text().toStdString(), codice->text().toStdString(), descrizione->toPlainText().toStdString(), genere->currentText().toStdString(), anno->value(), copie->value(), lingua->currentText().toStdString(), casaEditrice->text().toStdString(), capitoli->value(), pagine->value(),autore->text().toStdString());
+        if(l1->contralla(articoli, lili) == 0){
+            articoli.push_back(lili);
+            std::cout<<lili->getTitolo()<<std::endl;
+            return;
+        }else{
+            std::cout<<"Codice già esistente"<<std::endl;
+        }
 
-    } else if (radioButton3->isChecked()) {
+        std::cout<<lili->getTitolo()<<std::endl;
+    }
+    if (radioButton3->isChecked()) {
       	std::string edizioneStr = std::to_string(edizione->value());
         Rivista* r = new Rivista(titolo->text().toStdString(), codice->text().toStdString(), descrizione->toPlainText().toStdString(), genere->currentText().toStdString(), anno->value(), copie->value(), lingua->currentText().toStdString(), editore->text().toStdString(), pagine->value(), pubblicatore->text().toStdString(), intervalloPubblicazione->currentText().toInt(), edizione->value(), difficolta->value());
-        articoli.push_back(r);
+        if(l1->contralla(articoli, r) == 0){
+            articoli.push_back(r);
+            std::cout<<r->getTitolo()<<std::endl;
+            return;
+        }else{
+            std::cout<<"Codice già esistente"<<std::endl;
+        }
         std::cout<<r->getTitolo()<<std::endl;
-        this->close();
    }
+
    }
 
 void Nuovo::annulla() {

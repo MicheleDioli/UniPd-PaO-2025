@@ -25,6 +25,8 @@
 
 #include "../Sensoriqt/ListaQT.h"
 
+#include "../Sensoriqt/ListaArticoli.h"
+
 class Articolo;
 
 class Nuovo : public QWidget {
@@ -33,6 +35,10 @@ private:
     std::list<Articolo*> articoli;
    //QT
     ListaQT *l;
+    ListaArticoli *l1;
+
+    QLabel *erroreCodice;
+    QLabel *erroreTitolo;
 
     QVBoxLayout *layout;
     QVBoxLayout *mezzo = new QVBoxLayout();

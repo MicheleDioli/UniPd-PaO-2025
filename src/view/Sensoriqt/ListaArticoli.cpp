@@ -1,11 +1,7 @@
-//
-// Created by Michele Dioli on 2/3/25.
-//
-
 #include "ListaArticoli.h"
 
 void ListaArticoli::addArticolo(Articolo* a) {
-    if(contralla(articoli,a->getCodice())){
+    if(contralla(articoli,a)){
         articoli.push_back(a);
     } else {
         std::cerr << "Articolo già presente" << std::endl;
@@ -32,11 +28,16 @@ ListaArticoli::~ListaArticoli() {
     }
 }
 
-bool ListaArticoli::contralla(std::list<Articolo*> articoli, std::string codice) {
-    for(auto a : articoli) {
-        if(a->getCodice() == codice) {
-            return false;
+int ListaArticoli::contralla(std::list<Articolo*> articoli, Articolo* a) {
+    for(auto it : articoli) {
+        if(it->getCodice() == a->getCodice()) {
+            std::cerr << "Codice già esistente" << std::endl;
+            return -1;
+        }
+        if(it->getTitolo() == a->getTitolo() && it->getAnno() == a->getAnno() && it->getLingua() == a->getLingua()) {
+            std::cerr << "Articolo già esistente" << std::endl;
+            return -2;
         }
     }
-    return true;
+    return 0;
 }
