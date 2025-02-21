@@ -1,5 +1,5 @@
 #include "ListaQT.h"
-#include "Cliccabile.h"
+
 
 #include "../../Rivista.h"
 #include "../../Libro.h"
@@ -36,10 +36,17 @@ ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
     QWidget* tmp2 = new QWidget();
     tmp2->setLayout(tmp);
 
-    //connect(nuovo, &QPushButton::clicked, this, &ListaQT::nuovoClicked);
-
+    connect(nuovo, &QPushButton::clicked, this, &ListaQT::clicatoNuovo);
     layout->addWidget(tmp2, i / righe, i % righe);
 
+}
+
+void ListaQT::clicatoNuovo() {
+    emit nuovoClicked();
+}
+
+void ListaQT::itemClicked(Articolo* articolo) {
+    emit dettaglioClicked(articolo);
 }
 
 QGridLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
@@ -60,7 +67,7 @@ QGridLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
 
         Cliccabile* c = new Cliccabile(a);
         c->setLayout(visitor.getLayout());
-        //connect(c, &Cliccabile::clicked, this, &ListaQT::);
+        connect(c, &Cliccabile::clicked, this, &ListaQT::itemClicked);
         layout->addWidget(c, i / righe, i % righe);
         i++;
     }
@@ -72,8 +79,6 @@ QGridLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
     tmp->addWidget(nuovo);
     QWidget* tmp2 = new QWidget();
     tmp2->setLayout(tmp);
-
-    //connect(nuovo, &QPushButton::clicked, this, &ListaQT::nuovoClicked);
 
     layout->addWidget(tmp2, i / righe, i % righe);
 

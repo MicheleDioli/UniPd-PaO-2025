@@ -32,10 +32,10 @@ class Articolo;
 class Nuovo : public QWidget {
     Q_OBJECT
 private:
-    std::list<Articolo*> articoli;
    //QT
     ListaQT *l;
     ListaArticoli *l1;
+    ListaArticoli *articoli;
 
     QLabel *erroreCodice;
     QLabel *erroreTitolo;
@@ -56,6 +56,8 @@ private:
     QGroupBox *tipo = new QGroupBox("Tipo");
 
     QHBoxLayout *lay = new QHBoxLayout();
+
+    QLabel *label = new QLabel;
 
     //Articol0
 
@@ -85,15 +87,19 @@ private:
     QComboBox *intervalloPubblicazione;
     QSpinBox *difficolta;
 public:
-    Nuovo(QWidget *parent = nullptr, std::list<Articolo*> articoli = {});
+    explicit Nuovo(QWidget *parent = nullptr, std::list<Articolo*> articoli = std::list<Articolo*>());
 
 protected:
     QHBoxLayout* creaFilm();
     QHBoxLayout* creaLibro();
     QHBoxLayout* creaRivista();
+    bool checkCampi();
 
 public slots:
     void cambiaIcona();
     void salvataggio();
     void annulla();
+signals:
+    void salvaClicked();
+    void annullatoCliked();
 };

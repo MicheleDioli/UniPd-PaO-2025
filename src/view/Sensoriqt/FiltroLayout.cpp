@@ -1,9 +1,14 @@
 #include "FiltroLayout.h"
 
 FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWidget(parent), l(new ListaQT(articoli)), articoli(articoli) {
-    lll = new QStackedLayout(this);
+    stack = new QStackedLayout(this);
     widgetmain = new QWidget();
     main = new QVBoxLayout();
+
+    std::list<Articolo*> art;;
+
+    l1 = new ListaArticoli(art);
+    l1->addArticolo(new Rivista("genocidio di ebrei","codice", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
 
     layout = new QVBoxLayout();
 
@@ -58,7 +63,8 @@ FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWi
     layout2->addWidget(gruppoFiltri);
 
     //lista = l->getArticoli(articoli);
-    l = new ListaQT(articoli);
+
+    l = new ListaQT(l1->getArticoli());
 
     layout2->addWidget(l);
 
@@ -73,32 +79,31 @@ FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWi
 
     widgetmain->setLayout(main);
 
-    lll->addWidget(widgetmain);
+    stack->addWidget(widgetmain);
     creazioneArticolo = new Nuovo();
-    lll->addWidget(creazioneArticolo);
+    stack->addWidget(creazioneArticolo);
 
     connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::ricercaScelta);
     connect(ricerca, &QLineEdit::textChanged, this, &FiltroLayout::ricercaScelta);
     connect(nuovo, &QAction::triggered, this, &FiltroLayout::nuovoClicked);
 
     //connect(ListaQT::nuovo, &QPushButton::clicked, this, &FiltroLayout::nuovoClicked);
+        connect(l, &ListaQT::nuovoClicked, this, &FiltroLayout::nuovoClicked);
+    connect(l, &ListaQT::dettaglioClicked, this, &FiltroLayout::dettagli);
+
+    connect(creazioneArticolo, &Nuovo::annullatoCliked, this, &FiltroLayout::nuovoSalvato);
+    connect(creazioneArticolo, &Nuovo::salvaClicked, this, &FiltroLayout::nuovoSalvato);
 }
 
 
 
 void FiltroLayout::ricercaScelta() {
-    std::list<Articolo*> tmp = l->ricerca(articoli, ricerca->text().toStdString());
+    std::list<Articolo*> tmp = l->ricerca(l1->getArticoli(), ricerca->text().toStdString());
     filtra(tmp);
 }
 
 void FiltroLayout::filtra(std::list<Articolo*> tmp) {
 
-   /*
-    if (!ricerca->text().isEmpty()) {
-        tmp = l.ricerca(articoli, ricerca->text().toStdString());
-    } else {
-        tmp = articoli;
-    }*/
     if (filtro->currentText() == "Libri") {
         tmp = l->soloLibri(tmp);
     } else if (filtro->currentText() == "Riviste") {
@@ -107,18 +112,32 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
         tmp = l->soloFilm(tmp);
     }
 
-    l = new ListaQT(tmp);
-    mostraSalva->addWidget(l);
+    if (!tmp.empty()) {
+        lista = l->getArticoli(tmp);
+        layout2->addLayout(lista);
+        layout->addLayout(layout2);
 
-    QWidget *container = new QWidget();
-    container->setLayout(mostraSalva);
+    } else {
+        QLabel* noRecord = new QLabel("No record found");
+        lista = l->getArticoli(tmp);
+        layout2->addWidget(noRecord);
+        layout->addLayout(layout2);
+    }
 
 }
 
 void FiltroLayout::nuovoClicked() {
-    lll->setCurrentIndex(1);
+    stack->setCurrentIndex(1);
 }
 
 void FiltroLayout::nuovoSalvato() {
-    lll->setCurrentIndex(0);
+    stack->setCurrentIndex(0);
+    l1->addArticolo(new Rivista("di ebrei","bafeewf", "descr", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    lista = l->getArticoli(l1->getArticoli());
+    layout2->addLayout(lista);
+    layout->addLayout(layout2);
+}
+
+void FiltroLayout::dettagli(Articolo* a) {
+std::cout<<a->getTitolo()<<std::endl;
 }

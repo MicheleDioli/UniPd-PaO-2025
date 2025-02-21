@@ -6,6 +6,8 @@
 #define FILTROLAYOUT_H
 
 #include "../Crea/Nuovo.h"
+#include "../Sensoriqt/ListaArticoli.h"
+
 #include <QComboBox>
 #include <QLineEdit>
 #include <QSpacerItem>
@@ -20,11 +22,14 @@ class FiltroLayout : public QWidget {
     Q_OBJECT
 private:
     std::list<Articolo*> articoli;
+    ListaArticoli *l1;
 
     Nuovo* creazioneArticolo;
     ListaQT *l;
 
-    QStackedLayout* lll;
+    std::list<Articolo*> vera;
+
+    QStackedLayout* stack;
 
     QWidget* salvaWidger;
     QWidget* widgetmain;
@@ -45,9 +50,11 @@ private:
     QToolBar*  barra;
 
 public:
-    FiltroLayout(QWidget* parent = nullptr, std::list<Articolo*> articoli = std::list<Articolo*>());
+    FiltroLayout(QWidget* parent = nullptr,std::list<Articolo*> articoli = std::list<Articolo*>());
     void filtra(std::list<Articolo*>);
+
 public slots:
+    void dettagli(Articolo*);
     void ricercaScelta();
     void nuovoClicked();
     void nuovoSalvato();

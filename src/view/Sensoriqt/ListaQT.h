@@ -1,7 +1,3 @@
-//
-// Created by Michele Dioli on 2/3/25.
-//
-
 #ifndef LISTAQT_H
 #define LISTAQT_H
 
@@ -39,9 +35,11 @@ public:
     void pulisciLayout(QLayout* layout);
 public slots:
     //void itemClicked(Cliccabile* c);
+    void clicatoNuovo();
+    void itemClicked(Articolo* articolo);
 
 signals:
-    Articolo* itemClicked(Articolo* articolo);
+    void dettaglioClicked(Articolo* articolo);
     void nuovoClicked();
 };
 

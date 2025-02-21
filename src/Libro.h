@@ -12,7 +12,10 @@ private:
     std::string autore;
 
 public:
-    Libro(const std::string& titolo,const std::string& codice, const std::string& descrizione, const std::string& genere,int anno, int copie, const std::string& lingua, const std::string& casaEditrice, int capitoli,int pagine, const std::string& autore);
+    Libro(const std::string& titolo,const std::string& codice,
+        const std::string& descrizione, const std::string& genere,int anno,
+        int copie, const std::string& lingua, const std::string& casaEditrice,
+        int capitoli,int pagine, const std::string& autore);
 
     std::string getCasaEditrice() const;
     int getCapitoli() const;
