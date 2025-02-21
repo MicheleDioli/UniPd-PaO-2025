@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QTextEdit>
 
+#include "src/view/mainwindow.h"
 #include "src/view/Sensoriqt/ListaVisitor.h"
 #include "src/view/Modifica/editVisitor.h"
 #include "src/view/Sensoriqt/FiltroLayout.h"
@@ -46,9 +47,9 @@ int main(int argc, char *argv[]) {
         articoli.push_back(&film2);
         articoli.push_back(&film3);
         articoli.push_back(&film4);
+		MainWindow w;
+        w.show();
 
-        FiltroLayout filtro(nullptr, articoli);
-    filtro.show();
          /*
         test t;
         t.show();*/

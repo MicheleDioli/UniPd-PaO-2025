@@ -12,13 +12,13 @@
 
 class ListaArticoli {
 private:
-  std::list<Articolo*> articoli;
+  std::list<Articolo*> articoliL;
 public:
   ListaArticoli(std::list<Articolo*> = std::list<Articolo*>());
   void addArticolo(Articolo*);
   void removeArticolo(Articolo*);
   std::list<Articolo*> getArticoli();
-  int contralla(std::list<Articolo*>, Articolo*);
+  int controlla(Articolo*);
   void clear();
   ~ListaArticoli();
 };

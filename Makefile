@@ -57,6 +57,7 @@ SOURCES       = main.cpp \
 		src/Film.cpp \
 		src/Libro.cpp \
 		src/Rivista.cpp \
+		src/view/mainwindow.cpp \
 		src/view/Crea/Nuovo.cpp \
 		src/view/Json/Json.cpp \
 		src/view/Json/JsonImporter.cpp \
@@ -85,6 +86,7 @@ OBJECTS       = main.o \
 		Film.o \
 		Libro.o \
 		Rivista.o \
+		mainwindow.o \
 		Nuovo.o \
 		Json.o \
 		JsonImporter.o \
@@ -443,7 +445,6 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -478,6 +479,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		src/Libro.h \
 		src/Rivista.h \
 		src/VisitorInterface.h \
+		src/view/mainwindow.h \
 		src/view/Crea/Nuovo.h \
 		src/view/Json/Json.h \
 		src/view/Json/JsonImporter.h \
@@ -497,6 +499,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		src/Film.cpp \
 		src/Libro.cpp \
 		src/Rivista.cpp \
+		src/view/mainwindow.cpp \
 		src/view/Crea/Nuovo.cpp \
 		src/view/Json/Json.cpp \
 		src/view/Json/JsonImporter.cpp \
@@ -520,7 +523,7 @@ TARGET        = biblioteca.app/Contents/MacOS/biblioteca
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 15.2
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Library/Developer/CommandLineTools
-EXPORT__QMAKE_STASH_ = /Users/jeff/Desktop/UniPd-PaO-2025/biblioteca/.qmake.stash
+EXPORT__QMAKE_STASH_ = 
 EXPORT_VALID_ARCHS = arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -870,7 +873,6 @@ Makefile: biblioteca.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /o
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -1239,7 +1241,6 @@ Makefile: biblioteca.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /o
 /opt/homebrew/share/qt/mkspecs/features/qt_config.prf:
 /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf:
 /opt/homebrew/share/qt/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf:
 /opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf:
 /opt/homebrew/share/qt/mkspecs/features/toolchain.prf:
@@ -1299,8 +1300,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents src/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/Articolo.h src/ConstVisitorInterface.h src/Film.h src/Libro.h src/Rivista.h src/VisitorInterface.h src/view/Crea/Nuovo.h src/view/Json/Json.h src/view/Json/JsonImporter.h src/view/Json/JsonVisitor.h src/view/Modifica/editVisitor.h src/view/Modifica/ModificaArticolo.h src/view/Modifica/ModificaFilm.h src/view/Modifica/ModificaLibro.h src/view/Modifica/ModificaRivista.h src/view/Mostra/MostraVisitor.h src/view/Sensoriqt/Cliccabile.h src/view/Sensoriqt/FiltroLayout.h src/view/Sensoriqt/ListaArticoli.h src/view/Sensoriqt/ListaQT.h src/view/Sensoriqt/ListaVisitor.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp src/Articolo.cpp src/Film.cpp src/Libro.cpp src/Rivista.cpp src/view/Crea/Nuovo.cpp src/view/Json/Json.cpp src/view/Json/JsonImporter.cpp src/view/Json/JsonVisitor.cpp src/view/Modifica/editVisitor.cpp src/view/Modifica/ModificaArticolo.cpp src/view/Modifica/ModificaFilm.cpp src/view/Modifica/ModificaLibro.cpp src/view/Modifica/ModificaRivista.cpp src/view/Mostra/MostraVisitor.cpp src/view/Sensoriqt/Cliccabile.cpp src/view/Sensoriqt/FiltroLayout.cpp src/view/Sensoriqt/ListaArticoli.cpp src/view/Sensoriqt/ListaQT.cpp src/view/Sensoriqt/ListaVisitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/Articolo.h src/ConstVisitorInterface.h src/Film.h src/Libro.h src/Rivista.h src/VisitorInterface.h src/view/mainwindow.h src/view/Crea/Nuovo.h src/view/Json/Json.h src/view/Json/JsonImporter.h src/view/Json/JsonVisitor.h src/view/Modifica/editVisitor.h src/view/Modifica/ModificaArticolo.h src/view/Modifica/ModificaFilm.h src/view/Modifica/ModificaLibro.h src/view/Modifica/ModificaRivista.h src/view/Mostra/MostraVisitor.h src/view/Sensoriqt/Cliccabile.h src/view/Sensoriqt/FiltroLayout.h src/view/Sensoriqt/ListaArticoli.h src/view/Sensoriqt/ListaQT.h src/view/Sensoriqt/ListaVisitor.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp src/Articolo.cpp src/Film.cpp src/Libro.cpp src/Rivista.cpp src/view/mainwindow.cpp src/view/Crea/Nuovo.cpp src/view/Json/Json.cpp src/view/Json/JsonImporter.cpp src/view/Json/JsonVisitor.cpp src/view/Modifica/editVisitor.cpp src/view/Modifica/ModificaArticolo.cpp src/view/Modifica/ModificaFilm.cpp src/view/Modifica/ModificaLibro.cpp src/view/Modifica/ModificaRivista.cpp src/view/Mostra/MostraVisitor.cpp src/view/Sensoriqt/Cliccabile.cpp src/view/Sensoriqt/FiltroLayout.cpp src/view/Sensoriqt/ListaArticoli.cpp src/view/Sensoriqt/ListaQT.cpp src/view/Sensoriqt/ListaVisitor.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1310,7 +1311,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r biblioteca.app
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -1674,25 +1674,21 @@ main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
-		src/view/Sensoriqt/ListaVisitor.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
-		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
-		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
-		src/VisitorInterface.h \
-		src/view/Modifica/editVisitor.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		src/view/mainwindow.h \
 		src/view/Sensoriqt/FiltroLayout.h \
 		src/view/Crea/Nuovo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QRadioButton \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpacerItem \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
@@ -1701,6 +1697,7 @@ main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsizepolicy.h \
 		src/Rivista.h \
 		src/Articolo.h \
+		src/VisitorInterface.h \
 		src/ConstVisitorInterface.h \
 		src/Libro.h \
 		src/Film.h \
@@ -1709,6 +1706,7 @@ main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QIcon \
 		/opt/homebrew/lib/QtGui.framework/Headers/qicon.h \
+		src/view/Sensoriqt/ListaVisitor.h \
 		src/view/Sensoriqt/Cliccabile.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QMouseEvent \
 		/opt/homebrew/lib/QtGui.framework/Headers/qevent.h \
@@ -1723,6 +1721,9 @@ main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		src/view/Modifica/editVisitor.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
 		src/view/Mostra/MostraVisitor.h \
 		/opt/homebrew/lib/QtCore.framework/Headers/QString \
 		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h
@@ -1750,6 +1751,68 @@ Rivista.o: src/Rivista.cpp src/Rivista.h \
 		src/VisitorInterface.h \
 		src/ConstVisitorInterface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Rivista.o src/Rivista.cpp
+
+mainwindow.o: src/view/mainwindow.cpp src/view/mainwindow.h \
+		src/view/Sensoriqt/FiltroLayout.h \
+		src/view/Crea/Nuovo.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QRadioButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpacerItem \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSpinBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QFormLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGridLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSizePolicy \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		src/Rivista.h \
+		src/Articolo.h \
+		src/VisitorInterface.h \
+		src/ConstVisitorInterface.h \
+		src/Libro.h \
+		src/Film.h \
+		src/view/Sensoriqt/ListaQT.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QTableWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QIcon \
+		/opt/homebrew/lib/QtGui.framework/Headers/qicon.h \
+		src/view/Sensoriqt/ListaVisitor.h \
+		src/view/Sensoriqt/Cliccabile.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QMouseEvent \
+		/opt/homebrew/lib/QtGui.framework/Headers/qevent.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QMenu \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qmenu.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
+		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
+		src/view/Sensoriqt/ListaArticoli.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o src/view/mainwindow.cpp
 
 Nuovo.o: src/view/Crea/Nuovo.cpp src/view/Crea/Nuovo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \

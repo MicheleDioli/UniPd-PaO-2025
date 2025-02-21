@@ -80,7 +80,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWi
     widgetmain->setLayout(main);
 
     stack->addWidget(widgetmain);
-    creazioneArticolo = new Nuovo();
+    creazioneArticolo = new Nuovo(nullptr,l1);
     stack->addWidget(creazioneArticolo);
 
     connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::ricercaScelta);
@@ -132,7 +132,6 @@ void FiltroLayout::nuovoClicked() {
 
 void FiltroLayout::nuovoSalvato() {
     stack->setCurrentIndex(0);
-    l1->addArticolo(new Rivista("di ebrei","bafeewf", "descr", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
     lista = l->getArticoli(l1->getArticoli());
     layout2->addLayout(lista);
     layout->addLayout(layout2);

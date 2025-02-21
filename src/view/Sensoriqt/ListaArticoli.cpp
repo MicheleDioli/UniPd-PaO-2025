@@ -1,11 +1,11 @@
 #include "ListaArticoli.h"
 
-ListaArticoli::ListaArticoli(std::list<Articolo*> articoli) : articoli(articoli) {}
+ListaArticoli::ListaArticoli(std::list<Articolo*> articoli) : articoliL(articoli) {}
 
 void ListaArticoli::addArticolo(Articolo* a) {
 
-    if (contralla(articoli, a) == 0) {
-        articoli.push_back(a);
+    if (controlla(a) == 0) {
+        articoliL.push_back(a);
     } else {
         std::cerr << "Articolo già presente" << std::endl;
     }
@@ -13,30 +13,30 @@ void ListaArticoli::addArticolo(Articolo* a) {
 
 void ListaArticoli::removeArticolo(Articolo* a) {
 
-    for (auto it = articoli.begin(); it != articoli.end(); ++it) {
+    for (auto it = articoliL.begin(); it != articoliL.end(); ++it) {
         if ((*it)->getCodice() == a->getCodice()) {
-            articoli.erase(it);
+            articoliL.erase(it);
             return;
         }
     }
 }
 
 std::list<Articolo*> ListaArticoli::getArticoli(){
-    return articoli;
+    return articoliL;
 }
 
 void ListaArticoli::clear() {
-    articoli.clear();
+    articoliL.clear();
 }
 
 ListaArticoli::~ListaArticoli() {
-    for (auto a : articoli) {
+    for (auto a : articoliL) {
         delete a;
     }
 }
 
-int ListaArticoli::contralla(std::list<Articolo*> articoli, Articolo* a) {
-    for (auto it : articoli) {
+int ListaArticoli::controlla(Articolo* a) {
+    for (auto it : articoliL) {
         if (it->getCodice() == a->getCodice()) {
             std::cerr << "Codice già esistente" << std::endl;
             return -1;

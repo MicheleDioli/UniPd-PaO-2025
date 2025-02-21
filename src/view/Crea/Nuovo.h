@@ -34,8 +34,9 @@ class Nuovo : public QWidget {
 private:
    //QT
     ListaQT *l;
-    ListaArticoli *l1;
+    //ListaArticoli *l1;
     ListaArticoli *articoli;
+    //std::list<Articolo*> articoli;
 
     QLabel *erroreCodice;
     QLabel *erroreTitolo;
@@ -87,7 +88,7 @@ private:
     QComboBox *intervalloPubblicazione;
     QSpinBox *difficolta;
 public:
-    explicit Nuovo(QWidget *parent = nullptr, std::list<Articolo*> articoli = std::list<Articolo*>());
+    explicit Nuovo(QWidget *parent = nullptr, ListaArticoli *articoli = nullptr);
 
 protected:
     QHBoxLayout* creaFilm();
