@@ -50,6 +50,7 @@ int main(int argc, char *argv[]) {
 	//FiltroLayout* f = new FiltroLayout(nullptr, articoli);
 //f->show();
 	MainWindow w;
+    w.resize(1024, 720);
     w.show();
          /*
         test t;

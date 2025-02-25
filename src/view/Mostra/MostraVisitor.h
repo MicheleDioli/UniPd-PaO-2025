@@ -9,6 +9,7 @@
 #include <QHBoxLayout>
 #include <QPixmap>
 #include <QString>
+#include <QPushButton>
 
 class MostraVisitor : public VisitorInterface {
 private:

@@ -9,6 +9,7 @@
 #include "../Sensoriqt/ListaArticoli.h"
 
 
+
 #include <QComboBox>
 #include <QLineEdit>
 #include <QSpacerItem>
@@ -23,6 +24,7 @@
 class FiltroLayout : public QWidget {
     Q_OBJECT
 private:
+    Cliccabile* cliccabile;
     int prev = 0;
     std::list<Articolo*> articoli;
     ListaArticoli *l1;
@@ -60,8 +62,10 @@ public slots:
     void nuovoClicked();
     void nuovoSalvato();
     void nuovoSalvato12();
+    void dettaglio(Articolo*);
 
 signals:
+    void dettaglioClicked(Articolo*);
     void nuovo();
     void listanuova();
 };

@@ -9,13 +9,8 @@ ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
 
     pulisciLayout(layout);
 
-    int size = articoli.size() + 2;
-    int colonne = sqrt(size);
-    int righe = colonne;
-    if (colonne * colonne < articoli.size()) righe++;
-
+    int colonn = 3;
     layout->setSpacing(15);
-
     int i = 0;
     for (auto a : articoli) {
         ListaVisitor visitor;
@@ -24,20 +19,29 @@ ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
         Cliccabile* c = new Cliccabile(a);
         c->setLayout(visitor.getLayout());
         connect(c, &Cliccabile::clicked, this, &ListaQT::itemClicked);
-        layout->addWidget(c, i / righe, i % righe);
+        layout->addWidget(c, i / colonn, i % colonn);
+        i++;
+    }
+
+    for (int j = 0; j < (9 - articoli.size()) - 1; ++j) {
+        QPixmap image(":/asset/icon/vuoto.png");
+        QLabel* imageLabel = new QLabel();
+        imageLabel->setPixmap(image);
+        layout->addWidget(imageLabel, i / colonn, i % colonn);
         i++;
     }
 
     QVBoxLayout* tmp = new QVBoxLayout();
 
     nuovo->setIcon(QIcon(":/asset/icon/nuovo.png"));
+    nuovo->setFixedSize(80, 80);
 
     tmp->addWidget(nuovo);
     QWidget* tmp2 = new QWidget();
     tmp2->setLayout(tmp);
 
     connect(nuovo, &QPushButton::clicked, this, &ListaQT::clicatoNuovo);
-    layout->addWidget(tmp2, i / righe, i % righe);
+    layout->addWidget(tmp2, i / colonn, i % colonn);
 
 }
 
@@ -53,10 +57,7 @@ QGridLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
 
     pulisciLayout(layout);
 
-    int size = articoli.size() + 2;
-    int colonne = sqrt(size);
-    int righe = colonne;
-    if (colonne * colonne < articoli.size()) righe++;
+    int colonn = 3;
 
     layout->setSpacing(15);
 
@@ -68,19 +69,28 @@ QGridLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
         Cliccabile* c = new Cliccabile(a);
         c->setLayout(visitor.getLayout());
         connect(c, &Cliccabile::clicked, this, &ListaQT::itemClicked);
-        layout->addWidget(c, i / righe, i % righe);
+        layout->addWidget(c, i / colonn, i % colonn);
+        i++;
+    }
+
+    for (int j = 0; j < (9 - articoli.size()) - 1; ++j) {
+        QPixmap image(":/asset/icon/vuoto.png");
+        QLabel* imageLabel = new QLabel();
+        imageLabel->setPixmap(image.scaled(144, 144));
+        layout->addWidget(imageLabel, i / colonn, i % colonn);
         i++;
     }
 
     QVBoxLayout* tmp = new QVBoxLayout();
 
     nuovo->setIcon(QIcon(":/asset/icon/nuovo.png"));
+    nuovo->setFixedSize(80, 80);
 
     tmp->addWidget(nuovo);
     QWidget* tmp2 = new QWidget();
     tmp2->setLayout(tmp);
 
-    layout->addWidget(tmp2, i / righe, i % righe);
+    layout->addWidget(tmp2, i / colonn, i % colonn);
 
     return layout;
 }

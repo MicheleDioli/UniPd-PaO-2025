@@ -3,7 +3,7 @@
 #include <list>
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
-
+    QLoggingCategory::setFilterRules("*.debug=false");
     stack = new QStackedLayout(this);
 
     main = new QVBoxLayout();
@@ -44,10 +44,11 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
     connect(f,  &FiltroLayout::nuovo, this, &MainWindow::nuovoClicked);
     //connect(l, &ListaArticoli::dettaglioClicked, this, &MainWindow::dettagli);
-	//connect(nuovo, &QAction::triggered, this, &MainWindow::nuovoClicked);
+	connect(nuovo, &QAction::triggered, this, &MainWindow::nuovoClicked);
     connect(s, &Nuovo::annullatoCliked, this, &MainWindow::annullatoClicked);
     //connect(f, &FiltroLayout::listanuova, this, &MainWindow::nuovoSalvato);
     connect(s, &Nuovo::salvaClicked, this, &MainWindow::nuovoSalvato);
+    connect(f, &FiltroLayout::dettaglioClicked, this, &MainWindow::mostaArticolo);
 }
 
 void MainWindow::dettagli(Articolo* a) {
@@ -71,8 +72,40 @@ void MainWindow::annullatoClicked() {
     stack->setCurrentIndex(0);
 }
 
-void MainWindow::modificaArticolo() {
+void MainWindow::mostaArticolo(Articolo* articolo) {
 
-    editVisitor visitor;
-    stack->setCurrentIndex(1);
+    //std::cout << articolo->getTitolo() << std::endl;
+
+    MostraVisitor visitor;
+    articolo->accept(visitor);
+
+    if (modifica) {
+        stack->removeWidget(modifica);
+        delete modifica;
+        modifica = nullptr;
+    }
+
+    modifica = new QWidget();
+
+    QVBoxLayout* layout = visitor.getLayout();
+
+    QHBoxLayout* layoutButtons = new QHBoxLayout();
+    layoutButtons->addStretch();  // Per allineare a destra il pulsante
+    indietro = new QPushButton("Indietro");
+    layoutButtons->addWidget(indietro);
+
+    layout->addLayout(layoutButtons);
+
+    modifica->setLayout(layout);
+
+    stack->addWidget(modifica);
+    stack->setCurrentWidget(modifica);
+
+    connect(indietro, &QPushButton::clicked, this, &MainWindow::annullatoClicked);
+}
+
+
+void MainWindow::modificaArticolo() {
+    //editVisitor visitor;
+    //stack->setCurrentIndex(1);
 }

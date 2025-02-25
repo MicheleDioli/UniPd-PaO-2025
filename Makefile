@@ -1349,6 +1349,7 @@ qrc_resources.cpp: src/resources.qrc \
 		src/asset/icon/visualizza.png \
 		src/asset/icon/nuovo.png \
 		src/asset/icon/info.png \
+		src/asset/icon/vuoto.png \
 		src/asset/icon/creanuovo.png
 	/opt/homebrew/share/qt/libexec/rcc -name resources src/resources.qrc -o qrc_resources.cpp
 
@@ -1362,6 +1363,8 @@ compiler_moc_header_make_all: moc_mainwindow.cpp moc_Nuovo.cpp moc_ModificaArtic
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp moc_Nuovo.cpp moc_ModificaArticolo.cpp moc_ModificaFilm.cpp moc_ModificaLibro.cpp moc_ModificaRivista.cpp moc_Cliccabile.cpp moc_FiltroLayout.cpp moc_ListaQT.cpp
 moc_mainwindow.cpp: src/view/mainwindow.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QLoggingCategory \
+		/opt/homebrew/lib/QtCore.framework/Headers/qloggingcategory.h \
 		src/view/Sensoriqt/FiltroLayout.h \
 		src/view/Crea/Nuovo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
@@ -1423,6 +1426,12 @@ moc_mainwindow.cpp: src/view/mainwindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QErrorMessage \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qerrormessage.h \
+		src/view/Modifica/editVisitor.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		src/view/Mostra/MostraVisitor.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QString \
+		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
 		moc_predefs.h \
 		/opt/homebrew/share/qt/libexec/moc
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/biblioteca/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/Users/jeff/Desktop/UniPd-PaO-2025/biblioteca -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib src/view/mainwindow.h -o moc_mainwindow.cpp
@@ -1745,6 +1754,8 @@ main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QTextEdit \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtextedit.h \
 		src/view/mainwindow.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QLoggingCategory \
+		/opt/homebrew/lib/QtCore.framework/Headers/qloggingcategory.h \
 		src/view/Sensoriqt/FiltroLayout.h \
 		src/view/Crea/Nuovo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
@@ -1825,6 +1836,8 @@ Rivista.o: src/Rivista.cpp src/Rivista.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Rivista.o src/Rivista.cpp
 
 mainwindow.o: src/view/mainwindow.cpp src/view/mainwindow.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QLoggingCategory \
+		/opt/homebrew/lib/QtCore.framework/Headers/qloggingcategory.h \
 		src/view/Sensoriqt/FiltroLayout.h \
 		src/view/Crea/Nuovo.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
@@ -1885,7 +1898,13 @@ mainwindow.o: src/view/mainwindow.cpp src/view/mainwindow.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QToolBar \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qtoolbar.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QErrorMessage \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qerrormessage.h
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qerrormessage.h \
+		src/view/Modifica/editVisitor.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDateEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		src/view/Mostra/MostraVisitor.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QString \
+		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o src/view/mainwindow.cpp
 
 Nuovo.o: src/view/Crea/Nuovo.cpp src/view/Crea/Nuovo.h \
@@ -2144,6 +2163,8 @@ MostraVisitor.o: src/view/Mostra/MostraVisitor.cpp src/view/Mostra/MostraVisitor
 		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
 		/opt/homebrew/lib/QtCore.framework/Headers/QString \
 		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		src/Libro.h \
 		src/Articolo.h \
 		src/ConstVisitorInterface.h \

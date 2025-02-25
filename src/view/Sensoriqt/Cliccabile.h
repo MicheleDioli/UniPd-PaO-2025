@@ -25,14 +25,27 @@ class Cliccabile : public QWidget {
 public:
     explicit Cliccabile(Articolo* articolo, QWidget* parent = nullptr)
         : QWidget(parent), articolo(articolo) {}
-    signals:
-        void clicked(Articolo* articolo);
-        void rightClicked(Articolo* articolo);
 protected:
     void mousePressEvent(QMouseEvent* event) override;
+public slots:
+    void salvaclic();
+    void cancellaclic();
+    void dettagliclic();
+    void modificaclic();
 private:
+    QAction* Asalva;
+    QAction* Acancella;
+    QAction* Adettagli;
+    QAction* Amodifica;
     void MostraMenu(const QPoint& pos);
+
     Articolo* articolo;
+signals:
+    void clicked(Articolo*);
+    void salva(Articolo*);
+    void cancella(Articolo*);
+    void dettagli(Articolo*);
+    void modifica(Articolo*);
 };
 
 #endif //CLICCABILE_H

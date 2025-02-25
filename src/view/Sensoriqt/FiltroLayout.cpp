@@ -9,7 +9,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     std::list<Articolo*> art;
 
     //l1 = new ListaArticoli(art);
-    l1->addArticolo(new Rivista("Rivista ah","codice", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    //l1->addArticolo(new Rivista("Rivista ah","codice", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
 
     layout = new QVBoxLayout();
 
@@ -66,14 +66,13 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
 
     connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::ricercaScelta);
     connect(ricerca, &QLineEdit::textChanged, this, &FiltroLayout::ricercaScelta);
-   // connect(nuovo, &QAction::triggered, this, &FiltroLayout::nuovoClicked);
 
-    //connect(ListaQT::nuovo, &QPushButton::clicked, this, &FiltroLayout::nuovoClicked);
     connect(l, &ListaQT::nuovoClicked, this, &FiltroLayout::nuovoClicked);
-    //connect(l, &ListaQT::dettaglioClicked, this, &FiltroLayout::dettagli);
+    connect(l, &ListaQT::dettaglioClicked, this, &FiltroLayout::dettaglio);
 
     connect(creazioneArticolo, &Nuovo::annullatoCliked, this, &FiltroLayout::nuovoSalvato);
     connect(creazioneArticolo, &Nuovo::salvaClicked, this, &FiltroLayout::nuovoSalvato);
+
 }
 
 void FiltroLayout::ricercaScelta() {
@@ -121,4 +120,9 @@ void FiltroLayout::nuovoSalvato12() {
     layout2->addLayout(lista);
     layout->addLayout(layout2);
     std::cout<<"Nuovo Salvato"<<std::endl;
+}
+
+void FiltroLayout::dettaglio(Articolo* a) {
+  std::cout<<a->getTitolo()<<std::endl;
+    emit dettaglioClicked(a);
 }

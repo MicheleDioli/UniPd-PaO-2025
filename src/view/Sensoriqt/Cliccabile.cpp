@@ -10,7 +10,7 @@ void Cliccabile::mousePressEvent(QMouseEvent* event){
         emit clicked(articolo);
     }
     if (event->button() == Qt::RightButton) {
-        emit rightClicked(articolo);
+        //emit rightClicked(articolo);
         MostraMenu(event->globalPos());
     }
     QWidget::mousePressEvent(event);
@@ -19,16 +19,32 @@ void Cliccabile::mousePressEvent(QMouseEvent* event){
 void Cliccabile::MostraMenu(const QPoint& pos) {
     QMenu menu;
 
-    QAction* salva = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))), "Salva", this);
-    menu.addAction(salva);
-    QAction* cancella = menu.addAction("Cancella ");
-    QAction* dettagli = menu.addAction("Mostra dettagli ");
-    QAction* modifica = menu.addAction("Modifica ");
+    Asalva = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))), "Salva", this);
+    menu.addAction(Asalva);
+    Acancella = menu.addAction("Cancella ");
+    Adettagli = menu.addAction("Mostra dettagli ");
+    Amodifica = menu.addAction("Modifica ");
 
-/*
-    connect(action1, &QAction::triggered, this, &Cliccabile::onAction1);
-    connect(action2, &QAction::triggered, this, &Cliccabile::onAction2);
-    connect(action3, &QAction::triggered, this, &Cliccabile::onAction3);
-*/
+    connect(Asalva, &QAction::triggered, this, &Cliccabile::salvaclic);
+    connect(Acancella, &QAction::triggered, this, &Cliccabile::cancellaclic);
+    connect(Adettagli, &QAction::triggered, this, &Cliccabile::dettagliclic);
+    connect(Amodifica, &QAction::triggered, this, &Cliccabile::modificaclic);
+
     menu.exec(pos);
+}
+
+void Cliccabile::salvaclic() {
+    emit salva(articolo);
+}
+
+void Cliccabile::cancellaclic() {
+    emit cancella(articolo);
+}
+
+void Cliccabile::dettagliclic() {
+    emit dettagli(articolo);
+}
+
+void Cliccabile::modificaclic() {
+    emit modifica(articolo);
 }
