@@ -38,8 +38,20 @@ public slots:
     void clicatoNuovo();
     void itemClicked(Articolo* articolo);
 
+    void salva(Articolo* articolo);
+    void cancella(Articolo* articolo);
+    void dettaglio(Articolo* articolo);
+    void modifica(Articolo* articolo);
+
 signals:
+
     void dettaglioClicked(Articolo* articolo);
+
+    void salvaclic(Articolo* articolo);
+    void cancellaclic(Articolo* articolo);
+    void modificlic(Articolo* articolo);
+
+
     void nuovoClicked();
 
 };

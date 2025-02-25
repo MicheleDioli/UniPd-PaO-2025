@@ -17,5 +17,6 @@
 	    <file>asset/images/film.png</file>
 	    <file>asset/images/libro.png</file>
 	    <file>asset/images/rivista.png</file>
+        <file>asset/images/biblioteca.png</file>
     </qresource>
 </RCC>

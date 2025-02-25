@@ -18,7 +18,13 @@ ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
 
         Cliccabile* c = new Cliccabile(a);
         c->setLayout(visitor.getLayout());
+
         connect(c, &Cliccabile::clicked, this, &ListaQT::itemClicked);
+    	connect(c, &Cliccabile::salva, this, &ListaQT::salva);
+    	connect(c, &Cliccabile::cancella, this, &ListaQT::cancella);
+    	connect(c, &Cliccabile::dettagli, this, &ListaQT::dettaglio);
+    	connect(c, &Cliccabile::modifica, this, &ListaQT::modifica);
+
         layout->addWidget(c, i / colonn, i % colonn);
         i++;
     }
@@ -42,6 +48,9 @@ ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
 
     connect(nuovo, &QPushButton::clicked, this, &ListaQT::clicatoNuovo);
     layout->addWidget(tmp2, i / colonn, i % colonn);
+
+
+
 
 }
 
@@ -69,6 +78,11 @@ QGridLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
         Cliccabile* c = new Cliccabile(a);
         c->setLayout(visitor.getLayout());
         connect(c, &Cliccabile::clicked, this, &ListaQT::itemClicked);
+        connect(c, &Cliccabile::clicked, this, &ListaQT::itemClicked);
+    	connect(c, &Cliccabile::salva, this, &ListaQT::salva);
+    	connect(c, &Cliccabile::cancella, this, &ListaQT::cancella);
+    	connect(c, &Cliccabile::dettagli, this, &ListaQT::dettaglio);
+    	connect(c, &Cliccabile::modifica, this, &ListaQT::modifica);
         layout->addWidget(c, i / colonn, i % colonn);
         i++;
     }
@@ -93,6 +107,7 @@ QGridLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
     layout->addWidget(tmp2, i / colonn, i % colonn);
 
     return layout;
+
 }
 
 std::list<Articolo*> ListaQT::soloLibri(std::list<Articolo*> articoli) {
@@ -155,4 +170,20 @@ std::list<Articolo*> ListaQT::ricerca(std::list<Articolo*> articoli, std::string
     }
 
     return tmp;
+}
+
+void ListaQT::salva(Articolo* articolo) {
+        emit salvaclic(articolo);
+}
+
+void ListaQT::cancella(Articolo* articolo) {
+        emit cancellaclic(articolo);
+}
+
+void ListaQT::dettaglio(Articolo* articolo) {
+        emit dettaglioClicked(articolo);
+}
+
+void ListaQT::modifica(Articolo* articolo) {
+        emit modificlic(articolo);
 }

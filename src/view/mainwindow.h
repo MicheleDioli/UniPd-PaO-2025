@@ -20,7 +20,6 @@
 class MainWindow : public QWidget {
     Q_OBJECT
 private:
-    //Cliccabile* cliccabile;
     QPushButton* indietro;
     FiltroLayout* f;
     QStackedLayout* stack;

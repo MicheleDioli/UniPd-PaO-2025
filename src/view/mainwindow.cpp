@@ -37,11 +37,13 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     main->addWidget(f);
 
     widgetmain = new QWidget();
+
     widgetmain->setLayout(main);
 
     stack->addWidget(widgetmain);
     stack->addWidget(s);
-
+    stack->setSizeConstraint(QLayout::SetMinimumSize);
+	adjustSize();
     connect(f,  &FiltroLayout::nuovo, this, &MainWindow::nuovoClicked);
     //connect(l, &ListaArticoli::dettaglioClicked, this, &MainWindow::dettagli);
 	connect(nuovo, &QAction::triggered, this, &MainWindow::nuovoClicked);
