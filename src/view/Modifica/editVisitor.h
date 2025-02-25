@@ -2,7 +2,6 @@
 #define EDITVISITOR_H
 
 #include "../../VisitorInterface.h"
-#include "editVisitor.h"
 
 class Film;
 class Libro;

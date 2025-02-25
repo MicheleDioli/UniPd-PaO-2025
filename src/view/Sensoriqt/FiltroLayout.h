@@ -8,6 +8,7 @@
 #include "../Crea/Nuovo.h"
 #include "../Sensoriqt/ListaArticoli.h"
 
+
 #include <QComboBox>
 #include <QLineEdit>
 #include <QSpacerItem>
@@ -17,10 +18,12 @@
 #include <QHBoxLayout>
 #include <QStackedLayout>
 #include <QToolBar>
+#include <QErrorMessage>
 
 class FiltroLayout : public QWidget {
     Q_OBJECT
 private:
+    int prev = 0;
     std::list<Articolo*> articoli;
     ListaArticoli *l1;
 
@@ -47,17 +50,20 @@ private:
     QGridLayout* lista;
     QLineEdit* ricerca;
     QSplitter* splitter;
-    QToolBar*  barra;
 
 public:
-    FiltroLayout(QWidget* parent = nullptr,std::list<Articolo*> articoli = std::list<Articolo*>());
+    FiltroLayout(QWidget* parent = nullptr, ListaArticoli* LA = nullptr);
     void filtra(std::list<Articolo*>);
 
 public slots:
-    void dettagli(Articolo*);
     void ricercaScelta();
     void nuovoClicked();
     void nuovoSalvato();
+    void nuovoSalvato12();
+
+signals:
+    void nuovo();
+    void listanuova();
 };
 
 

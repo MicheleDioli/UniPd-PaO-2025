@@ -47,9 +47,10 @@ int main(int argc, char *argv[]) {
         articoli.push_back(&film2);
         articoli.push_back(&film3);
         articoli.push_back(&film4);
-		MainWindow w;
-        w.show();
-
+	//FiltroLayout* f = new FiltroLayout(nullptr, articoli);
+//f->show();
+	MainWindow w;
+    w.show();
          /*
         test t;
         t.show();*/

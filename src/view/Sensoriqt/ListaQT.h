@@ -41,6 +41,7 @@ public slots:
 signals:
     void dettaglioClicked(Articolo* articolo);
     void nuovoClicked();
+
 };
 
 #endif // LISTAQT_H

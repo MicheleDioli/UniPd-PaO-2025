@@ -1,38 +1,21 @@
 #include "FiltroLayout.h"
 
-FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWidget(parent), l(new ListaQT(articoli)), articoli(articoli) {
-    stack = new QStackedLayout(this);
-    widgetmain = new QWidget();
-    main = new QVBoxLayout();
+FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent), l1(LA) {
+    /*stack = new QStackedLayout(this);
+    widgetmain = new QWidget();*/
 
-    std::list<Articolo*> art;;
+    main = new QVBoxLayout(this);
 
-    l1 = new ListaArticoli(art);
-    l1->addArticolo(new Rivista("genocidio di ebrei","codice", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    std::list<Articolo*> art;
+
+    //l1 = new ListaArticoli(art);
+    l1->addArticolo(new Rivista("Rivista ah","codice", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
 
     layout = new QVBoxLayout();
 
     layout2 = new QHBoxLayout();
 
     QGroupBox* gruppoFiltri = new QGroupBox();
-
-    barra = new QToolBar();
-
-    barra->setOrientation(Qt::Vertical);
-    //barra(Qt::LeftToolBarArea, barra);
-    barra->setOrientation(Qt::Horizontal);
-
-    QAction *nuovo = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))),"CreaNuovo");
-    QAction *importa = new QAction(QIcon(QPixmap((":/asset/icon/apri.png"))),"Importa");
-    QAction *salvan = new QAction(QIcon(QPixmap((":/asset/icon/salvaJson.png"))),"salva con nome");
-    QAction *info = new QAction(QIcon(QPixmap((":/asset/icon/info.png"))),"Info");
-
-    barra->addAction(nuovo);
-    barra->addAction(importa);
-    barra->addAction(salvan);
-    barra->addAction(info);
-
-    layout->addWidget(barra);
 
     splitter = new QSplitter(Qt::Vertical);
 
@@ -57,12 +40,10 @@ FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWi
 
     filtri->addWidget(label2);
     filtri->addWidget(filtro);
-    //filtri->addWidget(salva);
 
     gruppoFiltri->setLayout(filtri);
     layout2->addWidget(gruppoFiltri);
 
-    //lista = l->getArticoli(articoli);
 
     l = new ListaQT(l1->getArticoli());
 
@@ -77,25 +58,23 @@ FiltroLayout::FiltroLayout(QWidget* parent, std::list<Articolo*> articoli) : QWi
 
     main->addLayout(layout);
 
-    widgetmain->setLayout(main);
+    //widgetmain->setLayout(main);
 
-    stack->addWidget(widgetmain);
+    //stack->addWidget(widgetmain);
     creazioneArticolo = new Nuovo(nullptr,l1);
-    stack->addWidget(creazioneArticolo);
+    //stack->addWidget(creazioneArticolo);
 
     connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::ricercaScelta);
     connect(ricerca, &QLineEdit::textChanged, this, &FiltroLayout::ricercaScelta);
-    connect(nuovo, &QAction::triggered, this, &FiltroLayout::nuovoClicked);
+   // connect(nuovo, &QAction::triggered, this, &FiltroLayout::nuovoClicked);
 
     //connect(ListaQT::nuovo, &QPushButton::clicked, this, &FiltroLayout::nuovoClicked);
-        connect(l, &ListaQT::nuovoClicked, this, &FiltroLayout::nuovoClicked);
-    connect(l, &ListaQT::dettaglioClicked, this, &FiltroLayout::dettagli);
+    connect(l, &ListaQT::nuovoClicked, this, &FiltroLayout::nuovoClicked);
+    //connect(l, &ListaQT::dettaglioClicked, this, &FiltroLayout::dettagli);
 
     connect(creazioneArticolo, &Nuovo::annullatoCliked, this, &FiltroLayout::nuovoSalvato);
     connect(creazioneArticolo, &Nuovo::salvaClicked, this, &FiltroLayout::nuovoSalvato);
 }
-
-
 
 void FiltroLayout::ricercaScelta() {
     std::list<Articolo*> tmp = l->ricerca(l1->getArticoli(), ricerca->text().toStdString());
@@ -104,6 +83,7 @@ void FiltroLayout::ricercaScelta() {
 
 void FiltroLayout::filtra(std::list<Articolo*> tmp) {
 
+	std::cout<<"Filtro"<<std::endl;
     if (filtro->currentText() == "Libri") {
         tmp = l->soloLibri(tmp);
     } else if (filtro->currentText() == "Riviste") {
@@ -113,30 +93,32 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
     }
 
     if (!tmp.empty()) {
+        prev = filtro->currentIndex();
         lista = l->getArticoli(tmp);
         layout2->addLayout(lista);
         layout->addLayout(layout2);
 
     } else {
-        QLabel* noRecord = new QLabel("No record found");
-        lista = l->getArticoli(tmp);
-        layout2->addWidget(noRecord);
-        layout->addLayout(layout2);
-    }
+		QErrorMessage* error = new QErrorMessage();
+        error->showMessage("Nessun articolo trovato");
+        filtro->setCurrentIndex(prev);
 
+    }
 }
 
 void FiltroLayout::nuovoClicked() {
-    stack->setCurrentIndex(1);
+  //std::cout<<"Nuovo Salvato !"<<std::endl;
+    emit nuovo();
 }
 
-void FiltroLayout::nuovoSalvato() {
-    stack->setCurrentIndex(0);
+void FiltroLayout::nuovoSalvato(){
+  emit listanuova();
+}
+
+void FiltroLayout::nuovoSalvato12() {
+    //stack->setCurrentIndex(0);
     lista = l->getArticoli(l1->getArticoli());
     layout2->addLayout(lista);
     layout->addLayout(layout2);
-}
-
-void FiltroLayout::dettagli(Articolo* a) {
-std::cout<<a->getTitolo()<<std::endl;
+    std::cout<<"Nuovo Salvato"<<std::endl;
 }
