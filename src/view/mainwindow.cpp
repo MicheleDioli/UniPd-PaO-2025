@@ -3,7 +3,6 @@
 #include <list>
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
-    QLoggingCategory::setFilterRules("*.debug=false");
     stack = new QStackedLayout(this);
 
     main = new QVBoxLayout();
@@ -13,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     l = new ListaArticoli(articoli);
     f = new FiltroLayout(this, l);
     s = new Nuovo(this, l);
+
+
 
 
     barra = new QToolBar();
@@ -26,6 +27,11 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     QAction *salvan = new QAction(QIcon(QPixmap((":/asset/icon/salvaJson.png"))),"salva con nome");
     QAction *info = new QAction(QIcon(QPixmap((":/asset/icon/info.png"))),"Info");
 
+    nuovo->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_N));
+    importa->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_O));
+    salvan->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_S));
+    info->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
+
     barra->addAction(nuovo);
     barra->addAction(importa);
     barra->addAction(salvan);
@@ -36,6 +42,10 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     main->addLayout(toll);
     main->addWidget(f);
 
+    QStatusBar* status = new QStatusBar();
+    status->showMessage("halo");
+    main->addWidget(status);
+
     widgetmain = new QWidget();
 
     widgetmain->setLayout(main);
@@ -44,13 +54,21 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     stack->addWidget(s);
     stack->setSizeConstraint(QLayout::SetMinimumSize);
 	adjustSize();
+
+    connect(importa, &QAction::triggered, this, &MainWindow::importaSlot);
+
     connect(f,  &FiltroLayout::nuovo, this, &MainWindow::nuovoClicked);
-    //connect(l, &ListaArticoli::dettaglioClicked, this, &MainWindow::dettagli);
+
 	connect(nuovo, &QAction::triggered, this, &MainWindow::nuovoClicked);
     connect(s, &Nuovo::annullatoCliked, this, &MainWindow::annullatoClicked);
-    //connect(f, &FiltroLayout::listanuova, this, &MainWindow::nuovoSalvato);
+
     connect(s, &Nuovo::salvaClicked, this, &MainWindow::nuovoSalvato);
+    connect(info, &QAction::triggered, this, &MainWindow::infoSlot);
+
     connect(f, &FiltroLayout::dettaglioClicked, this, &MainWindow::mostaArticolo);
+    connect(f, &FiltroLayout::salvaclic, this, &MainWindow::salvaSlot);
+    connect(f, &FiltroLayout::cancellaclic, this, &MainWindow::cancellaSlot);
+    connect(f, &FiltroLayout::modificaclic, this, &MainWindow::modificaSlot);
 }
 
 void MainWindow::dettagli(Articolo* a) {
@@ -61,53 +79,95 @@ void MainWindow::dettagli(Articolo* a) {
 
 void MainWindow::nuovoClicked() {
  	std::cout<<"nuovoClicked"<<std::endl;
-	stack->setCurrentIndex(1);
+    stack->setCurrentWidget(s);
 
 }
 
 void MainWindow::nuovoSalvato() {
-  	stack->setCurrentIndex(0);
-  	f->nuovoSalvato12();
+  	stack->setCurrentWidget(widgetmain);
+  	f->aggiorna();
 }
 
 void MainWindow::annullatoClicked() {
-    stack->setCurrentIndex(0);
+    stack->setCurrentWidget(widgetmain);
 }
 
 void MainWindow::mostaArticolo(Articolo* articolo) {
 
     //std::cout << articolo->getTitolo() << std::endl;
 
+   if (mostra) {
+        stack->removeWidget(mostra);
+        //delete mostra;
+        mostra = nullptr;
+    }
+
     MostraVisitor visitor;
     articolo->accept(visitor);
 
-    if (modifica) {
-        stack->removeWidget(modifica);
-        delete modifica;
-        modifica = nullptr;
-    }
-
-    modifica = new QWidget();
+    mostra = new QWidget();
 
     QVBoxLayout* layout = visitor.getLayout();
 
     QHBoxLayout* layoutButtons = new QHBoxLayout();
-    layoutButtons->addStretch();  // Per allineare a destra il pulsante
-    indietro = new QPushButton("Indietro");
+    layoutButtons->addStretch();
+    QPushButton* indietro = new QPushButton("Indietro");
     layoutButtons->addWidget(indietro);
 
     layout->addLayout(layoutButtons);
 
-    modifica->setLayout(layout);
+    mostra->setLayout(layout);
 
-    stack->addWidget(modifica);
-    stack->setCurrentWidget(modifica);
+    stack->addWidget(mostra);
+    stack->setCurrentWidget(mostra);
+
+    connect(indietro, &QPushButton::clicked, this, &MainWindow::annullatoClicked);
 
     connect(indietro, &QPushButton::clicked, this, &MainWindow::annullatoClicked);
 }
 
+void MainWindow::salvaSlot(Articolo* a) {
+    Json json;
+    json.salvaJson(*a);
+}
 
-void MainWindow::modificaArticolo() {
-    //editVisitor visitor;
-    //stack->setCurrentIndex(1);
+void MainWindow::cancellaSlot(Articolo* a) {
+  	if (a){
+    l->removeArticolo(a);
+    f->aggiorna();
+    delete a;
+    }
+}
+
+void MainWindow::importaSlot() {
+    Json j;
+    Articolo* a = j.importaJson();
+    if (a) {
+        l->addArticolo(a);
+        f->aggiorna();
+    }
+}
+
+void MainWindow::infoSlot() {
+    QMessageBox *msg = new QMessageBox();
+    msg->setText("Per creare un nuovo articolo\n -> CTRL + N\nPer importare un articolo\n -> CTRL + O\nPer salvare un articolo\n -> CTRL + S\n");
+    QPixmap image(":/asset/icon/info.png");
+    msg->setIconPixmap(image);
+    msg->show();
+}
+
+void MainWindow::modificaSlot(Articolo* a) {
+    EditVisitor visitor;
+    a->accept(visitor);
+    modifica = new QWidget();
+    QVBoxLayout* layout = visitor.getLayout();
+    modifica->setLayout(layout);
+    stack->addWidget(modifica);
+    stack->setCurrentWidget(modifica);
+   connect(modifica, &ModificaArticolo::confermaModifica, this, &MainWindow::modificaConfermata);
+}
+
+void MainWindow::modificaConfermata(Articolo* a) {
+    m.edit(a);
+    f->aggiorna();
 }

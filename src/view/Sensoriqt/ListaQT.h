@@ -46,7 +46,6 @@ public slots:
 signals:
 
     void dettaglioClicked(Articolo* articolo);
-
     void salvaclic(Articolo* articolo);
     void cancellaclic(Articolo* articolo);
     void modificlic(Articolo* articolo);

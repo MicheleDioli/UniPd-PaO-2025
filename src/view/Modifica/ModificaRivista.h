@@ -29,12 +29,16 @@ private:
     QSpinBox *difficoltaInput;
     QLineEdit *pubblicatoreInput;
 
+    QPushButton *confermaButton;
+
     Rivista* rivista;
 
 public:
     ModificaRivista(QWidget* parent = nullptr, Rivista* rivista = nullptr);
     virtual void edit(Articolo*) override;
     virtual QVBoxLayout* getLayout() const;
+signals:
+    void confermaModifica();
 };
 
 #endif //MODIFICARIVISTA_H

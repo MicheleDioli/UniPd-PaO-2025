@@ -59,6 +59,13 @@ ModificaFilm::ModificaFilm(QWidget* parent, Film* film) : ModificaArticolo(paren
 
     layout->addWidget(new QLabel("Produttore:"));
     layout->addWidget(produttoreInput);
+
+    confermaButton = new QPushButton("Conferma");
+
+    QHBoxLayout* buttonLayout = new QHBoxLayout();
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(confermaButton);
+    layout->addLayout(buttonLayout);
 }
 
 void ModificaFilm::edit(Articolo* a) {

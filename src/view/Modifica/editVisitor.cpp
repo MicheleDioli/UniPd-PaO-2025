@@ -13,17 +13,20 @@ QVBoxLayout* EditVisitor::getLayout() {
 
 //layout->addWidget(new QLabel("Codice:"));
 void EditVisitor::visitRivista(Rivista& rivista) {
+    layout = new QVBoxLayout();
     ModificaRivista* modificaRivista = new ModificaRivista(nullptr, &rivista);
     layout = modificaRivista->getLayout();
 }
 
 
 void EditVisitor::visitFilm(Film& film) {
+    layout = new QVBoxLayout();
     ModificaFilm* modificaFilm = new ModificaFilm(nullptr, &film);
     layout = modificaFilm->getLayout();
 }
 
 void EditVisitor::visitLibro(Libro& libro) {
-  ModificaLibro* modificaLibro = new ModificaLibro(nullptr, &libro);
+    layout = new QVBoxLayout();
+    ModificaLibro* modificaLibro = new ModificaLibro(nullptr, &libro);
     layout = modificaLibro->getLayout();
 }

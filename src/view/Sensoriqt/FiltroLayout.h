@@ -61,13 +61,21 @@ public slots:
     void ricercaScelta();
     void nuovoClicked();
     void nuovoSalvato();
-    void nuovoSalvato12();
+    void aggiorna();
     void dettaglio(Articolo*);
+
+    void salvaSlot(Articolo*);
+    void cancellaSlot(Articolo*);
+    void modificaSlot(Articolo*);
 
 signals:
     void dettaglioClicked(Articolo*);
     void nuovo();
     void listanuova();
+
+    void salvaclic(Articolo*);
+    void cancellaclic(Articolo*);
+    void modificaclic(Articolo*);
 };
 
 

@@ -62,6 +62,13 @@ ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista) : ModificaAr
     pagineRivistaInput->setRange(1, 1999);
     pagineRivistaInput->setValue(rivista->getPagine());
     layout->addWidget(pagineRivistaInput);
+
+    confermaButton = new QPushButton("Conferma");
+
+    QHBoxLayout* buttonLayout = new QHBoxLayout();
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(confermaButton);
+    layout->addLayout(buttonLayout);
 }
 
 void ModificaRivista::edit(Articolo* a) {

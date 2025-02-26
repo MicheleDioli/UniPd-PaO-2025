@@ -5,17 +5,18 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QLoggingCategory>
-
-
-
 #include "Sensoriqt/FiltroLayout.h"
 #include "Sensoriqt/ListaArticoli.h"
 #include "Sensoriqt/ListaQT.h"
 #include "Modifica/editVisitor.h"
 #include "Mostra/MostraVisitor.h"
+#include "Json/Json.h"
+#include "Modifica/editVisitor.h"
+#include "Modifica/ModificaArticolo.h"
 
+#include <QMessageBox>
 #include <QStackedLayout>
+#include <QStatusBar>
 
 class MainWindow : public QWidget {
     Q_OBJECT
@@ -31,7 +32,10 @@ private:
     QVBoxLayout* toll;
     QVBoxLayout* main;
     QWidget* widgetmain;
+    QWidget* mostra;
     QWidget* modifica;
+
+
 public:
     MainWindow(QWidget *parent = nullptr);
 public slots:
@@ -39,8 +43,14 @@ public slots:
     void nuovoClicked();
     void nuovoSalvato();
     void annullatoClicked();
-    void modificaArticolo();
     void mostaArticolo(Articolo*);
+
+    void salvaSlot(Articolo*);
+    void cancellaSlot(Articolo*);
+    void infoSlot();
+    void importaSlot();
+    void modificaSlot(Articolo*);
+    void confermaModifica(Articolo*);
 };
 
 #endif //MAINWINDOW_H

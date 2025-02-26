@@ -15,7 +15,7 @@ class Rivista;
 
 class EditVisitor : public VisitorInterface{
 private:
-    QVBoxLayout* layout = new QVBoxLayout();
+    QVBoxLayout* layout;
 
 public:
     QVBoxLayout* getLayout();

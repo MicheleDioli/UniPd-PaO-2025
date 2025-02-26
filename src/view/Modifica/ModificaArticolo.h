@@ -11,6 +11,7 @@
 #include <QDateEdit>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QPushButton>
 
 #include "../../Articolo.h"
 #include "../../Film.h"

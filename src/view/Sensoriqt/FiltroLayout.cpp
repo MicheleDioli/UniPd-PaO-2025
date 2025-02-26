@@ -9,7 +9,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     std::list<Articolo*> art;
 
     //l1 = new ListaArticoli(art);
-    //l1->addArticolo(new Rivista("Rivista ah","codice", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    l1->addArticolo(new Rivista("Rivista ah","codice", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
 
     layout = new QVBoxLayout();
 
@@ -73,6 +73,11 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     connect(creazioneArticolo, &Nuovo::annullatoCliked, this, &FiltroLayout::nuovoSalvato);
     connect(creazioneArticolo, &Nuovo::salvaClicked, this, &FiltroLayout::nuovoSalvato);
 
+    connect(l, &ListaQT::salvaclic, this, &FiltroLayout::salvaSlot);
+    connect(l, &ListaQT::cancellaclic, this, &FiltroLayout::cancellaSlot);
+    connect(l, &ListaQT::modificlic, this, &FiltroLayout::modificaSlot);
+
+
 }
 
 void FiltroLayout::ricercaScelta() {
@@ -114,15 +119,25 @@ void FiltroLayout::nuovoSalvato(){
   emit listanuova();
 }
 
-void FiltroLayout::nuovoSalvato12() {
-    //stack->setCurrentIndex(0);
+void FiltroLayout::aggiorna() {
     lista = l->getArticoli(l1->getArticoli());
     layout2->addLayout(lista);
     layout->addLayout(layout2);
-    std::cout<<"Nuovo Salvato"<<std::endl;
 }
 
 void FiltroLayout::dettaglio(Articolo* a) {
   std::cout<<a->getTitolo()<<std::endl;
     emit dettaglioClicked(a);
+}
+
+void FiltroLayout::salvaSlot(Articolo* a) {
+   emit salvaclic(a);
+}
+
+void FiltroLayout::cancellaSlot(Articolo* a) {
+    emit cancellaclic(a);
+}
+
+void FiltroLayout::modificaSlot(Articolo* a) {
+    emit modificaclic(a);
 }

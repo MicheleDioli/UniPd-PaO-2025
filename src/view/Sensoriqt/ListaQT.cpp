@@ -29,7 +29,7 @@ ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
         i++;
     }
 
-    for (int j = 0; j < (9 - articoli.size()) - 1; ++j) {
+    for (int j = 0; j < (9 - static_cast<int>(articoli.size())) - 1; ++j) {
         QPixmap image(":/asset/icon/vuoto.png");
         QLabel* imageLabel = new QLabel();
         imageLabel->setPixmap(image);
@@ -87,10 +87,10 @@ QGridLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
         i++;
     }
 
-    for (int j = 0; j < (9 - articoli.size()) - 1; ++j) {
+    for (int j = 0; j < (9 - static_cast<int>(articoli.size())) - 1; ++j) {
         QPixmap image(":/asset/icon/vuoto.png");
         QLabel* imageLabel = new QLabel();
-        imageLabel->setPixmap(image.scaled(144, 144));
+        imageLabel->setPixmap(image.scaled(80, 80));
         layout->addWidget(imageLabel, i / colonn, i % colonn);
         i++;
     }

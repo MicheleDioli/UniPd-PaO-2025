@@ -27,10 +27,14 @@ private:
     QLineEdit *attoriInput;
     QLineEdit *produttoreInput;
 
+    QPushButton *confermaButton;
+
 public:
     explicit ModificaFilm(QWidget* parent = nullptr, Film* film = nullptr);
     void edit(Articolo*) override;
     virtual QVBoxLayout* getLayout() const;
+signals:
+    void confermaModifica();
 };
 
 #endif //MODIFICAFILM_H
