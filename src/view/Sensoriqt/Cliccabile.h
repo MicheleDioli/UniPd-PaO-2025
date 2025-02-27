@@ -1,6 +1,3 @@
-//
-// Created by Michele Dioli on 2/3/25.
-//
 #ifndef CLICCABILE_H
 #define CLICCABILE_H
 #include <QWidget>

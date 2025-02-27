@@ -1,14 +1,8 @@
-//
-// Created by Michele Dioli on 2/4/25.
-//
-
 #ifndef FILTROLAYOUT_H
 #define FILTROLAYOUT_H
 
 #include "../Crea/Nuovo.h"
 #include "../Sensoriqt/ListaArticoli.h"
-
-
 
 #include <QComboBox>
 #include <QLineEdit>

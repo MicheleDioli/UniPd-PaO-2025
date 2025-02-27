@@ -1,7 +1,3 @@
-//
-// Created by Michele Dioli on 2/2/25.
-//
-
 #ifndef MODIFICAFILM_H
 #define MODIFICAFILM_H
 

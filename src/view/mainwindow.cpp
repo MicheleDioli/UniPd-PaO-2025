@@ -1,13 +1,10 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <list>
-
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     stack = new QStackedLayout(this);
 
     main = new QVBoxLayout();
-
-    //LQ = new ListaQT(articoli);
 
     l = new ListaArticoli(articoli);
     f = new FiltroLayout(this, l);
@@ -68,16 +65,8 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     connect(f, &FiltroLayout::modificaclic, this, &MainWindow::modificaSlot);
 }
 
-void MainWindow::dettagli(Articolo* a) {
-    if (a) {
-        std::cout << a->getTitolo() << std::endl;
-    }
-}
-
 void MainWindow::nuovoClicked() {
- 	std::cout<<"nuovoClicked"<<std::endl;
     stack->setCurrentWidget(s);
-
 }
 
 void MainWindow::nuovoSalvato() {
@@ -91,11 +80,8 @@ void MainWindow::annullatoClicked() {
 
 void MainWindow::mostaArticolo(Articolo* articolo) {
 
-    //std::cout << articolo->getTitolo() << std::endl;
-
    if (mostra) {
         stack->removeWidget(mostra);
-        //delete mostra;
         mostra = nullptr;
     }
 
@@ -161,13 +147,9 @@ void MainWindow::modificaSlot(Articolo* a) {
     modifica->setLayout(layout);
     stack->addWidget(modifica);
     stack->setCurrentWidget(modifica);
-
-    //connect(modifica, &::confermaModifica, this, &MainWindow::confermaModifica);
 }
 
 void MainWindow::confermaModifica() {
     stack->setCurrentWidget(widgetmain);
     f->aggiorna();
 }
-
-

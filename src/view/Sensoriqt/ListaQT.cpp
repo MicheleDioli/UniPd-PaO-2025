@@ -49,9 +49,6 @@ ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
     connect(nuovo, &QPushButton::clicked, this, &ListaQT::clicatoNuovo);
     layout->addWidget(tmp2, i / colonn, i % colonn);
 
-
-
-
 }
 
 void ListaQT::clicatoNuovo() {

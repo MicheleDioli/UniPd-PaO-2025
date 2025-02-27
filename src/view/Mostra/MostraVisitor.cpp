@@ -115,9 +115,6 @@ void MostraVisitor::visitRivista(Rivista& r) {
     InfoArticolo->addLayout(InfoArticoloLeft);
     InfoArticolo->addLayout(InfoArticoloRight);
 
-    //layout->addWidget(imageLabel);
-    //imageLabel->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-
     QGroupBox* InfoArticoloGroup = new QGroupBox();
 
     InfoArticoloGroup->setLayout(InfoArticolo);
@@ -248,5 +245,4 @@ void MostraVisitor::visitFilm(Film& f) {
     InfoSpecificheGroup->setLayout(InfoSpecifiche);
 
     layout->addWidget(InfoSpecificheGroup);
-
 }

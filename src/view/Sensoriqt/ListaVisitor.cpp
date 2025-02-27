@@ -1,6 +1,3 @@
-//
-// Created by Michele Dioli on 2/3/25.
-//
 #include "ListaVisitor.h"
 
 #include "../../Libro.h"
@@ -40,7 +37,6 @@ void ListaVisitor::visitLibro(Libro& l) {
 
     layout->addWidget(group);
 }
-
 
 void ListaVisitor::visitRivista(Rivista& r) {
     QGroupBox* group = new QGroupBox();
@@ -83,7 +79,6 @@ void ListaVisitor::visitFilm(Film& f) {
     QPixmap img(":/asset/images/film.png");
     QLabel* imgLabel = new QLabel();
     imgLabel->setPixmap(img.scaledToHeight(50));
-    //art->addWidget(imgLabel);
 
     QLabel* titolo = new QLabel(QString::fromStdString(f.getTitolo()));
     QLabel* codice = new QLabel(QString::fromStdString(f.getCodice()));

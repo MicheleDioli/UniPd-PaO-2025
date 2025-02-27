@@ -17,19 +17,14 @@ Nuovo::Nuovo(QWidget *parent, ListaArticoli *articoli) : QWidget(parent), artico
     QPixmap *pixmap = new QPixmap(":/asset/images/film.png");
     icona->setPixmap(*pixmap);
     icona->setAlignment(Qt::AlignTop | Qt::AlignRight);
-    //radioButton->setChecked(true);
 
     connect(radioButton,&QRadioButton::clicked,this,&Nuovo::cambiaIcona);
     connect(radioButton2,&QRadioButton::clicked,this,&Nuovo::cambiaIcona);
     connect(radioButton3,&QRadioButton::clicked,this,&Nuovo::cambiaIcona);
 
-    //QSpacerItem *spacer = new QSpacerItem();
-
     sopra->addWidget(radioButton);
     sopra->addWidget(radioButton2);
     sopra->addWidget(radioButton3);
-    //sopra->addStretch();
-    //sopra->addWidget(icona);
 
     infoArticolo = new QGroupBox("Inserisci i dati dell'articolo");
     QHBoxLayout *layoutInfo = new QHBoxLayout();

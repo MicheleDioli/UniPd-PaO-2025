@@ -34,9 +34,7 @@ class Nuovo : public QWidget {
 private:
    //QT
     ListaQT *l;
-    //ListaArticoli *l1;
     ListaArticoli *articoli;
-    //std::list<Articolo*> articoli;
 
     QLabel *erroreCodice;
     QLabel *erroreTitolo;

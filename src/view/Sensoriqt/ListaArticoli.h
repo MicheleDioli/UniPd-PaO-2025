@@ -9,7 +9,6 @@
 
 #include "../../Articolo.h"
 
-
 class ListaArticoli {
 private:
   std::list<Articolo*> articoliL;

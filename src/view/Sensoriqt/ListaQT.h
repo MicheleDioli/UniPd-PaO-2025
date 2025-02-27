@@ -25,8 +25,9 @@ private:
 public:
     ListaQT(std::list<Articolo*> articoli = {});
     ListaQT () = default;
-    //void nuovoClicked();
+
     QGridLayout* getArticoli(std::list<Articolo*>);
+
     std::list<Articolo*> soloLibri(std::list<Articolo*>);
     std::list<Articolo*> soloRiviste(std::list<Articolo*>);
     std::list<Articolo*> soloFilm(std::list<Articolo*>);
@@ -34,7 +35,6 @@ public:
 
     void pulisciLayout(QLayout* layout);
 public slots:
-    //void itemClicked(Cliccabile* c);
     void clicatoNuovo();
     void itemClicked(Articolo* articolo);
 
@@ -49,7 +49,6 @@ signals:
     void salvaclic(Articolo* articolo);
     void cancellaclic(Articolo* articolo);
     void modificlic(Articolo* articolo);
-
 
     void nuovoClicked();
 

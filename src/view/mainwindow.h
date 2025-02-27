@@ -1,7 +1,3 @@
-//
-// Created by Michele Dioli on 2/21/25.
-//
-
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -34,12 +30,9 @@ private:
     QWidget* widgetmain;
     QWidget* mostra;
     QWidget* modifica;
-
-
 public:
     MainWindow(QWidget *parent = nullptr);
 public slots:
-    void dettagli(Articolo*);
     void nuovoClicked();
     void nuovoSalvato();
     void annullatoClicked();

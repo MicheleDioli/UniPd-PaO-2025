@@ -1,14 +1,10 @@
 #include "FiltroLayout.h"
 
 FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent), l1(LA) {
-    /*stack = new QStackedLayout(this);
-    widgetmain = new QWidget();*/
-
     main = new QVBoxLayout(this);
 
     std::list<Articolo*> art;
 
-    //l1 = new ListaArticoli(art);
     l1->addArticolo(new Rivista("Rivista ah","codice", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
 
     layout = new QVBoxLayout();
@@ -44,7 +40,6 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     gruppoFiltri->setLayout(filtri);
     layout2->addWidget(gruppoFiltri);
 
-
     l = new ListaQT(l1->getArticoli());
 
     layout2->addWidget(l);
@@ -58,11 +53,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
 
     main->addLayout(layout);
 
-    //widgetmain->setLayout(main);
-
-    //stack->addWidget(widgetmain);
     creazioneArticolo = new Nuovo(nullptr,l1);
-    //stack->addWidget(creazioneArticolo);
 
     connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::ricercaScelta);
     connect(ricerca, &QLineEdit::textChanged, this, &FiltroLayout::ricercaScelta);
@@ -111,7 +102,6 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
 }
 
 void FiltroLayout::nuovoClicked() {
-  //std::cout<<"Nuovo Salvato !"<<std::endl;
     emit nuovo();
 }
 
@@ -126,7 +116,6 @@ void FiltroLayout::aggiorna() {
 }
 
 void FiltroLayout::dettaglio(Articolo* a) {
-  std::cout<<a->getTitolo()<<std::endl;
     emit dettaglioClicked(a);
 }
 

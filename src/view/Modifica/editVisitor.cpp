@@ -11,7 +11,6 @@ QVBoxLayout* EditVisitor::getLayout() {
     return layout;
 }
 
-//layout->addWidget(new QLabel("Codice:"));
 void EditVisitor::visitRivista(Rivista& rivista) {
     layout = new QVBoxLayout();
     ModificaRivista* modificaRivista = new ModificaRivista(nullptr, &rivista);
