@@ -13,9 +13,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     f = new FiltroLayout(this, l);
     s = new Nuovo(this, l);
 
-
-
-
     barra = new QToolBar();
     toll = new QVBoxLayout();
 
@@ -142,9 +139,9 @@ void MainWindow::cancellaSlot(Articolo* a) {
 void MainWindow::importaSlot() {
     Json j;
     Articolo* a = j.importaJson();
-    if (a) {
-        l->addArticolo(a);
-        f->aggiorna();
+    if(a){
+    	l->addArticolo(a);
+    	f->aggiorna();
     }
 }
 
@@ -164,10 +161,13 @@ void MainWindow::modificaSlot(Articolo* a) {
     modifica->setLayout(layout);
     stack->addWidget(modifica);
     stack->setCurrentWidget(modifica);
-   connect(modifica, &ModificaArticolo::confermaModifica, this, &MainWindow::modificaConfermata);
+
+    //connect(modifica, &::confermaModifica, this, &MainWindow::confermaModifica);
 }
 
-void MainWindow::modificaConfermata(Articolo* a) {
-    m.edit(a);
+void MainWindow::confermaModifica() {
+    stack->setCurrentWidget(widgetmain);
     f->aggiorna();
 }
+
+

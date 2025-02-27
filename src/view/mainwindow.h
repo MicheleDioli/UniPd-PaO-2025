@@ -50,7 +50,7 @@ public slots:
     void infoSlot();
     void importaSlot();
     void modificaSlot(Articolo*);
-    void confermaModifica(Articolo*);
+    void confermaModifica();
 };
 
 #endif //MAINWINDOW_H
