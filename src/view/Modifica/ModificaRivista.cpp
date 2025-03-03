@@ -70,7 +70,8 @@ ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista) : ModificaAr
     buttonLayout->addWidget(confermaButton);
     layout->addLayout(buttonLayout);
 
-    connect(confermaButton, &QPushButton::clicked, this, &ModificaRivista::conferma);
+    connect(confermaButton, &QPushButton::clicked, this, &ModificaRivista::confermaModifica);
+    connect(this, &ModificaRivista::conferma, this, &ModificaRivista::edit);
 }
 
 void ModificaRivista::edit(Articolo* a) {
@@ -86,13 +87,14 @@ void ModificaRivista::edit(Articolo* a) {
     rivista->setEdizione(numeroInput->value());
     rivista->setEditore(editoreRivistaInput->text().toStdString());
     rivista->setPagine(pagineRivistaInput->value());
+    std::cout << rivista->getTitolo() << std::endl;
 }
 
 QVBoxLayout* ModificaRivista::getLayout() const {
     return layout;
 }
 
-void ModificaRivista::conferma() {
-    edit(rivista);
-    emit confermaModifica();
+void ModificaRivista::confermaModifica() {
+    emit conferma(rivista);
 }
+

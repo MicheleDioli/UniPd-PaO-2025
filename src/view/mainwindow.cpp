@@ -140,6 +140,7 @@ void MainWindow::infoSlot() {
 }
 
 void MainWindow::modificaSlot(Articolo* a) {
+
     EditVisitor visitor;
     a->accept(visitor);
     modifica = new QWidget();

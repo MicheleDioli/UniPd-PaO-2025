@@ -1,6 +1,6 @@
 #include "ModificaFilm.h"
 
-ModificaFilm::ModificaFilm(QWidget* parent, Film* film) : ModificaArticolo(parent) {
+ModificaFilm::ModificaFilm(QWidget* parent, Film* film) : ModificaArticolo(parent), film(film) {
     codiceInput = new QLineEdit();
     codiceInput->setText(QString::fromStdString(film->getCodice()));
     titoloInput = new QLineEdit();
@@ -66,6 +66,9 @@ ModificaFilm::ModificaFilm(QWidget* parent, Film* film) : ModificaArticolo(paren
     buttonLayout->addStretch();
     buttonLayout->addWidget(confermaButton);
     layout->addLayout(buttonLayout);
+
+    connect(confermaButton, &QPushButton::clicked, this, &ModificaFilm::confermaModifica);
+    connect(this, &ModificaFilm::conferma, this, &ModificaFilm::edit);
 }
 
 void ModificaFilm::edit(Articolo* a) {
@@ -85,4 +88,8 @@ void ModificaFilm::edit(Articolo* a) {
 
 QVBoxLayout* ModificaFilm::getLayout() const {
     return layout;
+}
+
+void ModificaFilm::confermaModifica() {
+    emit conferma(film);
 }

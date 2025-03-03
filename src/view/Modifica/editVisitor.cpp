@@ -17,7 +17,6 @@ void EditVisitor::visitRivista(Rivista& rivista) {
     layout = modificaRivista->getLayout();
 }
 
-
 void EditVisitor::visitFilm(Film& film) {
     layout = new QVBoxLayout();
     ModificaFilm* modificaFilm = new ModificaFilm(nullptr, &film);

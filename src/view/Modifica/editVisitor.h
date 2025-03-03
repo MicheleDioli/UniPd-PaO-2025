@@ -2,6 +2,7 @@
 #define EDITVISITOR_H
 
 #include "../../VisitorInterface.h"
+#include <QPushButton>
 
 class Film;
 class Libro;
@@ -16,7 +17,6 @@ class Rivista;
 class EditVisitor : public VisitorInterface{
 private:
     QVBoxLayout* layout;
-
 public:
     QVBoxLayout* getLayout();
     void visitFilm(Film& film) override;

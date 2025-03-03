@@ -23,6 +23,8 @@ private:
     QLineEdit *attoriInput;
     QLineEdit *produttoreInput;
 
+    Film* film;
+
     QPushButton *confermaButton;
 
 public:
@@ -30,6 +32,8 @@ public:
     void edit(Articolo*) override;
     virtual QVBoxLayout* getLayout() const;
 signals:
+    void conferma(Film*);
+public slots:
     void confermaModifica();
 };
 

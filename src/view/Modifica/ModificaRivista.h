@@ -37,8 +37,9 @@ public:
     ModificaRivista(QWidget* parent = nullptr, Rivista* rivista = nullptr);
     virtual void edit(Articolo*) override;
     virtual QVBoxLayout* getLayout() const;
-    void conferma();
 signals:
+    void conferma(Rivista*);
+public slots:
     void confermaModifica();
 };
 
