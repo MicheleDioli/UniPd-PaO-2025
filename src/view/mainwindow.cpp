@@ -105,7 +105,6 @@ void MainWindow::mostaArticolo(Articolo* articolo) {
     stack->setCurrentWidget(mostra);
 
     connect(indietro, &QPushButton::clicked, this, &MainWindow::annullatoClicked);
-
     connect(indietro, &QPushButton::clicked, this, &MainWindow::annullatoClicked);
 }
 
@@ -140,17 +139,15 @@ void MainWindow::infoSlot() {
 }
 
 void MainWindow::modificaSlot(Articolo* a) {
-
-    EditVisitor visitor;
-    a->accept(visitor);
-    modifica = new QWidget();
-    QVBoxLayout* layout = visitor.getLayout();
-    modifica->setLayout(layout);
-    stack->addWidget(modifica);
-    stack->setCurrentWidget(modifica);
+    Edit* edit = new Edit(this);
+    edit->setArticolo(a);
+    connect(edit, &Edit::modificheConfermate, this, &MainWindow::confermaModifica);
+    stack->addWidget(edit);
+    stack->setCurrentWidget(edit);
 }
 
 void MainWindow::confermaModifica() {
+    std::cout << "confermaModifica" << std::endl;
     stack->setCurrentWidget(widgetmain);
     f->aggiorna();
 }

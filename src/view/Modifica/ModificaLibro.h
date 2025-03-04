@@ -34,10 +34,6 @@ public:
     ModificaLibro(QWidget* parent = nullptr, Libro* libro = nullptr);
     void edit(Articolo*) override;
     virtual QVBoxLayout* getLayout() const;
-signals:
-    void conferma(Libro*);
-public slots:
-    void confermaModifica();
 };
 
 #endif //MODIFICALIBRO_H

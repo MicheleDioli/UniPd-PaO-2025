@@ -28,13 +28,10 @@ private:
     QPushButton *confermaButton;
 
 public:
+    ModificaFilm() = default;
     explicit ModificaFilm(QWidget* parent = nullptr, Film* film = nullptr);
     void edit(Articolo*) override;
     virtual QVBoxLayout* getLayout() const;
-signals:
-    void conferma(Film*);
-public slots:
-    void confermaModifica();
 };
 
 #endif //MODIFICAFILM_H

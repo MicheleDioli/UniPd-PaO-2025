@@ -2,29 +2,24 @@
 #include "../../Film.h"
 #include "../../Libro.h"
 #include "../../Rivista.h"
+
 #include "ModificaFilm.h"
 #include "ModificaLibro.h"
 #include "ModificaRivista.h"
 
-
-QVBoxLayout* EditVisitor::getLayout() {
-    return layout;
+void editVisitor::visitFilm(Film& film) {
+    editor = new ModificaFilm(nullptr, &film);
 }
 
-void EditVisitor::visitRivista(Rivista& rivista) {
-    layout = new QVBoxLayout();
-    ModificaRivista* modificaRivista = new ModificaRivista(nullptr, &rivista);
-    layout = modificaRivista->getLayout();
+void editVisitor::visitLibro(Libro& libro) {
+    editor = new ModificaLibro(nullptr, &libro);
 }
 
-void EditVisitor::visitFilm(Film& film) {
-    layout = new QVBoxLayout();
-    ModificaFilm* modificaFilm = new ModificaFilm(nullptr, &film);
-    layout = modificaFilm->getLayout();
+void editVisitor::visitRivista(Rivista& rivista) {
+    editor = new ModificaRivista(nullptr, &rivista);
 }
 
-void EditVisitor::visitLibro(Libro& libro) {
-    layout = new QVBoxLayout();
-    ModificaLibro* modificaLibro = new ModificaLibro(nullptr, &libro);
-    layout = modificaLibro->getLayout();
+ModificaArticolo* editVisitor::getEditor() const {
+    return editor;
 }
+

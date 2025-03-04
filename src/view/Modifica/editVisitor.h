@@ -2,26 +2,30 @@
 #define EDITVISITOR_H
 
 #include "../../VisitorInterface.h"
-#include <QPushButton>
+#include "../../Film.h"
+#include "../../Libro.h"
+#include "../../Rivista.h"
 
-class Film;
-class Libro;
-class Rivista;
+#include "ModificaArticolo.h"
 
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QLabel>
 #include <QDateEdit>
+#include <QPushButton>
+#include <QWidget>
 
-class EditVisitor : public VisitorInterface{
+class editVisitor : public VisitorInterface {
 private:
-    QVBoxLayout* layout;
+    ModificaArticolo* editor;
 public:
-    QVBoxLayout* getLayout();
-    void visitFilm(Film& film) override;
-    void visitLibro(Libro& libro) override;
-    void visitRivista(Rivista& rivista) override;
+    // Implementazione di TUTTI i metodi dell'interfaccia
+     void visitLibro(Libro&);
+     void visitRivista(Rivista&);
+     void visitFilm(Film&);
+
+    ModificaArticolo* getEditor() const;
 };
 
 #endif

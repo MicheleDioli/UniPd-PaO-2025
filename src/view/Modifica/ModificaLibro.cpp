@@ -1,6 +1,7 @@
 #include "ModificaLibro.h"
 
 ModificaLibro::ModificaLibro(QWidget* parent, Libro* libro) : ModificaArticolo(parent), libro(libro) {
+    layout = new QVBoxLayout(this);
 	layout->addWidget(new QLabel("Codice:"));
     codiceInput = new QLineEdit();
     codiceInput->setText(QString::fromStdString(libro->getCodice()));
@@ -59,15 +60,6 @@ ModificaLibro::ModificaLibro(QWidget* parent, Libro* libro) : ModificaArticolo(p
     capitoliInput->setValue(libro->getCapitoli());
     layout->addWidget(capitoliInput);
 
-    confermaButton = new QPushButton("Conferma");
-
-    QHBoxLayout* buttonLayout = new QHBoxLayout();
-    buttonLayout->addStretch();
-    buttonLayout->addWidget(confermaButton);
-    layout->addLayout(buttonLayout);
-
-    connect(confermaButton, &QPushButton::clicked, this, &ModificaLibro::confermaModifica);
-    connect(this, &ModificaLibro::conferma, this, &ModificaLibro::edit);
 }
 
 void ModificaLibro::edit(Articolo* a) {
@@ -87,8 +79,4 @@ void ModificaLibro::edit(Articolo* a) {
 
 QVBoxLayout* ModificaLibro::getLayout() const {
     return layout;
-}
-
-void ModificaLibro::confermaModifica() {
-    emit conferma(libro);
 }

@@ -4,6 +4,7 @@
 #include "ModificaRivista.h"
 
 ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista) : ModificaArticolo(parent), rivista(rivista) {
+    layout = new QVBoxLayout(this);
 	layout->addWidget(new QLabel("Codice:"));
     codiceInput = new QLineEdit();
     codiceInput->setText(QString::fromStdString(rivista->getCodice()));
@@ -63,15 +64,18 @@ ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista) : ModificaAr
     pagineRivistaInput->setValue(rivista->getPagine());
     layout->addWidget(pagineRivistaInput);
 
-    confermaButton = new QPushButton("Conferma");
+    layout->addWidget(new QLabel("Difficolta:"));
+    difficoltaInput = new QSpinBox();
+    difficoltaInput->setValue(rivista->getDifficolta());
+    difficoltaInput->setRange(1, 5);
 
-    QHBoxLayout* buttonLayout = new QHBoxLayout();
-    buttonLayout->addStretch();
-    buttonLayout->addWidget(confermaButton);
-    layout->addLayout(buttonLayout);
+    layout->addWidget(difficoltaInput);
 
-    connect(confermaButton, &QPushButton::clicked, this, &ModificaRivista::confermaModifica);
-    connect(this, &ModificaRivista::conferma, this, &ModificaRivista::edit);
+    layout->addWidget(new QLabel("Pubblicatore:"));
+    pubblicatoreInput = new QLineEdit();
+    pubblicatoreInput->setText(QString::fromStdString(rivista->getPubblicatore()));
+    layout->addWidget(pubblicatoreInput);
+
 }
 
 void ModificaRivista::edit(Articolo* a) {
@@ -87,14 +91,11 @@ void ModificaRivista::edit(Articolo* a) {
     rivista->setEdizione(numeroInput->value());
     rivista->setEditore(editoreRivistaInput->text().toStdString());
     rivista->setPagine(pagineRivistaInput->value());
+    rivista->setDifficolta(difficoltaInput->value());
+    rivista->setPubblicatore(pubblicatoreInput->text().toStdString());
     std::cout << rivista->getTitolo() << std::endl;
 }
 
 QVBoxLayout* ModificaRivista::getLayout() const {
     return layout;
 }
-
-void ModificaRivista::confermaModifica() {
-    emit conferma(rivista);
-}
-

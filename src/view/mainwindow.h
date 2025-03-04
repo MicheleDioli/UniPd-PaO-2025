@@ -4,10 +4,9 @@
 #include "Sensoriqt/FiltroLayout.h"
 #include "Sensoriqt/ListaArticoli.h"
 #include "Sensoriqt/ListaQT.h"
-#include "Modifica/editVisitor.h"
 #include "Mostra/MostraVisitor.h"
 #include "Json/Json.h"
-#include "Modifica/editVisitor.h"
+#include "Modifica/edit.h"
 #include "Modifica/ModificaArticolo.h"
 
 #include <QMessageBox>
@@ -32,8 +31,8 @@ private:
     QWidget* modifica;
 public:
     MainWindow(QWidget *parent = nullptr);
-public slots:
-    void nuovoClicked();
+    public slots:
+        void nuovoClicked();
     void nuovoSalvato();
     void annullatoClicked();
     void mostaArticolo(Articolo*);
