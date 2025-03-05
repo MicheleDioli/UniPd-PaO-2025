@@ -5,6 +5,7 @@
 
 ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista) : ModificaArticolo(parent), rivista(rivista) {
     layout = new QVBoxLayout(this);
+
 	layout->addWidget(new QLabel("Codice:"));
     codiceInput = new QLineEdit();
     codiceInput->setText(QString::fromStdString(rivista->getCodice()));

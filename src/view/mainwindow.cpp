@@ -66,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     connect(f, &FiltroLayout::salvaclic, this, &MainWindow::salvaSlot);
     connect(f, &FiltroLayout::cancellaclic, this, &MainWindow::cancellaSlot);
     connect(f, &FiltroLayout::modificaclic, this, &MainWindow::modificaSlot);
+
 }
 
 void MainWindow::nuovoClicked() {
@@ -92,24 +93,33 @@ void MainWindow::mostaArticolo(Articolo* articolo) {
     articolo->accept(visitor);
 
     mostra = new QWidget();
-
     QVBoxLayout* layout = visitor.getLayout();
 
     QHBoxLayout* layoutButtons = new QHBoxLayout();
-    layoutButtons->addStretch();
-    QPushButton* indietro = new QPushButton("Indietro");
-    layoutButtons->addWidget(indietro);
+    //layoutButtons->addStretch();
+    QPushButton* indietro = new QPushButton();
+    indietro->setIcon(QIcon(QPixmap(":/asset/icon/indietro.png")));
+    layoutButtons->addWidget(indietro,0,Qt::AlignLeft);
+    QVBoxLayout* mainLayout = new QVBoxLayout();
+    mainLayout->addLayout(layoutButtons);
+    mainLayout->addLayout(layout);
 
-    layout->addLayout(layoutButtons);
+    QHBoxLayout* modifica = new QHBoxLayout();
+    QPushButton* modificaB = new QPushButton("Modifica");
 
-    mostra->setLayout(layout);
+    modificaB->setIcon(QIcon(QPixmap(":/asset/icon/modifica.png")));
+    modifica->addWidget(modificaB);
+
+    mainLayout->addLayout(modifica);
+
+    mostra->setLayout(mainLayout);
 
     stack->addWidget(mostra);
     stack->setCurrentWidget(mostra);
 
     connect(indietro, &QPushButton::clicked, this, &MainWindow::annullatoClicked);
-    connect(indietro, &QPushButton::clicked, this, &MainWindow::annullatoClicked);
 }
+
 
 void MainWindow::salvaSlot(Articolo* a) {
     Json json;

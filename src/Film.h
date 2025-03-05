@@ -4,8 +4,6 @@
 #include "Articolo.h"
 #include <iostream>
 
-
-
 class Film : public Articolo {
 private:
     std::string regista;
