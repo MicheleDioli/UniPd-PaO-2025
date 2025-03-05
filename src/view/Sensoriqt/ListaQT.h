@@ -11,22 +11,30 @@
 #include <algorithm>
 #include <cctype>
 #include <QSpacerItem>
+#include <QSlider>
+#include <QScrollBar>
+#include <QScrollArea>
+#include <QGroupBox>
+
 
 #include "ListaVisitor.h"
 #include "Cliccabile.h"
 #include "../../Articolo.h"
+#include "../../Rivista.h"
+#include "../../Libro.h"
+#include "../../Film.h"
 
 class ListaQT : public QWidget {
     Q_OBJECT
 private:
-   QGridLayout* layout = new QGridLayout(this);
+   QHBoxLayout* layout = new QHBoxLayout(this);
     QPushButton* nuovo = new QPushButton();
     std::list<Articolo*> articoli;
 public:
     ListaQT(std::list<Articolo*> articoli = {});
     ListaQT () = default;
 
-    QGridLayout* getArticoli(std::list<Articolo*>);
+    QHBoxLayout* getArticoli(std::list<Articolo*>);
 
     std::list<Articolo*> soloLibri(std::list<Articolo*>);
     std::list<Articolo*> soloRiviste(std::list<Articolo*>);

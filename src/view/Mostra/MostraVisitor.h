@@ -4,12 +4,14 @@
 #include "../../VisitorInterface.h"
 
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QPixmap>
 #include <QString>
 #include <QPushButton>
+
 
 class MostraVisitor : public VisitorInterface {
 private:

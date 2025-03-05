@@ -43,7 +43,7 @@ private:
     QPushButton* salva;
     QComboBox* filtro;
 
-    QGridLayout* lista;
+    QHBoxLayout* lista;
     QLineEdit* ricerca;
     QSplitter* splitter;
 

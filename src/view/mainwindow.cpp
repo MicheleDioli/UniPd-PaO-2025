@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     barra->setOrientation(Qt::Vertical);
     barra->setOrientation(Qt::Horizontal);
 
+    barra->setStyleSheet("QToolBar {margin:1px; border: 1px solid black; border-radius: 5px;}");
+
     QAction *nuovo = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))),"CreaNuovo");
     QAction *importa = new QAction(QIcon(QPixmap((":/asset/icon/apri.png"))),"Importa");
     QAction *salvan = new QAction(QIcon(QPixmap((":/asset/icon/salvaJson.png"))),"salva con nome");
@@ -37,7 +39,8 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     main->addWidget(f);
 
     QStatusBar* status = new QStatusBar();
-    status->showMessage("halo");
+    status->showMessage("Status bar: ");
+    status->setStyleSheet("QStatusBar {border: 1px solid black; border-radius: 5px;}");
     main->addWidget(status);
 
     widgetmain = new QWidget();

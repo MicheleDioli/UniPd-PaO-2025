@@ -6,6 +6,15 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     std::list<Articolo*> art;
 
     l1->addArticolo(new Rivista("Rivista ah","codice", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    l1->addArticolo(new Rivista("Rivista a","codice1", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    l1->addArticolo(new Rivista("Rivista","codice2", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    l1->addArticolo(new Rivista("Rivist","codice3", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    l1->addArticolo(new Rivista("Rivis","codice4", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    l1->addArticolo(new Rivista("Rivi","codice5", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    l1->addArticolo(new Rivista("Ri","codice6", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    l1->addArticolo(new Rivista("Rta ah","codice7", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    l1->addArticolo(new Rivista("R ah","codice8", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
+    l1->addArticolo(new Rivista("ivista ah","codice9", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
 
     layout = new QVBoxLayout();
 

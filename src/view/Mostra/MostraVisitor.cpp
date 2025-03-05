@@ -11,78 +11,53 @@ QVBoxLayout* MostraVisitor::getLayout() const {
 void MostraVisitor::visitLibro(Libro& l) {
     layout = new QVBoxLayout();
 
+    QHBoxLayout* sopra = new QHBoxLayout();
+
+    QLabel* codice_anno = new QLabel("Codice: " + QString::fromStdString(l.getCodice())+ "\n Anno: " + QString::number(l.getAnno()));
+    codice_anno->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    QLabel* lingua_copie = new QLabel("Lingua: " + QString::fromStdString(l.getLingua()) + "\n Copie: " + QString::number(l.getCopie()));
+    lingua_copie->setAlignment(Qt::AlignRight | Qt::AlignTop);
+
     QPixmap image(":/asset/images/libro.png");
     QLabel* imageLabel = new QLabel();
+    imageLabel->setAlignment(Qt::AlignCenter);
     imageLabel->setPixmap(image);
 
-    QVBoxLayout* InfoArticolo = new QVBoxLayout();
-    QHBoxLayout* InfoArticoloLeft = new QHBoxLayout();
-    QHBoxLayout* InfoArticoloRight = new QHBoxLayout();
+    sopra->addWidget(codice_anno);
+    //sopra->addStretch();
+    sopra->addWidget(imageLabel);
+    //sopra->addStretch();
+    sopra->addWidget(lingua_copie);
 
-    QLabel* titolo = new QLabel("Titolo: " + QString::fromStdString(l.getTitolo()));
-    QLabel* codice = new QLabel("Codice: " + QString::fromStdString(l.getCodice()));
-    QLabel* genere = new QLabel("Generi: " + QString::fromStdString(l.getGenere()));
+    QLabel* titolo_autore = new QLabel(QString::fromStdString(l.getTitolo())+" by "+ QString::fromStdString(l.getAutore()));
+    titolo_autore->setAlignment(Qt::AlignCenter);
 
-    QLabel* lingua = new QLabel("Lingua : " + QString::fromStdString(l.getLingua()));
-    QLabel* anno = new QLabel("Anno " + QString::number(l.getAnno()));
-    QLabel* copie = new QLabel("Copie: " + QString::number(l.getCopie()));
+    //QLabel* titolo = new QLabel("Titolo: " + QString::fromStdString(l.getTitolo()));
 
-    InfoArticoloLeft->addWidget(titolo);
-    InfoArticoloLeft->addWidget(codice);
-    InfoArticoloLeft->addWidget(genere);
+    QHBoxLayout* mezzo = new QHBoxLayout();
 
-    InfoArticoloRight->addWidget(lingua);
-    InfoArticoloRight->addWidget(anno);
-    InfoArticoloRight->addWidget(copie);
+    QVBoxLayout* mezzoLeft = new QVBoxLayout();
+    QVBoxLayout* mezzoRight = new QVBoxLayout();
 
-    InfoArticolo->addLayout(InfoArticoloLeft);
-    InfoArticolo->addLayout(InfoArticoloRight);
+    QLabel* casaEditrice = new QLabel("Prodotto, stampato\n    da\n " + QString::fromStdString(l.getCasaEditrice()));
+    casaEditrice->setAlignment(Qt::AlignLeft);
+    QLabel* g_p_c = new QLabel(QString::fromStdString(l.getGenere()) + "\n" + QString::number(l.getCapitoli()) + " capitoli\n" + QString::number(l.getPagine()) + " pagine");
+    g_p_c->setAlignment(Qt::AlignRight);
 
-    layout->addWidget(imageLabel);
-    imageLabel->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+    mezzoLeft->addWidget(casaEditrice);
+    mezzoRight->addWidget(g_p_c);
 
-    QGroupBox* InfoArticoloGroup = new QGroupBox();
-    InfoArticoloGroup->setLayout(InfoArticolo);
+    mezzo->addLayout(mezzoLeft);
+    mezzo->addLayout(mezzoRight);
 
-    layout->addWidget(InfoArticoloGroup);
+    QLabel* descrizione = new QLabel(QString::fromStdString(l.getDescrizione()));
+    descrizione->setAlignment(Qt::AlignCenter);
 
-    QVBoxLayout* descizione = new QVBoxLayout();
-    QLabel* descrizioneLabel = new QLabel("Descrizione: " + QString::fromStdString(l.getDescrizione()));
+    layout->addLayout(sopra);
+    layout->addWidget(titolo_autore);
+    layout->addLayout(mezzo);
+    layout->addWidget(descrizione);
 
-    descizione->addWidget(descrizioneLabel);
-
-    // secondo
-
-    QGroupBox* DescrizioneGroup = new QGroupBox();
-    DescrizioneGroup->setLayout(descizione);
-
-    layout->addWidget(DescrizioneGroup);
-
-    //terzo
-
-    QVBoxLayout* InfoSpecifiche = new QVBoxLayout();
-
-    QHBoxLayout* InfoSpecificheRight = new QHBoxLayout();
-    QHBoxLayout* InfoSpecificheLeft = new QHBoxLayout();
-
-    QLabel* casaEditrice = new QLabel("Casa Editrice :" + QString::fromStdString(l.getCasaEditrice()));
-    QLabel* capitoli = new QLabel("Capitoli :" + QString::number(l.getCapitoli()));
-    QLabel* pagine = new QLabel("Pagine :" + QString::number(l.getPagine()));
-    QLabel* autore = new QLabel("Autore :" + QString::fromStdString(l.getAutore()));
-
-    InfoSpecificheLeft->addWidget(autore);
-    InfoSpecificheLeft->addWidget(pagine);
-
-    InfoSpecificheRight->addWidget(casaEditrice);
-    InfoSpecificheRight->addWidget(capitoli);
-
-    InfoSpecifiche->addLayout(InfoSpecificheLeft);
-    InfoSpecifiche->addLayout(InfoSpecificheRight);
-
-    QGroupBox* InfoSpecificheGrup = new QGroupBox();
-    InfoSpecificheGrup->setLayout(InfoSpecifiche);
-
-    layout->addWidget(InfoSpecificheGrup);
 }
 
 void MostraVisitor::visitRivista(Rivista& r) {
