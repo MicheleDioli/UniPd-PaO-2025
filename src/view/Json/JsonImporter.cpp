@@ -1,5 +1,40 @@
 #include "JsonImporter.h"
+/*
+std::list<Articolo*> JsonImporter::importJsonLista() {
+    std::list<Articolo*> lista;
+    QString fileName = QFileDialog::getOpenFileName(nullptr, "Open File", "", "Json files (*.json)");
+    if (fileName.isEmpty()) {
+        QMessageBox::warning(nullptr, "Errore", "Nessun file selezionato.");
+        return lista;
+    }
 
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(nullptr, "Errore", "Impossibile aprire: " + file.errorString());
+        return lista;
+    }
+
+    QByteArray data = file.readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    if (doc.isNull() || !doc.isObject()) {
+        QMessageBox::warning(nullptr, "Errore", "Formato Json non valido.");
+        return lista;
+    }
+
+    QJsonObject json = doc.object();
+    QJsonArray array = json["Articoli"].toArray();
+    for (int i = 0; i < array.size(); i++) {
+        QJsonObject obj = array[i].toObject();
+        QString type = obj["type"].toString();
+        Articolo* articolo = createArticolo(type, obj);
+        if (articolo) {
+            lista.push_back(articolo);
+        }
+    }
+
+    return lista;
+}
+*/
 Articolo* JsonImporter::createArticolo(const QString& type, const QJsonObject& json) {
         if (type.compare("Libro", Qt::CaseInsensitive) == 0) {
             return new Libro(
@@ -48,7 +83,7 @@ Articolo* JsonImporter::createArticolo(const QString& type, const QJsonObject& j
         }
         return nullptr;
     }
-
+/*
 Articolo* JsonImporter::importJson() {
 
     QString fileName = QFileDialog::getOpenFileName(nullptr, "Open File", "", "Json files (*.json)");
@@ -80,4 +115,58 @@ Articolo* JsonImporter::importJson() {
     }
 
     return articolo;
+}
+*/
+void JsonImporter::importa(ListaArticoli* l) {
+
+    QString fileName = QFileDialog::getOpenFileName(nullptr, "Open File", "", "Json files (*.json)");
+    if (fileName.isEmpty()) {
+        QMessageBox::warning(nullptr, "Errore", "Nessun file selezionato.");
+        return ;
+    }
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(nullptr, "Errore", "Impossibile aprire: " + file.errorString());
+        return ;
+    }
+
+    QByteArray data = file.readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    if (doc.isNull() || !doc.isObject()) {
+        QMessageBox::warning(nullptr, "Errore", "Formato Json non valido.");
+        return ;
+    }
+
+    QJsonObject json = doc.object();
+    if(json.contains("Articoli")){
+        QErrorMessage* error = new QErrorMessage();
+        QJsonArray array = json["Articoli"].toArray();
+        for (int i = 0; i < array.size(); i++) {
+            QJsonObject obj = array[i].toObject();
+            QString type = obj["type"].toString();
+            Articolo* articolo = createArticolo(type, obj);
+            if (articolo) {
+                auto check = l->controlla(articolo);
+                if (check == 0)
+                    l->addArticolo(articolo);
+                if (check == -1)
+                    error->showMessage("Errore", "Articolo con Codice già esistente");
+                if (check == -2)
+                    error->showMessage("Errore", "Articolo con Titolo, Genere e Anno già esistente");
+            }
+        }
+        return;
+    }
+
+    QString type = json["type"].toString();
+    Articolo* articolo = createArticolo(type, json);
+
+    if (!articolo) {
+        QMessageBox::warning(nullptr, "Errore", "Tipo non supportato: " + type);
+        return;
+    }
+
+    l->addArticolo(articolo);
+
 }

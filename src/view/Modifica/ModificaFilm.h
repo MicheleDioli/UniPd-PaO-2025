@@ -2,6 +2,16 @@
 #define MODIFICAFILM_H
 
 #include "ModificaArticolo.h"
+#include "../Sensoriqt/ListaArticoli.h"
+
+#include <QDebug>
+#include <QFormLayout>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLineEdit>
+#include <QSpinBox>
+#include <QVBoxLayout>
+
 
 class ModificaFilm : public ModificaArticolo {
     Q_OBJECT
@@ -24,10 +34,12 @@ private:
     QLineEdit *produttoreInput;
 
     Film* film;
+    ListaArticoli* lista;
 
     QPushButton *confermaButton;
 
 public:
+    QLineEdit* createLineEdit(const QString& text, const QString& tooltip);
     ModificaFilm() = default;
     explicit ModificaFilm(QWidget* parent = nullptr, Film* film = nullptr);
     void edit(Articolo*) override;

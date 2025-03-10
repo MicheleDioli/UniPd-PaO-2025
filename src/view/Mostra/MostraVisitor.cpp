@@ -201,22 +201,20 @@ void MostraVisitor::visitRivista(Rivista& r) {
 void MostraVisitor::visitFilm(Film& f) {
 
 layout = new QVBoxLayout();
-layout->setContentsMargins(20, 20, 20, 20);  // Aggiungi margini globali
-layout->setSpacing(15);  // Spaziatura uniforme tra gli elementi
+layout->setContentsMargins(20, 20, 20, 20);
+layout->setSpacing(15);
 
-// Sezione superiore con codice/anno e immagine
 QHBoxLayout* sopra = new QHBoxLayout();
-sopra->setContentsMargins(0, 0, 0, 0);  // Rimuovi margini interni
+sopra->setContentsMargins(0, 0, 0, 0);
 
-// Immagine a destra
+
 QPixmap image(":/asset/images/film.png");
-image = image.scaled(120, 120, Qt::KeepAspectRatio, Qt::SmoothTransformation);  // Dimensiona l'immagine
+image = image.scaled(120, 120, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 QLabel* imageLabel = new QLabel();
 imageLabel->setPixmap(image);
 imageLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-imageLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);  // Fissa le dimensioni
+imageLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-// Testo a sinistra
 QLabel* codice_anno = new QLabel("Codice: <b>" + QString::fromStdString(f.getCodice()) + "</b><br>Anno: <b>" + QString::number(f.getAnno()) + "</b><br>Lingua: <b>" + QString::fromStdString(f.getLingua()) + "</b><br>Copie: <b>" + QString::number(f.getCopie()) + "</b>");
 codice_anno->setStyleSheet(
     "QLabel {"
@@ -227,10 +225,9 @@ codice_anno->setStyleSheet(
 );
 codice_anno->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
-sopra->addWidget(codice_anno, 1);  // Il parametro 1 permette l'espansione
+sopra->addWidget(codice_anno, 1);
 sopra->addWidget(imageLabel);
 
-// Titolo centrale
 QLabel* titolo = new QLabel("<div style='margin: 15px 0;'>"
                             "<h1>" + QString::fromStdString(f.getTitolo()) + "</h1>"
                             "<h2>di " + QString::fromStdString(f.getRegista()) + "</h2></div>");
@@ -243,9 +240,8 @@ titolo->setStyleSheet(
     "}"
 );
 
-// Sezione centrale
 QHBoxLayout* mezzo = new QHBoxLayout();
-mezzo->setSpacing(30);  // Spazio tra le due colonne
+mezzo->setSpacing(30);
 
 QVBoxLayout* mezzoLeft = new QVBoxLayout();
 QVBoxLayout* mezzoRight = new QVBoxLayout();
@@ -267,7 +263,6 @@ mezzoRight->addWidget(durata);
 mezzo->addLayout(mezzoLeft);
 mezzo->addLayout(mezzoRight);
 
-// Descrizione
 QLabel* descrizione = new QLabel(QString::fromStdString(f.getDescrizione()));
 descrizione->setStyleSheet(
 "QLabel {"
@@ -282,7 +277,6 @@ descrizione->setStyleSheet(
 descrizione->setWordWrap(true);
 descrizione->setAlignment(Qt::AlignJustify);
 
-// Aggiunta di tutti gli elementi al layout principale
 layout->addLayout(sopra);
 layout->addWidget(titolo);
 layout->addLayout(mezzo);

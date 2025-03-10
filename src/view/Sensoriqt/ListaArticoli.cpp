@@ -21,7 +21,7 @@ void ListaArticoli::removeArticolo(Articolo* a) {
     }
 }
 
-std::list<Articolo*> ListaArticoli::getArticoli(){
+std::list<Articolo*> ListaArticoli::getArticoli()const{
     return articoliL;
 }
 
@@ -38,15 +38,25 @@ ListaArticoli::~ListaArticoli() {
 int ListaArticoli::controlla(Articolo* a) {
     for (auto it : articoliL) {
         if (it->getCodice() == a->getCodice()) {
-            std::cerr << "Codice già esistente" << std::endl;
+            //std::cerr << "Codice già esistente" << std::endl;
             return -1;
         }
         if (it->getTitolo() == a->getTitolo() &&
             it->getAnno() == a->getAnno() &&
             it->getLingua() == a->getLingua()) {
-            std::cerr << "Articolo già esistente" << std::endl;
+            //std::cerr << "Articolo già esistente" << std::endl;
             return -2;
         }
     }
     return 0;
+}
+
+void ListaArticoli::salvaMappa(std::string path,  Articolo* a) {
+        articoliS[a->getCodice()] = path;
+}
+
+bool ListaArticoli::checkSalvato(Articolo* a) {
+    if(articoliS.find(a->getCodice()) != articoliS.end())
+        return true;
+    return false;
 }

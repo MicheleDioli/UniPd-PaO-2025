@@ -1,6 +1,3 @@
-//
-// Created by Michele Dioli on 1/29/25.
-//
 #ifndef JSONIMPORTER_H
 #define JSONIMPORTER_H
 
@@ -13,18 +10,20 @@
 #include <QTextStream>
 #include <QFileDialog>
 #include <QString>
+#include <QErrorMessage>
 #include <QMessageBox>
+
 
 #include "../../Articolo.h"
 #include "../../Libro.h"
 #include "../../Rivista.h"
 #include "../../Film.h"
-
+#include "../Sensoriqt/ListaArticoli.h"
 
 class JsonImporter{
 public:
-    Articolo* importJson();
     Articolo* createArticolo(const QString&, const QJsonObject&);
+    void importa(ListaArticoli*);
 };
 
 #endif //JSONIMPORTER_H

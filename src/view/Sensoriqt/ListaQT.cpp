@@ -107,6 +107,7 @@ QHBoxLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
         a->accept(visitor);
 
         Cliccabile* c = new Cliccabile(a);
+        c->minimumSize();
         c->setLayout(visitor.getLayout());
 
         connect(c, &Cliccabile::clicked, this, &ListaQT::itemClicked);

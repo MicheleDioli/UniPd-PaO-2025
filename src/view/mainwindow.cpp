@@ -23,10 +23,10 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     QAction *salvan = new QAction(QIcon(QPixmap((":/asset/icon/salvaJson.png"))),"salva con nome");
     QAction *info = new QAction(QIcon(QPixmap((":/asset/icon/info.png"))),"Info");
 
-    nuovo->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_N));
-    importa->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_O));
-    salvan->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_S));
-    info->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
+    nuovo->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_N));
+    importa->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_O));
+    salvan->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
+    info->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_H));
 
     barra->addAction(nuovo);
     barra->addAction(importa);
@@ -52,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     stack->setSizeConstraint(QLayout::SetMinimumSize);
 	adjustSize();
 
+    connect(salvan, &QAction::triggered, this, &MainWindow::salvaListaSlot);
     connect(importa, &QAction::triggered, this, &MainWindow::importaSlot);
 
     connect(f,  &FiltroLayout::nuovo, this, &MainWindow::nuovoClicked);
@@ -67,6 +68,14 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     connect(f, &FiltroLayout::cancellaclic, this, &MainWindow::cancellaSlot);
     connect(f, &FiltroLayout::modificaclic, this, &MainWindow::modificaSlot);
 
+}
+
+void MainWindow::salvaListaSlot() {
+  	for (auto it : l->getArticoli()) {
+		std::cout << it->getTitolo() << std::endl;
+    }
+    Json json;
+    json.salvaJsonLista(*l);
 }
 
 void MainWindow::nuovoClicked() {
@@ -120,10 +129,18 @@ void MainWindow::mostaArticolo(Articolo* articolo) {
     connect(indietro, &QPushButton::clicked, this, &MainWindow::annullatoClicked);
 }
 
-
 void MainWindow::salvaSlot(Articolo* a) {
     Json json;
-    json.salvaJson(*a);
+    if(a && !(l->checkSalvato(a))){
+        json.salvaJson(*a);
+        l->salvaMappa(json.getFileName().toStdString(), a);
+        std::cout << json.getFileName().toStdString() << std::endl;
+    }
+
+    if(l->checkSalvato(a)){
+        json.salvaSN(*a);
+    }
+
 }
 
 void MainWindow::cancellaSlot(Articolo* a) {
@@ -136,11 +153,8 @@ void MainWindow::cancellaSlot(Articolo* a) {
 
 void MainWindow::importaSlot() {
     Json j;
-    Articolo* a = j.importaJson();
-    if(a){
-    	l->addArticolo(a);
-    	f->aggiorna();
-    }
+    j.importa(l);
+    f->aggiorna();
 }
 
 void MainWindow::infoSlot() {

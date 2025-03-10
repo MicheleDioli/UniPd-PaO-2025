@@ -1,87 +1,82 @@
 #include "ModificaFilm.h"
-#include <QDebug>
 
 ModificaFilm::ModificaFilm(QWidget* parent, Film* film)
     : ModificaArticolo(parent), film(film) {
-    layout = new QVBoxLayout(this);
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    mainLayout->setContentsMargins(10, 10, 10, 10);
+    mainLayout->setSpacing(15);
 
     if (!film) {
         qWarning() << "Film nullo in ModificaFilm!";
         return;
     }
 
-    codiceInput = new QLineEdit();
-    codiceInput->setText(QString::fromStdString(film->getCodice()));
+    QGroupBox* generalGroup = new QGroupBox("Dettagli Generali", this);
+    QFormLayout* formGeneral = new QFormLayout(generalGroup);
+    formGeneral->setContentsMargins(10, 15, 10, 15);
+    formGeneral->setSpacing(8);
+    formGeneral->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
 
-    titoloInput = new QLineEdit();
-    titoloInput->setText(QString::fromStdString(film->getTitolo()));
-
-    descrizioneInput = new QLineEdit();
-    descrizioneInput->setText(QString::fromStdString(film->getDescrizione()));
-
-    genereInput = new QLineEdit();
-    genereInput->setText(QString::fromStdString(film->getGenere()));
+    codiceInput = createLineEdit(QString::fromStdString(film->getCodice()), "Codice univoco identificativo");
+    titoloInput = createLineEdit(QString::fromStdString(film->getTitolo()), "Titolo del film");
+    descrizioneInput = createLineEdit(QString::fromStdString(film->getDescrizione()), "Descrizione sintetica");
+    genereInput = createLineEdit(QString::fromStdString(film->getGenere()), "Genere cinematografico");
 
     annoInput = new QDateEdit();
     annoInput->setDate(QDate(film->getAnno(), 1, 1));
     annoInput->setDisplayFormat("yyyy");
+    annoInput->setToolTip("Anno di produzione");
 
     copieInput = new QSpinBox();
+    copieInput->setRange(0, 999);
     copieInput->setValue(film->getCopie());
+    copieInput->setToolTip("Numero di copie disponibili");
 
-    linguaInput = new QLineEdit();
-    linguaInput->setText(QString::fromStdString(film->getLingua()));
+    formGeneral->addRow("Codice:", codiceInput);
+    formGeneral->addRow("Titolo:", titoloInput);
+    formGeneral->addRow("Descrizione:", descrizioneInput);
+    formGeneral->addRow("Genere:", genereInput);
+    formGeneral->addRow("Anno:", annoInput);
+    formGeneral->addRow("Copie:", copieInput);
 
-    registaInput = new QLineEdit();
-    registaInput->setText(QString::fromStdString(film->getRegista()));
+    QGroupBox* detailsGroup = new QGroupBox("Dettagli Tecnici", this);
+    QFormLayout* formDetails = new QFormLayout(detailsGroup);
+    formDetails->setContentsMargins(10, 15, 10, 15);
+    formDetails->setSpacing(8);
+
+    linguaInput = createLineEdit(QString::fromStdString(film->getLingua()), "Lingua originale");
+    registaInput = createLineEdit(QString::fromStdString(film->getRegista()), "Regista principale");
 
     durataInput = new QSpinBox();
     durataInput->setRange(1, 999);
     durataInput->setValue(film->getDurata());
+    durataInput->setSuffix(" min");
+    durataInput->setToolTip("Durata in minuti");
 
-    attoriInput = new QLineEdit();
-    attoriInput->setText(QString::fromStdString(film->getAttori()));
+    attoriInput = createLineEdit(QString::fromStdString(film->getAttori()), "Attore principale");
+    produttoreInput = createLineEdit(QString::fromStdString(film->getProduttore()), "Casa di produzione");
 
-    produttoreInput = new QLineEdit();
-    produttoreInput->setText(QString::fromStdString(film->getProduttore()));
+    formDetails->addRow("Lingua:", linguaInput);
+    formDetails->addRow("Regista:", registaInput);
+    formDetails->addRow("Durata:", durataInput);
+    formDetails->addRow("Attori:", attoriInput);
+    formDetails->addRow("Produttore:", produttoreInput);
 
-    layout->addWidget(new QLabel("Codice:"));
-    layout->addWidget(codiceInput);
+    mainLayout->addWidget(generalGroup);
+    mainLayout->addWidget(detailsGroup);
+    mainLayout->addStretch();
+}
 
-    layout->addWidget(new QLabel("Titolo:"));
-    layout->addWidget(titoloInput);
-
-    layout->addWidget(new QLabel("Descrizione:"));
-    layout->addWidget(descrizioneInput);
-
-    layout->addWidget(new QLabel("Genere:"));
-    layout->addWidget(genereInput);
-
-    layout->addWidget(new QLabel("Anno:"));
-    layout->addWidget(annoInput);
-
-    layout->addWidget(new QLabel("Copie:"));
-    layout->addWidget(copieInput);
-
-    layout->addWidget(new QLabel("Lingua:"));
-    layout->addWidget(linguaInput);
-
-    layout->addWidget(new QLabel("Regista:"));
-    layout->addWidget(registaInput);
-
-    layout->addWidget(new QLabel("Durata:"));
-    layout->addWidget(durataInput);
-
-    layout->addWidget(new QLabel("Attori:"));
-    layout->addWidget(attoriInput);
-
-    layout->addWidget(new QLabel("Produttore:"));
-    layout->addWidget(produttoreInput);
-
-
+QLineEdit* ModificaFilm::createLineEdit(const QString& text, const QString& tooltip) {
+    QLineEdit* edit = new QLineEdit(text);
+    edit->setPlaceholderText("...");
+    edit->setToolTip(tooltip);
+    edit->setMinimumWidth(250);
+    return edit;
 }
 
 void ModificaFilm::edit(Articolo* a) {
+
     Film* film = dynamic_cast<Film*>(a);
 
     film->setCodice(codiceInput->text().toStdString());
@@ -95,6 +90,21 @@ void ModificaFilm::edit(Articolo* a) {
     film->setDurata(durataInput->value());
     film->setAttori(attoriInput->text().toStdString());
     film->setProduttore(produttoreInput->text().toStdString());
+
+    auto check = lista->controlla(film);
+
+    if(check == 0) {
+        return;
+    } else if(check == -1) {
+        codiceInput->clear();
+        codiceInput->setFocus();
+        return;
+    } else if(check == -2) {
+        titoloInput->clear();
+        titoloInput->setFocus();
+        return;
+    }
+
 }
 
 QVBoxLayout* ModificaFilm::getLayout() const {

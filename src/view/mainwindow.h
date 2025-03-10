@@ -36,7 +36,7 @@ public:
     void nuovoSalvato();
     void annullatoClicked();
     void mostaArticolo(Articolo*);
-
+    void salvaListaSlot();
     void salvaSlot(Articolo*);
     void cancellaSlot(Articolo*);
     void infoSlot();
