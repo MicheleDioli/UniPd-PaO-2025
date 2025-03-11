@@ -48,6 +48,7 @@ void Json::salvaJsonLista(const ListaArticoli& l){
         QMessageBox::information(nullptr, "Unable to open file", file.errorString());
         return;
     }
+    setFileName(fileName);
     file.write(doc.toJson());
     file.close();
 }
@@ -55,12 +56,83 @@ void Json::salvaJsonLista(const ListaArticoli& l){
 void Json::importa(ListaArticoli* l){
     JsonImporter importer;
     importer.importa(l);
+
 }
 
-void Json::salvaSN(const Articolo& a){
-    QJsonObject obj = salva(a);
-    QJsonDocument doc(obj);
-    QFile file(getFileName());
-    file.write(doc.toJson());
+void Json::salvaSNLista(const ListaArticoli& l,QString fileNameInput){
+    QString fileName = fileNameInput;
+    if (fileName.isEmpty()) {
+        QMessageBox::warning(nullptr, "File non selezionato", "Nessun file JSON selezionato per l'aggiornamento.");
+        return;
+    }
+
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(nullptr, "Errore", "Impossibile aprire il file per la lettura: " + file.errorString());
+        return;
+    }
+
+    QByteArray fileData = file.readAll();
+    file.close();
+
+    QJsonDocument doc = QJsonDocument::fromJson(fileData);
+    if (doc.isNull()) {
+        QMessageBox::warning(nullptr, "Errore", "Formato JSON non valido.");
+        return;
+    }
+
+    QJsonObject obj = doc.object();
+
+    QJsonObject updatedObj = salvaLista(l);
+    for (const QString& key : updatedObj.keys()) {
+        obj[key] = updatedObj[key];
+    }
+
+    if (!file.open(QIODevice::WriteOnly)) {
+        QMessageBox::warning(nullptr, "Errore", "Impossibile aprire il file per la scrittura: " + file.errorString());
+        return;
+    }
+    QJsonDocument updatedDoc(obj);
+    file.write(updatedDoc.toJson());
+    file.close();
+}
+
+void Json::salvaSN(const Articolo& a,QString fileNameInput){
+    QString fileName = fileNameInput;
+    if (fileName.isEmpty()) {
+        QMessageBox::warning(nullptr, "File non selezionato", "Nessun file JSON selezionato per l'aggiornamento.");
+        return;
+    }
+
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(nullptr, "Errore", "Impossibile aprire il file per la lettura: " + file.errorString());
+        return;
+    }
+
+    QByteArray fileData = file.readAll();
+    file.close();
+
+    QJsonDocument doc = QJsonDocument::fromJson(fileData);
+    if (doc.isNull()) {
+        QMessageBox::warning(nullptr, "Errore", "Formato JSON non valido.");
+        return;
+    }
+
+    QJsonObject obj = doc.object();
+
+    QJsonObject updatedObj = salva(a);
+    for (const QString& key : updatedObj.keys()) {
+        obj[key] = updatedObj[key];
+    }
+
+    if (!file.open(QIODevice::WriteOnly)) {
+        QMessageBox::warning(nullptr, "Errore", "Impossibile aprire il file per la scrittura: " + file.errorString());
+        return;
+    }
+    QJsonDocument updatedDoc(obj);
+    file.write(updatedDoc.toJson());
     file.close();
 }

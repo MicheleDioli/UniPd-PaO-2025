@@ -16,6 +16,7 @@ void ListaArticoli::removeArticolo(Articolo* a) {
     for (auto it = articoliL.begin(); it != articoliL.end(); ++it) {
         if ((*it)->getCodice() == a->getCodice()) {
             articoliL.erase(it);
+            articoliS.erase(a->getCodice());
             return;
         }
     }
@@ -59,4 +60,16 @@ bool ListaArticoli::checkSalvato(Articolo* a) {
     if(articoliS.find(a->getCodice()) != articoliS.end())
         return true;
     return false;
+}
+
+std::string ListaArticoli::getPath(Articolo* a) {
+    return articoliS[a->getCodice()];
+}
+
+std::string ListaArticoli::getListaPath()const{
+    return listaPath;
+}
+
+void ListaArticoli::setListaPath(std::string s){
+    listaPath = s;
 }

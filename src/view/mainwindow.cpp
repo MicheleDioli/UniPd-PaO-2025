@@ -38,8 +38,8 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     main->addLayout(toll);
     main->addWidget(f);
 
-    QStatusBar* status = new QStatusBar();
-    status->showMessage("Status bar: ");
+    status = new QStatusBar();
+    status->showMessage("Status bar: ...");
     status->setStyleSheet("QStatusBar {border: 1px solid black; border-radius: 5px;}");
     main->addWidget(status);
 
@@ -71,11 +71,17 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void MainWindow::salvaListaSlot() {
-  	for (auto it : l->getArticoli()) {
-		std::cout << it->getTitolo() << std::endl;
-    }
     Json json;
-    json.salvaJsonLista(*l);
+    pathLista = l->getListaPath();
+    if (pathLista == ""){
+        json.salvaJsonLista(*l);
+        messaggio = "Lista salvata";
+        status->showMessage(messaggio.c_str());
+        pathLista = json.getFileName().toStdString();
+        std::cout << pathLista << std::endl;
+    } else {
+        json.salvaSNLista(*l, QString::fromStdString(pathLista));
+        }
 }
 
 void MainWindow::nuovoClicked() {
@@ -85,6 +91,8 @@ void MainWindow::nuovoClicked() {
 void MainWindow::nuovoSalvato() {
   	stack->setCurrentWidget(widgetmain);
   	f->aggiorna();
+    messaggio = "Articolo creato con successo";
+    status->showMessage(messaggio.c_str());
 }
 
 void MainWindow::annullatoClicked() {
@@ -138,9 +146,11 @@ void MainWindow::salvaSlot(Articolo* a) {
     }
 
     if(l->checkSalvato(a)){
-        json.salvaSN(*a);
+        json.salvaSN(*a, QString::fromStdString(l->getPath(a)));
     }
 
+    messaggio = "Articolo salvato";
+    status->showMessage(messaggio.c_str());
 }
 
 void MainWindow::cancellaSlot(Articolo* a) {
@@ -149,17 +159,21 @@ void MainWindow::cancellaSlot(Articolo* a) {
     f->aggiorna();
     delete a;
     }
+    messaggio = "Articolo cancellato";
+    status->showMessage(messaggio.c_str());
 }
 
 void MainWindow::importaSlot() {
     Json j;
     j.importa(l);
     f->aggiorna();
+    messaggio = "Importata effettuato con successo";
+    status->showMessage(messaggio.c_str());
 }
 
 void MainWindow::infoSlot() {
     QMessageBox *msg = new QMessageBox();
-    msg->setText("Per creare un nuovo articolo\n -> CTRL + N\nPer importare un articolo\n -> CTRL + O\nPer salvare un articolo\n -> CTRL + S\n");
+    msg->setText("Per creare un nuovo articolo\n -> CTRL + N\nPer importare un articolo o lista\n -> CTRL + O\nPer salvare una lista\n -> CTRL + S\n");
     QPixmap image(":/asset/icon/info.png");
     msg->setIconPixmap(image);
     msg->show();
@@ -171,10 +185,13 @@ void MainWindow::modificaSlot(Articolo* a) {
     connect(edit, &Edit::modificheConfermate, this, &MainWindow::confermaModifica);
     stack->addWidget(edit);
     stack->setCurrentWidget(edit);
+
 }
 
 void MainWindow::confermaModifica() {
     std::cout << "confermaModifica" << std::endl;
     stack->setCurrentWidget(widgetmain);
     f->aggiorna();
+    messaggio = "Modifica effettuata con successo";
+    status->showMessage(messaggio.c_str());
 }

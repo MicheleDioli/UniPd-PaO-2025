@@ -150,12 +150,14 @@ void JsonImporter::importa(ListaArticoli* l) {
                 auto check = l->controlla(articolo);
                 if (check == 0)
                     l->addArticolo(articolo);
+                    l->salvaMappa(fileName.toStdString(), articolo);
                 if (check == -1)
                     error->showMessage("Errore", "Articolo con Codice già esistente");
                 if (check == -2)
                     error->showMessage("Errore", "Articolo con Titolo, Genere e Anno già esistente");
             }
         }
+        l->setListaPath(fileName.toStdString());
         return;
     }
 
@@ -168,5 +170,5 @@ void JsonImporter::importa(ListaArticoli* l) {
     }
 
     l->addArticolo(articolo);
-
+    l->salvaMappa(fileName.toStdString(), articolo);
 }

@@ -19,8 +19,11 @@ private:
     QPushButton* indietro;
     FiltroLayout* f;
     QStackedLayout* stack;
+    QStatusBar* status;
     Nuovo* s;
     std::list<Articolo*> articoli;
+    std::string messaggio;
+    std::string pathLista;
     ListaArticoli* l;
     ListaQT* LQ;
     QToolBar* barra;
