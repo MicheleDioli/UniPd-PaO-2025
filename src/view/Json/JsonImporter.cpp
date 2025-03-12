@@ -148,14 +148,14 @@ void JsonImporter::importa(ListaArticoli* l) {
             Articolo* articolo = createArticolo(type, obj);
             if (articolo) {
                 auto check = l->controlla(articolo);
-                if (check == 0)
+                if (check == 0){
                     l->addArticolo(articolo);
                     l->salvaMappa(fileName.toStdString(), articolo);
-                if (check == -1)
-                    error->showMessage("Errore", "Articolo con Codice già esistente");
-                if (check == -2)
-                    error->showMessage("Errore", "Articolo con Titolo, Genere e Anno già esistente");
-            }
+                }
+                if (check == -1){
+                    error->showMessage("Errore", "Articolo con Codice già esistente");return;}
+                if (check == -2){
+                    error->showMessage("Errore", "Articolo con Titolo, Genere e Anno già esistente");return;}           }
         }
         l->setListaPath(fileName.toStdString());
         return;

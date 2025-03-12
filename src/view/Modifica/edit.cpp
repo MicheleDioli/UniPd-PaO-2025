@@ -3,14 +3,23 @@
 Edit::Edit(QWidget *parent)
     : QWidget(parent), currentEditor(nullptr), articoloCorrente(nullptr) {
     layout = new QVBoxLayout(this);
+    
+    confermaButton = new QPushButton("Salva Modifiche");
+    indietroButton = new QPushButton();
+    indietroButton->setIcon(QIcon(QPixmap(":/asset/icon/indietro.png")));
+    indietroButton->adjustSize(); 
 
-    // Pulsante di conferma
-    confermaButton = new QPushButton("Salva Modifiche", this);
+    layout->addWidget(indietroButton,0,Qt::AlignLeft);
     layout->addWidget(confermaButton);
 
-    connect(confermaButton, &QPushButton::clicked,
-            this, &Edit::salvaModifiche);
+    connect(confermaButton, &QPushButton::clicked,this, &Edit::salvaModifiche);
+    connect(indietroButton, &QPushButton::clicked,this, &Edit::indietroclic);
 }
+
+void Edit::indietroclic(){
+    emit indietrosignal();
+}
+
 
 void Edit::setArticolo(Articolo *articolo) {
 
@@ -26,13 +35,12 @@ void Edit::setArticolo(Articolo *articolo) {
         articolo->accept(visitor);
         currentEditor = visitor.getEditor();
 
-        if(currentEditor) {
-            layout->insertWidget(0, currentEditor);
-        }
+        if(currentEditor) 
+            layout->insertWidget(1, currentEditor); 
     }
 }
 
-void Edit::salvaModifiche() {
+void Edit::salvaModifiche(){
     if(currentEditor && articoloCorrente) {
         currentEditor->edit(articoloCorrente);
         emit modificheConfermate();

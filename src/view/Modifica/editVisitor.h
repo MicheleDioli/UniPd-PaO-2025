@@ -20,7 +20,6 @@ class editVisitor : public VisitorInterface {
 private:
     ModificaArticolo* editor;
 public:
-    // Implementazione di TUTTI i metodi dell'interfaccia
      void visitLibro(Libro&);
      void visitRivista(Rivista&);
      void visitFilm(Film&);

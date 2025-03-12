@@ -34,7 +34,7 @@ private:
     QLineEdit *produttoreInput;
 
     Film* film;
-    ListaArticoli* lista;
+    ListaArticoli lista;
 
     QPushButton *confermaButton;
 

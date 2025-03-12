@@ -29,8 +29,10 @@ public slots:
     void cancellaclic();
     void dettagliclic();
     void modificaclic();
+    void salvaCNclic();
 private:
     QAction* Asalva;
+    QAction* AsalvaCN;
     QAction* Acancella;
     QAction* Adettagli;
     QAction* Amodifica;
@@ -38,6 +40,7 @@ private:
 
     Articolo* articolo;
 signals:
+    void salvaCN(Articolo*);
     void clicked(Articolo*);
     void salva(Articolo*);
     void cancella(Articolo*);

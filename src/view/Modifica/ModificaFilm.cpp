@@ -91,18 +91,18 @@ void ModificaFilm::edit(Articolo* a) {
     film->setAttori(attoriInput->text().toStdString());
     film->setProduttore(produttoreInput->text().toStdString());
 
-    auto check = lista->controlla(film);
+    int check = lista.controlla(film);
 
     if(check == 0) {
         return;
     } else if(check == -1) {
         codiceInput->clear();
         codiceInput->setFocus();
-        return;
+    
     } else if(check == -2) {
         titoloInput->clear();
         titoloInput->setFocus();
-        return;
+    
     }
 
 }

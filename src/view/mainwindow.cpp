@@ -183,6 +183,7 @@ void MainWindow::modificaSlot(Articolo* a) {
     Edit* edit = new Edit(this);
     edit->setArticolo(a);
     connect(edit, &Edit::modificheConfermate, this, &MainWindow::confermaModifica);
+    connect(edit, &Edit::indietrosignal, this, &MainWindow::annullatoClicked);
     stack->addWidget(edit);
     stack->setCurrentWidget(edit);
 

@@ -15,13 +15,16 @@ public:
 
     signals:
         void modificheConfermate();
+        void indietrosignal();
 
     private slots:
+        void indietroclic();
         void salvaModifiche();
 
 private:
     QVBoxLayout *layout;
     QPushButton *confermaButton;
+    QPushButton *indietroButton;
     ModificaArticolo *currentEditor;
     Articolo *articoloCorrente;
 };
