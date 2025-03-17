@@ -1,82 +1,100 @@
-//
-// Created by Michele Dioli on 2/2/25.
-//
 #include "ModificaRivista.h"
 
-ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista) : ModificaArticolo(parent), rivista(rivista) {
-    layout = new QVBoxLayout(this);
+ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista)
+    : ModificaArticolo(parent), rivista(rivista) {
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    mainLayout->setContentsMargins(10, 10, 10, 10);
+    mainLayout->setSpacing(15);
 
-	layout->addWidget(new QLabel("Codice:"));
-    codiceInput = new QLineEdit();
-    codiceInput->setText(QString::fromStdString(rivista->getCodice()));
-    layout->addWidget(codiceInput);
+    if (!rivista) {
+        qWarning() << "Rivista nulla in ModificaRivista!";
+        return;
+    }
 
-    layout->addWidget(new QLabel("Titolo:"));
-    titoloInput = new QLineEdit();
-    titoloInput->setText(QString::fromStdString(rivista->getTitolo()));
-    layout->addWidget(titoloInput);
+    // Dettagli Generali
+    QGroupBox* generalGroup = new QGroupBox("Dettagli Generali", this);
+    QFormLayout* formGeneral = new QFormLayout(generalGroup);
+    formGeneral->setContentsMargins(10, 15, 10, 15);
+    formGeneral->setSpacing(8);
+    formGeneral->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
 
-    layout->addWidget(new QLabel("Descrizione:"));
-    descrizioneInput = new QLineEdit();
-    descrizioneInput->setText(QString::fromStdString(rivista->getDescrizione()));
-    layout->addWidget(descrizioneInput);
+    codiceInput = createLineEdit(QString::fromStdString(rivista->getCodice()), "Codice univoco identificativo");
+    titoloInput = createLineEdit(QString::fromStdString(rivista->getTitolo()), "Titolo della rivista");
+    descrizioneInput = createLineEdit(QString::fromStdString(rivista->getDescrizione()), "Descrizione sintetica");
+    genereInput = new QComboBox();
+    genereInput->addItems({"Fantascenza", "Giallo", "Horror", "Scienza", "Storico", "Thriller"});
+    genereInput->setCurrentText(QString::fromStdString(rivista->getGenere()));
 
-    layout->addWidget(new QLabel("Genere:"));
-    genereInput = new QLineEdit();
-    genereInput->setText(QString::fromStdString(rivista->getGenere()));
-    layout->addWidget(genereInput);
-
-    layout->addWidget(new QLabel("Anno:"));
     annoInput = new QDateEdit();
-    annoInput->setDate(QDate(rivista->getAnno(),1,1));
+    annoInput->setDate(QDate(rivista->getAnno(), 1, 1));
     annoInput->setDisplayFormat("yyyy");
-    layout->addWidget(annoInput);
+    annoInput->setToolTip("Anno di pubblicazione");
 
-    layout->addWidget(new QLabel("Copie:"));
     copieInput = new QSpinBox();
+    copieInput->setRange(0, 999);
     copieInput->setValue(rivista->getCopie());
-    layout->addWidget(copieInput);
+    copieInput->setToolTip("Numero di copie disponibili");
 
-    layout->addWidget(new QLabel("Lingua:"));
-    linguaInput = new QLineEdit();
-    linguaInput->setText(QString::fromStdString(rivista->getLingua()));
-    layout->addWidget(linguaInput);
+    formGeneral->addRow("Codice:", codiceInput);
+    formGeneral->addRow("Titolo:", titoloInput);
+    formGeneral->addRow("Descrizione:", descrizioneInput);
+    formGeneral->addRow("Genere:", genereInput);
+    formGeneral->addRow("Anno:", annoInput);
+    formGeneral->addRow("Copie:", copieInput);
 
-    layout->addWidget(new QLabel("Periodicita:"));
+    // Dettagli Specifici Rivista
+    QGroupBox* detailsGroup = new QGroupBox("Dettagli Rivista", this);
+    QFormLayout* formDetails = new QFormLayout(detailsGroup);
+    formDetails->setContentsMargins(10, 15, 10, 15);
+    formDetails->setSpacing(8);
+
+    linguaInput = new QComboBox();
+    linguaInput->addItems({"Italiano", "Inglese", "Spagnolo", "Francese", "Tedesco"});
+    linguaInput->setCurrentText(QString::fromStdString(rivista->getLingua()));
     periodicitaInput = new QSpinBox();
     periodicitaInput->setRange(1, 31);
     periodicitaInput->setValue(rivista->getIntervalloPubblicazione());
-    layout->addWidget(periodicitaInput);
+    periodicitaInput->setToolTip("Giorni tra le pubblicazioni");
+    periodicitaInput->setSuffix(" giorni");
 
-    layout->addWidget(new QLabel("Edizione:"));
     numeroInput = new QSpinBox();
     numeroInput->setRange(1, 99);
     numeroInput->setValue(rivista->getEdizione());
-    layout->addWidget(numeroInput);
+    numeroInput->setToolTip("Numero edizione corrente");
 
-    layout->addWidget(new QLabel("Editore Rivista:"));
-    editoreRivistaInput = new QLineEdit();
-    editoreRivistaInput->setText(QString::fromStdString(rivista->getEditore()));
-    layout->addWidget(editoreRivistaInput);
-
-    layout->addWidget(new QLabel("Pagine Rivista:"));
+    editoreRivistaInput = createLineEdit(QString::fromStdString(rivista->getEditore()), "Editore responsabile");
     pagineRivistaInput = new QSpinBox();
     pagineRivistaInput->setRange(1, 1999);
     pagineRivistaInput->setValue(rivista->getPagine());
-    layout->addWidget(pagineRivistaInput);
+    pagineRivistaInput->setSuffix(" pagine");
+    pagineRivistaInput->setToolTip("Numero totale di pagine");
 
-    layout->addWidget(new QLabel("Difficolta:"));
     difficoltaInput = new QSpinBox();
-    difficoltaInput->setValue(rivista->getDifficolta());
     difficoltaInput->setRange(1, 5);
+    difficoltaInput->setValue(rivista->getDifficolta());
+    difficoltaInput->setToolTip("Livello complessitá (1=base, 5=avanzato)");
 
-    layout->addWidget(difficoltaInput);
+    pubblicatoreInput = createLineEdit(QString::fromStdString(rivista->getPubblicatore()), "Ente pubblicatore");
 
-    layout->addWidget(new QLabel("Pubblicatore:"));
-    pubblicatoreInput = new QLineEdit();
-    pubblicatoreInput->setText(QString::fromStdString(rivista->getPubblicatore()));
-    layout->addWidget(pubblicatoreInput);
+    formDetails->addRow("Lingua:", linguaInput);
+    formDetails->addRow("Periodicità:", periodicitaInput);
+    formDetails->addRow("Edizione:", numeroInput);
+    formDetails->addRow("Editore:", editoreRivistaInput);
+    formDetails->addRow("Pagine:", pagineRivistaInput);
+    formDetails->addRow("Difficoltà:", difficoltaInput);
+    formDetails->addRow("Pubblicatore:", pubblicatoreInput);
 
+    mainLayout->addWidget(generalGroup);
+    mainLayout->addWidget(detailsGroup);
+    mainLayout->addStretch();
+}
+
+QLineEdit* ModificaRivista::createLineEdit(const QString& text, const QString& tooltip) {
+    QLineEdit* edit = new QLineEdit(text);
+    edit->setPlaceholderText("...");
+    edit->setToolTip(tooltip);
+    edit->setMinimumWidth(250);
+    return edit;
 }
 
 void ModificaRivista::edit(Articolo* a) {
@@ -84,8 +102,8 @@ void ModificaRivista::edit(Articolo* a) {
     rivista->setCodice(codiceInput->text().toStdString());
     rivista->setTitolo(titoloInput->text().toStdString());
     rivista->setDescrizione(descrizioneInput->text().toStdString());
-    rivista->setGenere(genereInput->text().toStdString());
-    rivista->setLingua(linguaInput->text().toStdString());
+    rivista->setGenere(genereInput->currentText().toStdString());
+    rivista->setLingua(linguaInput->currentText().toStdString());
     rivista->setAnno(annoInput->date().year());
     rivista->setCopie(copieInput->value());
     rivista->setIntervalloPubblicazione(periodicitaInput->value());

@@ -1,7 +1,3 @@
-//
-// Created by Michele Dioli on 2/2/25.
-//
-
 #ifndef MODIFICAARTICOLO_H
 #define MODIFICAARTICOLO_H
 
@@ -12,6 +8,9 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QGroupBox>
+#include <QFormLayout>
+#include <QComboBox>
 
 #include "../../Articolo.h"
 #include "../../Film.h"

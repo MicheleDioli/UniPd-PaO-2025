@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QVBoxLayout>
+#include <QComboBox>
 
 
 class ModificaFilm : public ModificaArticolo {
@@ -22,8 +23,8 @@ private:
     QLineEdit *codiceInput;
     QLineEdit *titoloInput;
     QLineEdit *descrizioneInput;
-    QLineEdit *genereInput;
-    QLineEdit *linguaInput;
+    QComboBox *genereInput;
+    QComboBox *linguaInput;
     QDateEdit *annoInput;
     QSpinBox *copieInput;
 

@@ -5,18 +5,22 @@
 #define MODIFICALIBRO_H
 
 #include "ModificaArticolo.h"
+#include <QFormLayout>
+
+#include"../Sensoriqt/ListaArticoli.h"
 
 class ModificaLibro : public ModificaArticolo {
     Q_OBJECT
 private:
+    QLineEdit* createLineEdit(const QString& text, const QString& tooltip);
     QVBoxLayout* layout = new QVBoxLayout();
 
     //asstratta
     QLineEdit *codiceInput;
     QLineEdit *titoloInput;
     QLineEdit *descrizioneInput;
-    QLineEdit *genereInput;
-    QLineEdit *linguaInput;
+    QComboBox *genereInput;
+    QComboBox *linguaInput;
     QDateEdit *annoInput;
     QSpinBox *copieInput;
 
@@ -27,6 +31,7 @@ private:
     QSpinBox *capitoliInput;
 
     Libro* libro;
+    ListaArticoli l;
 
     QPushButton *confermaButton;
 

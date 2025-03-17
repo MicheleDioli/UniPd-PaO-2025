@@ -15,7 +15,7 @@ void Cliccabile::MostraMenu(const QPoint& pos) {
     Asalva = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))), "Salva", this);
     menu.addAction(Asalva);
     AsalvaCN = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))), "Salva con salva", this);
-    menu.addAction(AsalvaCN);
+    //menu.addAction(AsalvaCN);
     Acancella = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))), "Cancella", this);
     menu.addAction(Acancella);
     Adettagli = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))), "Mostra dettagli", this);

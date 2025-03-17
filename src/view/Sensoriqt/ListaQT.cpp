@@ -1,12 +1,12 @@
 #include "ListaQT.h"
 
 ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
-  	QGroupBox *gruppo = new QGroupBox();
-	QVBoxLayout *tmp = new QVBoxLayout(gruppo);
-QLabel *l = new QLabel(
+  	gruppo = new QGroupBox();
+	tmp = new QVBoxLayout(gruppo);
+    l = new QLabel(
     "Per creare un nuovo Articolo -> <span style='color: blue;'><b>CTRL + N</b></span><br>"
     "Per importare un Articolo -> <span style='color: blue;'><b>CTRL + O</b></span>"
-);
+    );
 	l->setStyleSheet("QLabel { color: blue; }");
 
 	l->setStyleSheet("b { color: blue; }");
@@ -14,65 +14,7 @@ QLabel *l = new QLabel(
     tmp->addWidget(l);
     gruppo->setStyleSheet("QGroupBox {border: 1px solid grey; border-radius: 5px; margin-top: 1ex;}");
     layout->addWidget(gruppo);
-  /*
-    pulisciLayout(layout);
 
-    QScrollArea *scroll = new QScrollArea();
-    QWidget *widgetGriglia = new QWidget();
-    QGridLayout *gridLayout = new QGridLayout(widgetGriglia);
-    gridLayout->setSpacing(15);
-    scroll->setWidget(widgetGriglia);
-    scroll->setWidgetResizable(true);
-
-    QSlider *slider = new QSlider(Qt::Vertical);
-    slider->setSingleStep(1);
-
-    layout->addWidget(scroll);
-    layout->addWidget(slider);
-
-    int colonn = 3;
-    int i = 0;
-    for (auto a : articoli) {
-        ListaVisitor visitor;
-        a->accept(visitor);
-
-        Cliccabile* c = new Cliccabile(a);
-        c->setLayout(visitor.getLayout());
-
-        connect(c, &Cliccabile::clicked, this, &ListaQT::itemClicked);
-        connect(c, &Cliccabile::salva, this, &ListaQT::salva);
-        connect(c, &Cliccabile::cancella, this, &ListaQT::cancella);
-        connect(c, &Cliccabile::dettagli, this, &ListaQT::dettaglio);
-        connect(c, &Cliccabile::modifica, this, &ListaQT::modifica);
-
-        gridLayout->addWidget(c, i / colonn, i % colonn);
-        i++;
-    }
-
-    QVBoxLayout* tmp = new QVBoxLayout();
-    nuovo->setIcon(QIcon(":/asset/icon/nuovo.png"));
-    nuovo->setFixedSize(80, 80);
-    tmp->addWidget(nuovo);
-    QWidget* tmp2 = new QWidget();
-    tmp2->setLayout(tmp);
-    connect(nuovo, &QPushButton::clicked, this, &ListaQT::clicatoNuovo);
-
-    gridLayout->addWidget(tmp2, i / colonn, i % colonn);
-
-    QScrollBar *verticalScrollBar = scroll->verticalScrollBar();
-    slider->setMinimum(verticalScrollBar->minimum());
-    slider->setMaximum(verticalScrollBar->maximum());
-    slider->setPageStep(verticalScrollBar->pageStep());
-
-    connect(slider, &QSlider::valueChanged, verticalScrollBar, &QScrollBar::setValue);
-    connect(verticalScrollBar, &QScrollBar::valueChanged, slider, &QSlider::setValue);
-
-    scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    widgetGriglia->setStyleSheet("{border: 1px white; border-radius: 5px; margin-top: 1ex;}");
-    //widgetGriglia->viewport()->setStyleSheet("background: transparent;");
-
-   */
 }
 
 void ListaQT::clicatoNuovo() {
@@ -90,7 +32,7 @@ QHBoxLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
     QScrollArea *scrollArea = new QScrollArea();
     QWidget *contentWidget = new QWidget();
     QGridLayout *gridLayout = new QGridLayout(contentWidget);
-    gridLayout->setSpacing(15);
+    gridLayout->setSpacing(10);
     scrollArea->setWidget(contentWidget);
     scrollArea->setWidgetResizable(true);
 
@@ -109,6 +51,7 @@ QHBoxLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
         Cliccabile* c = new Cliccabile(a);
         c->minimumSize();
         c->setLayout(visitor.getLayout());
+        c->minimumSizeHint();
 
         connect(c, &Cliccabile::clicked, this, &ListaQT::itemClicked);
         connect(c, &Cliccabile::salva, this, &ListaQT::salva);
@@ -121,9 +64,12 @@ QHBoxLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
     }
 
     QVBoxLayout* tmp = new QVBoxLayout();
-    nuovo->setIcon(QIcon(":/asset/icon/nuovo.png"));
-    nuovo->setFixedSize(80, 80);
-    tmp->addWidget(nuovo);
+    QPixmap pixmap(":/asset/icon/nuovo.png");
+    nuovo->setFixedSize(100, 100);
+	QIcon icon(pixmap.scaled(500, 500, Qt::KeepAspectRatio));
+	nuovo->setIcon(icon);
+    //nuovo->setStyleSheet("QPushButton {background-color:;}");
+    tmp->addWidget(nuovo,0,Qt::AlignCenter);
     QWidget* tmp2 = new QWidget();
     tmp2->setLayout(tmp);
     connect(nuovo, &QPushButton::clicked, this, &ListaQT::clicatoNuovo);
@@ -139,7 +85,7 @@ QHBoxLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
     connect(verticalScrollBar, &QScrollBar::valueChanged, slider, &QSlider::setValue);
 
     //widgetGriglia->setStyleSheet("{border: 1px white; border-radius: 5px; margin-top: 1ex;}");
-    scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    //scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);<
 
     return layout;
 

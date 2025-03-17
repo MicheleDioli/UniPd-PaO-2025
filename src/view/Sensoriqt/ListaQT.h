@@ -29,6 +29,9 @@ class ListaQT : public QWidget {
 private:
    QHBoxLayout* layout = new QHBoxLayout(this);
     QPushButton* nuovo = new QPushButton();
+    QLabel *l;
+    QVBoxLayout *tmp;
+    QGroupBox *gruppo;
     std::list<Articolo*> articoli;
 public:
     ListaQT(std::list<Articolo*> articoli = {});

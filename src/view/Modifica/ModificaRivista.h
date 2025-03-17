@@ -1,23 +1,21 @@
-//
-// Created by Michele Dioli on 2/2/25.
-//
-
 #ifndef MODIFICARIVISTA_H
 #define MODIFICARIVISTA_H
 
 #include "ModificaArticolo.h"
+#include <QFormLayout>
 
 class ModificaRivista : public ModificaArticolo {
     Q_OBJECT
 private:
+    QLineEdit* createLineEdit(const QString& text, const QString& tooltip);
     QVBoxLayout* layout = new QVBoxLayout();
 
     //asstratta
     QLineEdit *codiceInput;
     QLineEdit *titoloInput;
     QLineEdit *descrizioneInput;
-    QLineEdit *genereInput;
-    QLineEdit *linguaInput;
+    QComboBox *genereInput;
+    QComboBox *linguaInput;
     QDateEdit *annoInput;
     QSpinBox *copieInput;
 

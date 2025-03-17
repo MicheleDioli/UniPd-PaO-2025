@@ -195,6 +195,8 @@ QHBoxLayout* Nuovo::creaRivista() {
     infoR2->addRow("Pubblicatore:", pubblicatore);
     infoR1->addRow("Edizione:", edizione);
     infoR2->addRow("Intervallo Pubblicazione:", intervalloPubblicazione);
+    infoR1->addRow("Difficoltà:", difficolta);
+    infoR2->addRow("Pagine:", pagine);
 
     creaLayout->addLayout(infoR1);
     creaLayout->addLayout(infoR2);

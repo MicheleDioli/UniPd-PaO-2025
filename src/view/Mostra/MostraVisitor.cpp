@@ -167,7 +167,7 @@ void MostraVisitor::visitRivista(Rivista& r) {
     difficolta->setAlignment(Qt::AlignCenter);
     difficolta->setStyleSheet("num {margin-left: 10px;}");
 
-    QLabel* velocita = new QLabel("Velocita di lettura: " + QString::number(r.velocitaLettura()) + " pagine/minuto");
+    QLabel* velocita = new QLabel("Velocita di lettura: " + QString::number(r.velocitaLettura()) + " minuti stimati");
     velocita->setAlignment(Qt::AlignCenter);
 
     velocita->setStyleSheet(

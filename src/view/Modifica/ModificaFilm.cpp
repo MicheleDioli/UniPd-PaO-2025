@@ -20,7 +20,9 @@ ModificaFilm::ModificaFilm(QWidget* parent, Film* film)
     codiceInput = createLineEdit(QString::fromStdString(film->getCodice()), "Codice univoco identificativo");
     titoloInput = createLineEdit(QString::fromStdString(film->getTitolo()), "Titolo del film");
     descrizioneInput = createLineEdit(QString::fromStdString(film->getDescrizione()), "Descrizione sintetica");
-    genereInput = createLineEdit(QString::fromStdString(film->getGenere()), "Genere cinematografico");
+    genereInput = new QComboBox();
+    genereInput->addItems({"Fantascenza", "Giallo", "Horror", "Scienza", "Storico", "Thriller"});
+    genereInput->setCurrentText(QString::fromStdString(film->getGenere()));
 
     annoInput = new QDateEdit();
     annoInput->setDate(QDate(film->getAnno(), 1, 1));
@@ -44,8 +46,10 @@ ModificaFilm::ModificaFilm(QWidget* parent, Film* film)
     formDetails->setContentsMargins(10, 15, 10, 15);
     formDetails->setSpacing(8);
 
-    linguaInput = createLineEdit(QString::fromStdString(film->getLingua()), "Lingua originale");
-    registaInput = createLineEdit(QString::fromStdString(film->getRegista()), "Regista principale");
+    linguaInput = new QComboBox();
+    linguaInput->addItems({"Italiano", "Inglese", "Spagnolo", "Francese", "Tedesco"});
+    linguaInput->setCurrentText(QString::fromStdString(film->getLingua()));
+    registaInput = createLineEdit(QString::fromStdString(film->getRegista()), "Regista ");
 
     durataInput = new QSpinBox();
     durataInput->setRange(1, 999);
@@ -82,10 +86,10 @@ void ModificaFilm::edit(Articolo* a) {
     film->setCodice(codiceInput->text().toStdString());
     film->setTitolo(titoloInput->text().toStdString());
     film->setDescrizione(descrizioneInput->text().toStdString());
-    film->setGenere(genereInput->text().toStdString());
+    film->setGenere(genereInput->currentText().toStdString());
     film->setAnno(annoInput->date().year());
     film->setCopie(copieInput->value());
-    film->setLingua(linguaInput->text().toStdString());
+    film->setLingua(linguaInput->currentText().toStdString());
     film->setRegista(registaInput->text().toStdString());
     film->setDurata(durataInput->value());
     film->setAttori(attoriInput->text().toStdString());

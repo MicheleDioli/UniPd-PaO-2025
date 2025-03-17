@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <list>
+
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     stack = new QStackedLayout(this);
 
@@ -20,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
     QAction *nuovo = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))),"CreaNuovo");
     QAction *importa = new QAction(QIcon(QPixmap((":/asset/icon/apri.png"))),"Importa");
-    QAction *salvan = new QAction(QIcon(QPixmap((":/asset/icon/salvaJson.png"))),"salva con nome");
+    QAction *salvan = new QAction(QIcon(QPixmap((":/asset/icon/salva.png"))),"salva con nome");
     QAction *info = new QAction(QIcon(QPixmap((":/asset/icon/info.png"))),"Info");
 
     nuovo->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_N));
@@ -180,13 +181,12 @@ void MainWindow::infoSlot() {
 }
 
 void MainWindow::modificaSlot(Articolo* a) {
-    Edit* edit = new Edit(this);
+    Edit* edit = new Edit(this,l);
     edit->setArticolo(a);
     connect(edit, &Edit::modificheConfermate, this, &MainWindow::confermaModifica);
     connect(edit, &Edit::indietrosignal, this, &MainWindow::annullatoClicked);
     stack->addWidget(edit);
     stack->setCurrentWidget(edit);
-
 }
 
 void MainWindow::confermaModifica() {

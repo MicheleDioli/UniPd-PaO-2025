@@ -119,6 +119,7 @@ void FiltroLayout::nuovoSalvato(){
 }
 
 void FiltroLayout::aggiorna() {
+
     lista = l->getArticoli(l1->getArticoli());
     layout2->addLayout(lista);
     layout->addLayout(layout2);
