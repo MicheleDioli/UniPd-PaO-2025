@@ -23,6 +23,7 @@ public:
   std::string getPath(Articolo*);
   int controlla(Articolo*);
   void clear();
+  std::list<Articolo*> ordinaLista(std::list<Articolo*>,char);
   ~ListaArticoli();
 };
 

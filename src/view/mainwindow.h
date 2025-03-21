@@ -12,6 +12,10 @@
 #include <QMessageBox>
 #include <QStackedLayout>
 #include <QStatusBar>
+#include <QDebug>
+
+#include <iostream>
+#include <list>
 
 class MainWindow : public QWidget {
     Q_OBJECT
@@ -34,8 +38,8 @@ private:
     QWidget* modifica;
 public:
     MainWindow(QWidget *parent = nullptr);
-    public slots:
-        void nuovoClicked();
+public slots:
+    void nuovoClicked();
     void nuovoSalvato();
     void annullatoClicked();
     void mostaArticolo(Articolo*);
@@ -46,6 +50,10 @@ public:
     void importaSlot();
     void modificaSlot(Articolo*);
     void confermaModifica();
+signals:
+    void modificaSignal(Articolo*);
+public slots:
+    void modificaMainSlot(Articolo*);
 };
 
 #endif //MAINWINDOW_H

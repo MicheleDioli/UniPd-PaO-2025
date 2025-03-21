@@ -46,6 +46,7 @@ Nuovo::Nuovo(QWidget *parent, ListaArticoli *articoli) : QWidget(parent), artico
 
     anno->setRange(0, 2025);
     copie->setRange(0, 1000);
+    copie->setValue(1);
 
     infoA1->addRow(erroreTitolo);
     infoA1->addRow("Titolo:", titolo);
@@ -136,6 +137,7 @@ QHBoxLayout* Nuovo::creaFilm() {
     attore = new QLineEdit();
     produttore = new QLineEdit();
     durata = new QSpinBox();
+    durata->setValue(1);
     durata->setRange(0, 999);
 
     infoF1->addRow("Regista:", regista);
@@ -161,6 +163,8 @@ QHBoxLayout* Nuovo::creaLibro() {
 
     capitoli->setRange(0, 999);
     pagine->setRange(0, 9999);
+    capitoli->setValue(1);
+    pagine->setValue(1);
 
     infoL1->addRow("Casa Editrice:", casaEditrice);
     infoL1->addRow("Autore:", autore);
@@ -187,8 +191,9 @@ QHBoxLayout* Nuovo::creaRivista() {
 
 
     pagine->setRange(0,9999);
+    pagine->setValue(1);
     difficolta->setRange(1,5);
-    edizione->setRange(0, 999);
+    edizione->setRange(1, 999);
     intervalloPubblicazione->addItems({"Mensile", "Bimestrale", "Trimestrale", "Semestrale", "Annuale"});
 
     infoR1->addRow("Editore:", editore);
@@ -216,6 +221,7 @@ void Nuovo::salvataggio() {
             if (articoli->controlla(f) == 0){
                 articoli->addArticolo(f);
                 label->setText("Articolo salvato");
+                titolo->clear(); codice->clear(); descrizione->clear(); regista->clear(); durata->clear(); attore->clear(); produttore->clear();
 				emit salvaClicked();
             } else {
             	if (articoli->controlla(f) == -1){
@@ -236,6 +242,7 @@ void Nuovo::salvataggio() {
             if (articoli->controlla(lili) == 0){
                 articoli->addArticolo(lili);
                 label->setText("Articolo salvato");
+                titolo->clear(); codice->clear(); descrizione->clear(); casaEditrice->clear(); capitoli->clear(); pagine->clear(); autore->clear();
 				emit salvaClicked();
             } else {
                 if (articoli->controlla(lili) == -1){
@@ -258,6 +265,7 @@ void Nuovo::salvataggio() {
             if (articoli->controlla(r) == 0){
                 articoli->addArticolo(r);
                 label->setText("Articolo salvato");
+                titolo->clear(); codice->clear(); descrizione->clear(); editore->clear(); pubblicatore->clear(); edizione->clear(); difficolta->clear(); pagine->clear();
 				emit salvaClicked();
             } else {
 				if (articoli->controlla(r) == -1){

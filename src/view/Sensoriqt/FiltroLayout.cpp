@@ -1,21 +1,11 @@
 #include "FiltroLayout.h"
 
 FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent), l1(LA) {
+
     main = new QVBoxLayout(this);
 
     std::list<Articolo*> art;
-/*
-    l1->addArticolo(new Rivista("Rivista ah","codice", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
-    l1->addArticolo(new Rivista("Rivista a","codice1", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
-    l1->addArticolo(new Rivista("Rivista","codice2", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
-    l1->addArticolo(new Rivista("Rivist","codice3", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
-    l1->addArticolo(new Rivista("Rivis","codice4", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
-    l1->addArticolo(new Rivista("Rivi","codice5", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
-    l1->addArticolo(new Rivista("Ri","codice6", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
-    l1->addArticolo(new Rivista("Rta ah","codice7", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
-    l1->addArticolo(new Rivista("R ah","codice8", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
-    l1->addArticolo(new Rivista("ivista ah","codice9", "descrizione", "genere", 2021, 10, "lingua", "editore", 100, "pubblicatore", 1, 1, 1));
-*/
+
     layout = new QVBoxLayout();
 
     layout2 = new QHBoxLayout();
@@ -43,8 +33,17 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     filtro->addItem("Riviste");
     filtro->addItem("Film");
 
+    QLabel* label3 = new QLabel("Ordina per:");
+
+    filtro2 = new QComboBox();
+    filtro2->addItem("Nome Z-A");
+    filtro2->addItem("Nome A-Z");
+
     filtri->addWidget(label2);
     filtri->addWidget(filtro);
+
+    filtri->addWidget(label3);
+    filtri->addWidget(filtro2);
 
     gruppoFiltri->setLayout(filtri);
     layout2->addWidget(gruppoFiltri);
@@ -77,6 +76,8 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     connect(l, &ListaQT::cancellaclic, this, &FiltroLayout::cancellaSlot);
     connect(l, &ListaQT::modificlic, this, &FiltroLayout::modificaSlot);
 
+    connect(filtro2, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::filtraggio);
+
 
 }
 
@@ -85,9 +86,20 @@ void FiltroLayout::ricercaScelta() {
     filtra(tmp);
 }
 
+void FiltroLayout::filtraggio() {
+    std::list<Articolo*> tmp;
+
+    if(filtro2->currentText() == "Nome A-Z"){
+        tmp = l1->ordinaLista(l1->getArticoli(), 't');
+    } else if (filtro2->currentText() == "Nome Z-A") {
+        tmp = l1->ordinaLista(l1->getArticoli(), 'T');
+    }
+
+    filtra(tmp);
+}
+
 void FiltroLayout::filtra(std::list<Articolo*> tmp) {
 
-	std::cout<<"Filtro"<<std::endl;
     if (filtro->currentText() == "Libri") {
         tmp = l->soloLibri(tmp);
     } else if (filtro->currentText() == "Riviste") {
@@ -96,18 +108,11 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
         tmp = l->soloFilm(tmp);
     }
 
-    if (!tmp.empty()) {
         prev = filtro->currentIndex();
         lista = l->getArticoli(tmp);
         layout2->addLayout(lista);
         layout->addLayout(layout2);
 
-    } else {
-		QErrorMessage* error = new QErrorMessage();
-        error->showMessage("Nessun articolo trovato");
-        filtro->setCurrentIndex(prev);
-
-    }
 }
 
 void FiltroLayout::nuovoClicked() {

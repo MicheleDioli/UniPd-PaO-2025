@@ -42,6 +42,7 @@ private:
 
     QPushButton* salva;
     QComboBox* filtro;
+    QComboBox* filtro2;
 
     QHBoxLayout* lista;
     QLineEdit* ricerca;
@@ -52,6 +53,7 @@ public:
     void filtra(std::list<Articolo*>);
 
 public slots:
+    void filtraggio();
     void ricercaScelta();
     void nuovoClicked();
     void nuovoSalvato();

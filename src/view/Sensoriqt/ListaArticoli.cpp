@@ -22,6 +22,22 @@ void ListaArticoli::removeArticolo(Articolo* a) {
     }
 }
 
+std::list<Articolo*> ListaArticoli::ordinaLista(std::list<Articolo*> articoliL, char c){
+
+  std::list<Articolo*> temp = articoliL;
+
+    if (c == 't') {
+        temp.sort([](Articolo* a, Articolo* b) {
+            return a->getTitolo() < b->getTitolo();
+        });
+    } else if (c == 'T') {
+        temp.sort([](Articolo* a, Articolo* b) {
+            return a->getTitolo() > b->getTitolo();
+        });}
+
+    return temp;
+}
+
 std::list<Articolo*> ListaArticoli::getArticoli()const{
     return articoliL;
 }

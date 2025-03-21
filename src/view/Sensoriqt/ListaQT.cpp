@@ -14,7 +14,6 @@ ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
     tmp->addWidget(l);
     gruppo->setStyleSheet("QGroupBox {border: 1px solid grey; border-radius: 5px; margin-top: 1ex;}");
     layout->addWidget(gruppo);
-
 }
 
 void ListaQT::clicatoNuovo() {
@@ -88,7 +87,6 @@ QHBoxLayout* ListaQT::getArticoli(std::list<Articolo*> articoli){
     //scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);<
 
     return layout;
-
 }
 
 std::list<Articolo*> ListaQT::soloLibri(std::list<Articolo*> articoli) {
@@ -122,6 +120,7 @@ std::list<Articolo*> ListaQT::soloFilm(std::list<Articolo*> articoli) {
 }
 
 void ListaQT::pulisciLayout(QLayout* layout) {
+
     if (!layout) return;
     while (QLayoutItem* item = layout->takeAt(0)) {
         if (QWidget* widget = item->widget()) {
@@ -145,7 +144,7 @@ std::list<Articolo*> ListaQT::ricerca(std::list<Articolo*> articoli, std::string
         std::string titolo = a->getTitolo();
         std::transform(titolo.begin(), titolo.end(), titolo.begin(), ::tolower);
 
-        if (titolo.find(ricerca) != std::string::npos) {
+        if (titolo.find(ricerca) == 0) {
             tmp.push_back(a);
         }
     }

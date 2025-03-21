@@ -1,6 +1,4 @@
 #include "mainwindow.h"
-#include <iostream>
-#include <list>
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     stack = new QStackedLayout(this);
@@ -122,20 +120,16 @@ void MainWindow::mostaArticolo(Articolo* articolo) {
     mainLayout->addLayout(layoutButtons);
     mainLayout->addLayout(layout);
 
-    QHBoxLayout* modifica = new QHBoxLayout();
-    QPushButton* modificaB = new QPushButton("Modifica");
-
-    modificaB->setIcon(QIcon(QPixmap(":/asset/icon/modifica.png")));
-    modifica->addWidget(modificaB);
-
-    mainLayout->addLayout(modifica);
-
     mostra->setLayout(mainLayout);
 
     stack->addWidget(mostra);
     stack->setCurrentWidget(mostra);
 
     connect(indietro, &QPushButton::clicked, this, &MainWindow::annullatoClicked);
+}
+
+void MainWindow::modificaMainSlot(Articolo* a) {
+    emit modificaSignal(a);
 }
 
 void MainWindow::salvaSlot(Articolo* a) {
@@ -155,13 +149,21 @@ void MainWindow::salvaSlot(Articolo* a) {
 }
 
 void MainWindow::cancellaSlot(Articolo* a) {
-  	if (a){
-    l->removeArticolo(a);
-    f->aggiorna();
-    delete a;
-    }
-    messaggio = "Articolo cancellato";
-    status->showMessage(messaggio.c_str());
+
+	QMessageBox msgBox;
+	msgBox.setText("Sei sicuro di voler cancellare l'articolo?");
+	msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+	msgBox.setDefaultButton(QMessageBox::Yes);
+
+	int ret = msgBox.exec();
+
+	if (ret == QMessageBox::Yes && a) {
+    	l->removeArticolo(a);
+    	f->aggiorna();
+    	delete a;
+        messaggio = "Articolo cancellato";
+    	status->showMessage(messaggio.c_str());
+	}
 }
 
 void MainWindow::importaSlot() {
