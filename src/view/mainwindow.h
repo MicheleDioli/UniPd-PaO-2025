@@ -1,13 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "Sensoriqt/FiltroLayout.h"
-#include "Sensoriqt/ListaArticoli.h"
-#include "Sensoriqt/ListaQT.h"
-#include "Mostra/MostraVisitor.h"
-#include "Json/Json.h"
-#include "Modifica/edit.h"
-#include "Modifica/ModificaArticolo.h"
+#include "sensoriqt/FiltroLayout.h"
+#include "sensoriqt/ListaArticoli.h"
+#include "sensoriqt/ListaQT.h"
+#include "mostra/MostraVisitor.h"
+#include "json/Json.h"
+#include "modifica/Edit.h"
+#include "modifica/ModificaArticolo.h"
 
 #include <QMessageBox>
 #include <QStackedLayout>

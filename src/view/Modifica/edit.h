@@ -6,8 +6,8 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include "../../Articolo.h"
-#include "editVisitor.h"
-#include "../Sensoriqt/ListaArticoli.h"
+#include "EditVisitor.h"
+#include "../sensoriqt/ListaArticoli.h"
 
 class Edit : public QWidget {
     Q_OBJECT

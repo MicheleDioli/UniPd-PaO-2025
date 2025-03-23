@@ -24,9 +24,9 @@
 #include "../../Libro.h"
 #include "../../Film.h"
 
-#include "../Sensoriqt/ListaQT.h"
+#include "../sensoriqt/ListaQT.h"
 
-#include "../Sensoriqt/ListaArticoli.h"
+#include "../sensoriqt/ListaArticoli.h"
 
 class Articolo;
 

@@ -18,7 +18,7 @@
 #include "../../Libro.h"
 #include "../../Rivista.h"
 #include "../../Film.h"
-#include "../Sensoriqt/ListaArticoli.h"
+#include "../sensoriqt/ListaArticoli.h"
 
 class JsonImporter{
 public:

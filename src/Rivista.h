@@ -25,7 +25,7 @@ public:
     int getEdizione() const;
     int getDifficolta() const;
     int velocitaLettura() const;
-    std::string informazioniArticolo() const override;
+    std::string informazioniArticolo() const;
 
      void setEditore(const std::string&);
      void setPagine(int);

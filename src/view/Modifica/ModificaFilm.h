@@ -2,7 +2,7 @@
 #define MODIFICAFILM_H
 
 #include "ModificaArticolo.h"
-#include "../Sensoriqt/ListaArticoli.h"
+#include "../sensoriqt/ListaArticoli.h"
 
 #include <QDebug>
 #include <QFormLayout>

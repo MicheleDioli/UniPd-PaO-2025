@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     stack = new QStackedLayout(this);
@@ -176,7 +176,7 @@ void MainWindow::importaSlot() {
 
 void MainWindow::infoSlot() {
     QMessageBox *msg = new QMessageBox();
-    msg->setText("Per creare un nuovo articolo\n -> CTRL + N\nPer importare un articolo o lista\n -> CTRL + O\nPer salvare una lista\n -> CTRL + S\n");
+    msg->setText("Per creare un nuovo articolo\n -> CTRL + N\nPer importare un articolo o lista\n -> CTRL + O\nPer salvare una lista\n -> CTRL + S\nOgni articolo può essere cliccato con il tasto destro per visualizzarne i dettagli \n o con il tasto sinistro per aprire il menu");
     QPixmap image(":/asset/icon/info.png");
     msg->setIconPixmap(image);
     msg->show();

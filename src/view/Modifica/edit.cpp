@@ -1,4 +1,4 @@
-#include "edit.h"
+#include "Edit.h"
 
 Edit::Edit(QWidget *parent, ListaArticoli *l)
     : QWidget(parent) ,l(l), currentEditor(nullptr), articoloCorrente(nullptr) {

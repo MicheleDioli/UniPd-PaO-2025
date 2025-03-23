@@ -1,40 +1,5 @@
 #include "JsonImporter.h"
-/*
-std::list<Articolo*> JsonImporter::importJsonLista() {
-    std::list<Articolo*> lista;
-    QString fileName = QFileDialog::getOpenFileName(nullptr, "Open File", "", "Json files (*.json)");
-    if (fileName.isEmpty()) {
-        QMessageBox::warning(nullptr, "Errore", "Nessun file selezionato.");
-        return lista;
-    }
 
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::warning(nullptr, "Errore", "Impossibile aprire: " + file.errorString());
-        return lista;
-    }
-
-    QByteArray data = file.readAll();
-    QJsonDocument doc = QJsonDocument::fromJson(data);
-    if (doc.isNull() || !doc.isObject()) {
-        QMessageBox::warning(nullptr, "Errore", "Formato Json non valido.");
-        return lista;
-    }
-
-    QJsonObject json = doc.object();
-    QJsonArray array = json["Articoli"].toArray();
-    for (int i = 0; i < array.size(); i++) {
-        QJsonObject obj = array[i].toObject();
-        QString type = obj["type"].toString();
-        Articolo* articolo = createArticolo(type, obj);
-        if (articolo) {
-            lista.push_back(articolo);
-        }
-    }
-
-    return lista;
-}
-*/
 Articolo* JsonImporter::createArticolo(const QString& type, const QJsonObject& json) {
         if (type.compare("Libro", Qt::CaseInsensitive) == 0) {
             return new Libro(

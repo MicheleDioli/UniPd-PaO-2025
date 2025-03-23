@@ -4,8 +4,6 @@
 #include "../../Rivista.h"
 #include "../../Film.h"
 
-
-
 #include <iostream>
 
 QVBoxLayout* ListaVisitor::getLayout() const {

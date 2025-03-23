@@ -38,11 +38,7 @@ public:
     void setCopie(int copie);
     void setTitolo(const std::string& titolo);
 
-    virtual std::string informazioniArticolo() const;
-    int numeroArticoli(const std::list<Articolo*>& articoli) const;
-    Articolo* getArticoloPrecendete(const Articolo* art, const std::list<Articolo*>& articoli) const;
-    Articolo* getArticoloSuccessivo(const Articolo* art, const std::list<Articolo*>& articoli) const;
-    int getNumeroSerie(const Articolo* art, const std::list<Articolo*>& articoli) const;
+    virtual std::string informazioniArticolo() const = 0;
 
     virtual void accept(VisitorInterface& visitor) = 0;
     virtual void accept(ConstVisitorInterface& visitor) const = 0;

@@ -1,7 +1,3 @@
-//
-// Created by Michele Dioli on 1/29/25.
-//
-
 #ifndef JSONVISITOR_H
 #define JSONVISITOR_H
 

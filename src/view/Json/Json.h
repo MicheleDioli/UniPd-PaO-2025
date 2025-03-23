@@ -5,7 +5,7 @@
 #include "JsonImporter.h"
 
 #include "../../Articolo.h"
-#include "../Sensoriqt/ListaArticoli.h"
+#include "../sensoriqt/ListaArticoli.h"
 
 class Json{
 private:

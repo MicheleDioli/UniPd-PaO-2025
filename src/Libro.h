@@ -22,7 +22,7 @@ public:
     int getPagine() const;
     std::string getAutore() const;
 
-    std::string informazioniArticolo() const override;
+    std::string informazioniArticolo() const;
 
     void setCasaEditrice(const std::string& casaEditrice);
     void setCapitoli(int capitoli);

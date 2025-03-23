@@ -1,13 +1,10 @@
-//
-// Created by Michele Dioli on 2/2/25.
-//
 #ifndef MODIFICALIBRO_H
 #define MODIFICALIBRO_H
 
 #include "ModificaArticolo.h"
 #include <QFormLayout>
 
-#include"../Sensoriqt/ListaArticoli.h"
+#include"../sensoriqt/ListaArticoli.h"
 
 class ModificaLibro : public ModificaArticolo {
     Q_OBJECT
