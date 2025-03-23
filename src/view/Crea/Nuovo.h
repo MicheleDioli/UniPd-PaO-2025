@@ -17,7 +17,8 @@
 #include <QGridLayout>
 #include <QSpacerItem>
 #include <QSizePolicy>
-
+#include <QRegularExpression>
+#include <QCoreApplication>
 
 #include "../../Rivista.h"
 #include "../../Libro.h"
@@ -87,6 +88,7 @@ private:
     QSpinBox *difficolta;
 public:
     explicit Nuovo(QWidget *parent = nullptr, ListaArticoli *articoli = nullptr);
+    bool controllaNumeri(std::string);
 
 protected:
     QHBoxLayout* creaFilm();

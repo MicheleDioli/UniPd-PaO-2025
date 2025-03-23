@@ -262,6 +262,7 @@ void Nuovo::salvataggio() {
         if (radioButton3->isChecked()) {
       	    std::string edizioneStr = std::to_string(edizione->value());
             Rivista* r = new Rivista(titolo->text().toStdString(), codice->text().toStdString(), descrizione->toPlainText().toStdString(), genere->currentText().toStdString(), anno->value(), copie->value(), lingua->currentText().toStdString(), editore->text().toStdString(), pagine->value(), pubblicatore->text().toStdString(), intervalloPubblicazione->currentText().toInt(), edizione->value(), difficolta->value());
+
             if (articoli->controlla(r) == 0){
                 articoli->addArticolo(r);
                 label->setText("Articolo salvato");
@@ -285,28 +286,65 @@ void Nuovo::salvataggio() {
 }
 
 
-bool Nuovo::checkCampi(){
-    QString string = "Campi obbligatori: ";
+bool Nuovo::checkCampi() {
+    QString errorMessage;
+    bool check = true;
 
-    bool check = false;
+    QStringList tmpTest;
+    if (titolo->text().isEmpty()) tmpTest << "Titolo";
+    if (codice->text().isEmpty()) tmpTest << "Codice";
+    if (descrizione->toPlainText().isEmpty()) tmpTest << "Descrizione";
 
-    if(titolo->text().isEmpty()){
-        string += "Titolo, ";
-        check = true;
+    if (!tmpTest.isEmpty()) {
+        errorMessage = "Campi obbligatori mancanti: " + tmpTest.join(", ");
+        check = false;
     }
-    if(codice->text().isEmpty()){
-        string += "Codice, ";
-        check = true;
+
+    if (radioButton->isChecked()) {
+        bool heys = controllaNumeri(regista->text().toStdString()) ||
+                          controllaNumeri(attore->text().toStdString()) ||
+                          controllaNumeri(produttore->text().toStdString());
+        if (heys) {
+            if (!errorMessage.isEmpty()) errorMessage += "\n";
+            errorMessage += "Regista, Attore e Produttore non possono contenere numeri";
+            check = false;
+        }
+    } else if (radioButton2->isChecked()) {
+        bool heys = controllaNumeri(casaEditrice->text().toStdString()) ||
+                          controllaNumeri(autore->text().toStdString());
+        if (heys) {
+            if (!errorMessage.isEmpty()) errorMessage += "\n";
+            errorMessage += "Casa Editrice e Autore non possono contenere numeri";
+            check = false;
+        }
+    } else if (radioButton3->isChecked()) {
+        bool heys = controllaNumeri(editore->text().toStdString()) ||
+                          controllaNumeri(pubblicatore->text().toStdString());
+        if (heys) {
+            if (!errorMessage.isEmpty()) errorMessage += "\n";
+            errorMessage += "Editore e Pubblicatore non possono contenere numeri";
+            check = false;
+        }
     }
-    if(descrizione->toPlainText().isEmpty()){
-        string += "Descrizione";
-        check = true;
-    } else if (!check) {
-        return true;
+
+    if (!check) {
+        label->setText(errorMessage);
+        label->setStyleSheet("color: red;");
+    } else {
+        label->clear();
+        label->setStyleSheet("color: blue;");
     }
-    label->setText(string);
-    string.clear();
-    label->setStyleSheet("color: blue;");
+
     layout->addWidget(label);
+
+    return check;
+}
+
+bool Nuovo::controllaNumeri(std::string s) {
+    for (char c : s) {
+        if (std::isdigit(c)) {
+            return true;
+        }
+    }
     return false;
 }

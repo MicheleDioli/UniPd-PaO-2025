@@ -2,6 +2,8 @@
 
 FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent), l1(LA) {
 
+
+
     main = new QVBoxLayout(this);
 
     std::list<Articolo*> art;
