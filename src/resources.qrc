@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>asset/icon/aggiorna.png</file>
+        <file>asset/icon/apri.png</file>
+        <file>asset/icon/info.png</file>
+        <file>asset/icon/salvaJson.png</file>
+        <file>asset/icon/cancella.png</file>
+        <file>asset/icon/chiudi.png</file>
+        <file>asset/icon/creanuovo.png</file>
+        <file>asset/icon/modifica.png</file>
+        <file>asset/icon/nuovo.png</file>
+        <file>asset/icon/ricerca.png</file>
+        <file>asset/icon/salva.png</file>
+        <file>asset/icon/indietro.png</file>
+        <file>asset/icon/salvaconnome.png</file>
+        <file>asset/icon/visualizza.png</file>
+        <file>asset/icon/vuoto.png</file>
+	    <file>asset/images/film.png</file>
+	    <file>asset/images/libro.png</file>
+	    <file>asset/images/rivista.png</file>
+        <file>asset/images/biblioteca.png</file>
+    </qresource>
+</RCC>
