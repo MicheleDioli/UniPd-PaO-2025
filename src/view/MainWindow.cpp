@@ -70,17 +70,25 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void MainWindow::salvaListaSlot() {
-    Json json;
-    pathLista = l->getListaPath();
-    if (pathLista == ""){
-        json.salvaJsonLista(*l);
-        messaggio = "Lista salvata";
-        status->showMessage(messaggio.c_str());
-        pathLista = json.getFileName().toStdString();
-        std::cout << pathLista << std::endl;
-    } else {
-        json.salvaSNLista(*l, QString::fromStdString(pathLista));
+
+    if(l->getArticoli().size() != 0 ){
+
+        Json json;
+        pathLista = l->getListaPath();
+        if (pathLista == ""){
+            json.salvaJsonLista(*l);
+            messaggio = "Lista salvata";
+            status->showMessage(messaggio.c_str());
+            pathLista = json.getFileName().toStdString();
+            std::cout << pathLista << std::endl;
+        } else {
+            json.salvaSNLista(*l, QString::fromStdString(pathLista));
+            messaggio = "Lista salvata";
+            status->showMessage(messaggio.c_str());
         }
+    } else {
+        QMessageBox::warning(nullptr, "Attenzione", "Inserire prima un articolo ;)");
+    }
 }
 
 void MainWindow::nuovoClicked() {
@@ -133,19 +141,20 @@ void MainWindow::modificaMainSlot(Articolo* a) {
 }
 
 void MainWindow::salvaSlot(Articolo* a) {
-    Json json;
-    if(a && !(l->checkSalvato(a))){
-        json.salvaJson(*a);
-        l->salvaMappa(json.getFileName().toStdString(), a);
-        std::cout << json.getFileName().toStdString() << std::endl;
-    }
 
-    if(l->checkSalvato(a)){
-        json.salvaSN(*a, QString::fromStdString(l->getPath(a)));
-    }
+        Json json;
+        if(a && !(l->checkSalvato(a))){
+            json.salvaJson(*a, l);
+                //l->salvaMappa(json.getFileName().toStdString(), a);
+            //std::cout << json.getFileName().toStdString() << std::endl;
+        }
 
-    messaggio = "Articolo salvato";
-    status->showMessage(messaggio.c_str());
+        if(l->checkSalvato(a)){
+            json.salvaSN(*a, QString::fromStdString(l->getPath(a)));
+        }
+
+        messaggio = "Articolo salvato";
+        status->showMessage(messaggio.c_str());
 }
 
 void MainWindow::cancellaSlot(Articolo* a) {
@@ -156,9 +165,11 @@ void MainWindow::cancellaSlot(Articolo* a) {
 	msgBox.setDefaultButton(QMessageBox::Yes);
 
 	int ret = msgBox.exec();
+    //std::cout << ret << std::endl;
 
 	if (ret == QMessageBox::Yes && a) {
     	l->removeArticolo(a);
+
     	f->aggiorna();
     	delete a;
         messaggio = "Articolo cancellato";

@@ -16,11 +16,11 @@ void Cliccabile::MostraMenu(const QPoint& pos) {
     menu.addAction(Asalva);
     AsalvaCN = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))), "Salva con salva", this);
     //menu.addAction(AsalvaCN);
-    Acancella = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))), "Cancella", this);
+    Acancella = new QAction(QIcon(QPixmap((":/asset/icon/cancella.png"))), "Cancella", this);
     menu.addAction(Acancella);
-    Adettagli = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))), "Mostra dettagli", this);
+    Adettagli = new QAction(QIcon(QPixmap((":/asset/icon/apri.png"))), "Mostra dettagli", this);
     menu.addAction(Adettagli);
-    Amodifica = new QAction(QIcon(QPixmap((":/asset/icon/creanuovo.png"))), "Modifica", this);
+    Amodifica = new QAction(QIcon(QPixmap((":/asset/icon/modifica.png"))), "Modifica", this);
     menu.addAction(Amodifica);
 
     connect(Asalva, &QAction::triggered, this, &Cliccabile::salvaclic);

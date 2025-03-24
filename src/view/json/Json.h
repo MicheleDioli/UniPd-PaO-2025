@@ -17,7 +17,7 @@ public:
     QString getFileName() const;
     void setFileName(const QString&);
     void importa(ListaArticoli*);
-    void salvaJson(const Articolo&);
+    void salvaJson(const Articolo&, ListaArticoli*);
     void salvaJsonLista(const ListaArticoli&);
     Articolo* importaJson();
     ListaArticoli importaLista(const QString&);

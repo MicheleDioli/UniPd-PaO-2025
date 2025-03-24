@@ -25,7 +25,7 @@ QJsonObject Json::salvaLista(const ListaArticoli& l)const{
     return obj;
 }
 
-void Json::salvaJson(const Articolo& a){
+void Json::salvaJson(const Articolo& a, ListaArticoli* l){
     QJsonObject obj = salva(a);
     QJsonDocument doc(obj);
     QString fileName = QFileDialog::getSaveFileName(nullptr, "Save File", "", "JSON files (*.json)");
@@ -34,6 +34,7 @@ void Json::salvaJson(const Articolo& a){
         QMessageBox::information(nullptr, "Unable to open file", file.errorString());
         return;
     }
+    l->salvaMappa(fileName.toStdString(), const_cast<Articolo*>(&a));
     file.write(doc.toJson());
     file.close();
     setFileName(fileName);
@@ -62,7 +63,7 @@ void Json::importa(ListaArticoli* l){
 void Json::salvaSNLista(const ListaArticoli& l,QString fileNameInput){
     QString fileName = fileNameInput;
     if (fileName.isEmpty()) {
-        QMessageBox::warning(nullptr, "File non selezionato", "Nessun file JSON selezionato per l'aggiornamento.");
+        //QMessageBox::warning(nullptr, "File non selezionato", "Nessun file");
         return;
     }
 
@@ -84,14 +85,14 @@ void Json::salvaSNLista(const ListaArticoli& l,QString fileNameInput){
 
     QJsonObject obj = doc.object();
 
-    QJsonObject updatedObj = salvaLista(l);
-    for (const QString& key : updatedObj.keys()) {
-        obj[key] = updatedObj[key];
-    }
-
     if (!file.open(QIODevice::WriteOnly)) {
         QMessageBox::warning(nullptr, "Errore", "Impossibile aprire il file per la scrittura: " + file.errorString());
         return;
+    }
+
+    QJsonObject updatedObj = salvaLista(l);
+    for (const QString& key : updatedObj.keys()) {
+        obj[key] = updatedObj[key];
     }
     QJsonDocument updatedDoc(obj);
     file.write(updatedDoc.toJson());
