@@ -17,6 +17,7 @@ void ListaArticoli::removeArticolo(Articolo* a) {
         if ((*it)->getCodice() == a->getCodice()) {
             articoliL.erase(it);
             articoliS.erase(a->getCodice());
+
             return;
         }
     }

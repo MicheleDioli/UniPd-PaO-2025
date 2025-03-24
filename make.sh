@@ -9,7 +9,11 @@ rm -fr biblioteca.app
 
 qmake -project
 
-sed -i "" '8s/.*/QT += widgets/' biblioteca.pro
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i "" '8s/.*/QT += widgets/' biblioteca.pro
+else
+    sed -i '8s/.*/QT += widgets/' biblioteca.pro  
+fi
 
 qmake
 make
