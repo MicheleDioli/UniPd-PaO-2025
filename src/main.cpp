@@ -1,6 +1,6 @@
 #include <QApplication>
 
-#include "src/view/MainWindow.h"
+#include "view/MainWindow.h"
 
 void padriefigli(QtMsgType, const QMessageLogContext &, const QString &) {}
 
