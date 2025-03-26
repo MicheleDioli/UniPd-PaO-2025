@@ -7,7 +7,6 @@ ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista)
     mainLayout->setSpacing(15);
 
     if (!rivista) {
-        qWarning() << "Rivista nulla in ModificaRivista!";
         return;
     }
 

@@ -7,7 +7,6 @@ ModificaFilm::ModificaFilm(QWidget* parent, Film* film)
     mainLayout->setSpacing(15);
 
     if (!film) {
-        qWarning() << "Film nullo in ModificaFilm!";
         return;
     }
 

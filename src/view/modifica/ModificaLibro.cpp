@@ -7,7 +7,6 @@ ModificaLibro::ModificaLibro(QWidget* parent, Libro* libro)
     mainLayout->setSpacing(15);
 
     if (!libro) {
-        qWarning() << "Libro nullo in ModificaLibro!";
         return;
     }
 

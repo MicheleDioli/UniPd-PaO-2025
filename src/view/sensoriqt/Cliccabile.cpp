@@ -5,7 +5,8 @@ void Cliccabile::mousePressEvent(QMouseEvent* event){
         emit clicked(articolo);
     }
     if (event->button() == Qt::RightButton) {
-        MostraMenu(event->globalPosition().toPoint());
+        //MostraMenu(event->globalPosition().toPoint()); per versioni successive
+        MostraMenu(event->globalPos());
     }
 }
 
