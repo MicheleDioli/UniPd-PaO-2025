@@ -1,67 +1,81 @@
-# Sensore-Videogiochi-P2
+# Progetto-QT
 
-## Disposizioni per compilare ed eseguire il programma
-Per compilare il programma è necessario aprire il terminale in questa directory dove è contenuto questo file e digitare prima: `qmake` e dopo `make`.
+## Compilazione
 
----
-### In caso di problemi
-Se si hanno problemi con le librerie eseguire il comando `qmake -project` e aprire il file `.pro` 
-Verificare che all'interno del file `.pro` siano presenti le seguenti librerie
+La compilazione è facilitata dalla presenza di uno script `make.sh` nella cartella `src`.  
+Per compilare il progetto, è necessario avere Qt installato. Verifica la presenza di Qt con il comando:
 
-````
-QT += widgets
-QT += charts
-QT += xml
-````
+```sh
+qmake --version
+```
 
-dopodichè rieseguire `qmake` e `make`.
+Per compilare, eseguire lo script con:
 
-## Per problemi con QtCharts
-Per utenti **linux** decommentare la riga 14 di `content.h` su mac e su altri sistemi operativi non ne ho avuto bisogno ma se da problemi per le librerie **QtCharts** mettere il namespace aiuta e risolve il problema.
+```sh
+sh make.sh
+```
 
----
+Lo script è stato testato su **Debian 12** e **macOS Sequoia 15.3.2**.  
+In caso di problemi, procedere con la compilazione manuale.
 
-# Valutazione
-````
-Feedback Progetto di Programmazione ad Oggetti
-Studente: Di Pietro Gabriele
-Valutazione del progetto: Eccellente
+## Compilazione manuale
 
-Vincoli obbligatori
-+ Soddisfatti
+1. Accedere alla cartella `src` ed eseguire il comando:
 
+    ```sh
+    qmake -project
+    ```
 
-Orientamento ad oggetti
-+ Incapsulamento
-+ Modularità (modello logico e la GUI sono separati)
-+ Estensibilità ed evolvibilità, polimorfismo
-+ Efficienza e robustezza
+    Questo comando creerà il file `src.pro`.
 
+2. Aprire `src.pro` e aggiungere la seguente riga (preferibilmente alla riga 8):
 
-Funzionalità
-+ Funzionalità di ricerca e filtro
-+ Ricerca in tempo reale
-+ Ricerca case-insensitive
-+ Ricerca parziale
-+ Possibilità di modificare i parametri dei sensori
+    ```sh
+    QT += widgets
+    ```
 
+3. Salvare il file e tornare al terminale.  
+   Eseguire quindi i seguenti comandi per completare la compilazione:
 
-GUI
-+ Visualizza i diversi tipi di dato in maniera opportuna
-+ Usabile e intuitiva
-+ Robusta, gestisce ridimensionamento
-- Migliorabile utilizzando icone, immagini e stili grafici
-- Migliorabile il modo in cui viene creato il widget in ContentVisitor:
-  anziché creare una singola QLabel andrebbero costruiti widget appositi,
-  in questo caso usando un QGridLayout (per mantenere l'impaginazione
-  scelta) con dentro un'etichetta per ogni informazione
+    ```sh
+    qmake
+    make
+    ```
 
+Se tutto è andato a buon fine, verrà generato il file eseguibile `applicazione`.
 
-Relazione
-+ Adeguata
+## Esecuzione
 
+Dopo la compilazione, nella cartella `src` verrà creato il file eseguibile `applicazione`.  
+È possibile eseguirlo in due modi:
 
-Suggerimenti non collegati alla valutazione
-Nessuno.
-````
+- Facendo doppio clic su di esso
+- Da terminale con il comando:
 
+    ```sh
+    ./applicazione
+    ```
+
+## Problemi con `globalPos()`
+
+L'uso di `globalPos()` è attualmente deprecato.  
+Se si verificano problemi, modificare il file `cliccabile.cpp` situato in:
+
+```
+src/view/sensoriqt/cliccabile.cpp
+```
+
+Alla riga 8, individuare la seguente riga:
+
+```cpp
+MostraMenu(event->globalPos());
+```
+
+E sostituirla con:
+
+```cpp
+// MostraMenu(event->globalPos());  // Versione deprecata
+MostraMenu(event->globalPosition().toPoint());  // Versione aggiornata
+```
+
+Se necessario, commentare la riga `MostraMenu(event->globalPos());` e decommentare `MostraMenu(event->globalPosition().toPoint());` per supportare le versioni più recenti di Qt.
