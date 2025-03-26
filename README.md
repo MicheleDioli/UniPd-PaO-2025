@@ -42,7 +42,7 @@ In caso di problemi, procedere con la compilazione manuale.
     make
     ```
 
-Se tutto è andato a buon fine, verrà generato il file eseguibile `applicazione`.
+Se tutto è andato a buon fine, verrà generato il file eseguibile `src`.
 
 ## Esecuzione
 
