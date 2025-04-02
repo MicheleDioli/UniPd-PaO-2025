@@ -27,7 +27,7 @@ Articolo* JsonImporter::createArticolo(const QString& type, const QJsonObject& j
                 json["editore"].toString().toStdString(),
                 json["pagine"].toInt(),
                 json["pubblicatore"].toString().toStdString(),
-                json["intervalloPubblicazione"].toInt(),
+                json["intervalloPubblicazione"].toString().toStdString(),
                 json["edizione"].toInt(),
                 json["difficolta"].toInt()
             );

@@ -35,7 +35,7 @@ void JsonVisitor::visitRivista(const Rivista& rivista){
     rivista_object.insert("editore", QJsonValue::fromVariant(rivista.getEditore().c_str()));
     rivista_object.insert("pagine", QJsonValue::fromVariant(rivista.getPagine()));
     rivista_object.insert("pubblicatore", QJsonValue::fromVariant(rivista.getPubblicatore().c_str()));
-    rivista_object.insert("intervalloPubblicazione", QJsonValue::fromVariant(rivista.getIntervalloPubblicazione()));
+    rivista_object.insert("intervalloPubblicazione", QJsonValue::fromVariant(rivista.getIntervalloPubblicazione().c_str()));
     rivista_object.insert("edizione", QJsonValue::fromVariant(rivista.getEdizione()));
     rivista_object.insert("difficolta", QJsonValue::fromVariant(rivista.getDifficolta()));
 

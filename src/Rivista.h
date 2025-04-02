@@ -9,28 +9,27 @@ private:
     std::string editore;
     int pagine;
     std::string pubblicatore;
-    int intervalloPubblicazione;
+    std::string intervalloPubblicazione;
     int edizione;
     int difficolta;
 
 public:
     Rivista(const std::string& titolo, const std::string& codice, const std::string& descrizione, const std::string& genere,
             int anno, int copie, const::std::string&lingua, const std::string& editore, int pagine,
-            const std::string& pubblicatore, int intervalloPubblicazione, int edizione, int difficolta);
+            const std::string& pubblicatore, std::string intervalloPubblicazione, int edizione, int difficolta);
     Rivista();
     std::string getEditore() const;
     int getPagine() const;
     std::string getPubblicatore() const;
-    int getIntervalloPubblicazione() const;
+    std::string getIntervalloPubblicazione() const;
     int getEdizione() const;
     int getDifficolta() const;
     int velocitaLettura() const;
-    std::string informazioniArticolo() const;
 
      void setEditore(const std::string&);
      void setPagine(int);
      void setPubblicatore(const std::string&);
-     void setIntervalloPubblicazione(int);
+     void setIntervalloPubblicazione(std::string);
      void setEdizione(int);
      void setDifficolta(int);
 

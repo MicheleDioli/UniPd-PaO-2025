@@ -38,8 +38,6 @@ public:
     void setCopie(int copie);
     void setTitolo(const std::string& titolo);
 
-    virtual std::string informazioniArticolo() const = 0;
-
     virtual void accept(VisitorInterface& visitor) = 0;
     virtual void accept(ConstVisitorInterface& visitor) const = 0;
 };

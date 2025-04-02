@@ -4,7 +4,7 @@
 Rivista::Rivista(const std::string& titolo, const std::string& codice, const std::string& descrizione,
                  const std::string& genere, int anno, int copie, const std::string& lingua,
                  const std::string& editore, int pagine, const std::string& pubblicatore,
-                 int intervalloPubblicazione, int edizione, int difficolta)
+                 std::string intervalloPubblicazione, int edizione, int difficolta)
     : Articolo(titolo, codice, descrizione, genere, anno, copie, lingua), editore(editore), pagine(pagine),
       pubblicatore(pubblicatore), intervalloPubblicazione(intervalloPubblicazione), edizione(edizione),
       difficolta(difficolta) {}
@@ -17,7 +17,7 @@ int Rivista::getPagine() const { return pagine; }
 
 std::string Rivista::getPubblicatore() const { return pubblicatore; }
 
-int Rivista::getIntervalloPubblicazione() const { return intervalloPubblicazione; }
+std::string Rivista::getIntervalloPubblicazione() const { return intervalloPubblicazione; }
 
 int Rivista::getEdizione() const { return edizione; }
 
@@ -29,22 +29,13 @@ int Rivista::velocitaLettura() const {
     return minutoxpag * pagine;
 }
 
-std::string Rivista::informazioniArticolo() const {
-    return "Codice: " + getCodice() + "\nDescrizione: " + getDescrizione() + "\nGenere: " +
-           getGenere() + "\nAnno: " +
-           std::to_string(getAnno()) + "\nEditore: " + editore + "\nPagine: " + std::to_string(pagine) +
-           "\nPubblicatore: " + pubblicatore + "\nIntervallo Pubblicazione: " +
-           std::to_string(intervalloPubblicazione) + "\nEdizione: " + std::to_string(edizione) +
-           "\nDifficolta: " + std::to_string(difficolta);
-}
-
 void Rivista::setEditore(const std::string& editore) { this->editore = editore; }
 
 void Rivista::setPagine(int pagine) { this->pagine = pagine; }
 
 void Rivista::setPubblicatore(const std::string& pubblicatore) { this->pubblicatore = pubblicatore; }
 
-void Rivista::setIntervalloPubblicazione(int intervallo) { this->intervalloPubblicazione = intervallo; }
+void Rivista::setIntervalloPubblicazione(std::string intervallo) { this->intervalloPubblicazione = intervallo; }
 
 void Rivista::setEdizione(int edizione) { this->edizione = edizione; }
 

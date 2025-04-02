@@ -8,18 +8,16 @@ class Film : public Articolo {
 private:
     std::string regista;
     int durata;
-    std::string attori;
+    std::string attore;
     std::string produttore;
 public:
     Film(const std::string& titolo, const std::string& codice, const std::string& descrizione, const std::string& genere,
          int anno, int copie, const std::string& lingua, const std::string& regista, int durata,
-         const std::string& attori, const std::string& produttore);
+         const std::string& attore, const std::string& produttore);
     std::string getRegista() const;
     int getDurata() const;
     std::string getAttori() const;
     std::string getProduttore() const;
-    int velocitaVisione() const;
-    std::string informazioniArticolo() const;
 
     void setRegista(const std::string& regista);
     void setDurata(int durata);

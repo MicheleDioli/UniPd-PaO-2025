@@ -52,7 +52,13 @@ ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista)
     linguaInput->setCurrentText(QString::fromStdString(rivista->getLingua()));
     periodicitaInput = new QSpinBox();
     periodicitaInput->setRange(1, 31);
-    periodicitaInput->setValue(rivista->getIntervalloPubblicazione());
+    QString intervalloStr = QString::fromStdString(rivista->getIntervalloPubblicazione());
+
+    bool ok;
+    int intervallo = intervalloStr.toInt(&ok);
+    if (ok) {
+        periodicitaInput->setValue(intervallo);
+
     periodicitaInput->setToolTip("Giorni tra le pubblicazioni");
     periodicitaInput->setSuffix(" giorni");
 
@@ -105,7 +111,7 @@ void ModificaRivista::edit(Articolo* a) {
     rivista->setLingua(linguaInput->currentText().toStdString());
     rivista->setAnno(annoInput->date().year());
     rivista->setCopie(copieInput->value());
-    rivista->setIntervalloPubblicazione(periodicitaInput->value());
+    rivista->setIntervalloPubblicazione(std::to_string(periodicitaInput->value()));
     rivista->setEdizione(numeroInput->value());
     rivista->setEditore(editoreRivistaInput->text().toStdString());
     rivista->setPagine(pagineRivistaInput->value());

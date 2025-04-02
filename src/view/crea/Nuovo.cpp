@@ -261,7 +261,7 @@ void Nuovo::salvataggio() {
 
         if (radioButton3->isChecked()) {
       	    std::string edizioneStr = std::to_string(edizione->value());
-            Rivista* r = new Rivista(titolo->text().toStdString(), codice->text().toStdString(), descrizione->toPlainText().toStdString(), genere->currentText().toStdString(), anno->value(), copie->value(), lingua->currentText().toStdString(), editore->text().toStdString(), pagine->value(), pubblicatore->text().toStdString(), intervalloPubblicazione->currentText().toInt(), edizione->value(), difficolta->value());
+            Rivista* r = new Rivista(titolo->text().toStdString(), codice->text().toStdString(), descrizione->toPlainText().toStdString(), genere->currentText().toStdString(), anno->value(), copie->value(), lingua->currentText().toStdString(), editore->text().toStdString(), pagine->value(), pubblicatore->text().toStdString(), intervalloPubblicazione->currentText().toStdString(), edizione->value(), difficolta->value());
 
             if (articoli->controlla(r) == 0){
                 articoli->addArticolo(r);

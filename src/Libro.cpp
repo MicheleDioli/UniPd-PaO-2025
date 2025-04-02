@@ -14,12 +14,6 @@ int Libro::getPagine() const {return pagine;}
 
 std::string Libro::getAutore() const {return autore;}
 
-std::string Libro::informazioniArticolo() const {
-        return "Codice: " + getCodice() + "\nDescrizione: " + getDescrizione() + "\nGenere: " + getGenere() + "\nAnno: " + std::to_string(getAnno()) +
-               "\nCasa Editrice: " + casaEditrice + "\nCapitoli: " + std::to_string(capitoli) + "\nPagine: " + std::to_string(pagine) +
-               "\nAutore: " + autore;
-}
-
 void Libro::setCasaEditrice(const std::string& casaEditrice) {this->casaEditrice = casaEditrice;}
 
 void Libro::setCapitoli(int capitoli) {this->capitoli = capitoli;}

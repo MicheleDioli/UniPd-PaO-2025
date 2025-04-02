@@ -142,7 +142,7 @@ void MostraVisitor::visitRivista(Rivista& r) {
     QLabel* p_i = new QLabel(
         "<span style='font-weight: bold;'>" + QString::fromStdString(r.getGenere()) + "</span><br>" +
         QString::number(r.getPagine()) + " pagine<br>" +
-        "Intervallo di pubblicazione: " + QString::number(r.getIntervalloPubblicazione())
+        "Intervallo di pubblicazione: " + QString::fromStdString(r.getIntervalloPubblicazione())
     );
 
     mezzoLeft->addWidget(pubblicatore);

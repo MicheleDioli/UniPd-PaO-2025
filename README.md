@@ -42,18 +42,18 @@ In caso di problemi, procedere con la compilazione manuale.
     make
     ```
 
-Se tutto è andato a buon fine, verrà generato il file eseguibile `src`.
+Se tutto è andato a buon fine, verrà generato il file eseguibile `applicazione`.
 
 ## Esecuzione
 
-Dopo la compilazione, nella cartella `src` verrà creato il file eseguibile `src`.  
+Dopo la compilazione, nella cartella `src` verrà creato il file eseguibile `applicazione`.  
 È possibile eseguirlo in due modi:
 
 - Facendo doppio clic su di esso
 - Da terminale con il comando:
 
     ```sh
-    ./src
+    ./applicazione
     ```
 
 ## Problemi con `globalPos()`
@@ -77,3 +77,5 @@ E sostituirla con:
 // MostraMenu(event->globalPos());  // Versione deprecata
 MostraMenu(event->globalPosition().toPoint());  // Versione aggiornata
 ```
+
+Se necessario, commentare la riga `MostraMenu(event->globalPos());` e decommentare `MostraMenu(event->globalPosition().toPoint());` per supportare le versioni più recenti di Qt.
