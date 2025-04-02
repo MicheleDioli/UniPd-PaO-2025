@@ -42,18 +42,18 @@ In caso di problemi, procedere con la compilazione manuale.
     make
     ```
 
-Se tutto è andato a buon fine, verrà generato il file eseguibile `applicazione`.
+Se tutto è andato a buon fine, verrà generato il file eseguibile `src`.
 
 ## Esecuzione
 
-Dopo la compilazione, nella cartella `src` verrà creato il file eseguibile `applicazione`.  
+Dopo la compilazione, nella cartella `src` verrà creato il file eseguibile `src`.  
 È possibile eseguirlo in due modi:
 
 - Facendo doppio clic su di esso
 - Da terminale con il comando:
 
     ```sh
-    ./applicazione
+    ./src
     ```
 
 ## Problemi con `globalPos()`
