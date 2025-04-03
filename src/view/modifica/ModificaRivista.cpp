@@ -56,7 +56,7 @@ ModificaRivista::ModificaRivista(QWidget* parent, Rivista* rivista)
 
     bool ok;
     int intervallo = intervalloStr.toInt(&ok);
-    if (ok) {
+    if (ok) 
         periodicitaInput->setValue(intervallo);
 
     periodicitaInput->setToolTip("Giorni tra le pubblicazioni");

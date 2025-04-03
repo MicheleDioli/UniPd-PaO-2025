@@ -1,0 +1,90 @@
+{
+    "Articoli": [
+        {
+            "anno": 2010,
+            "autore": "Rick Riordan",
+            "capitoli": 22,
+            "casaEditrice": "Mondadori",
+            "codice": "PRJ001",
+            "copie": 4,
+            "descrizione": "Percy Jackson scopre di essere un semidio filgio di Poseidone",
+            "genere": "Fantascenza",
+            "lingua": "Italiano",
+            "pagine": 343,
+            "titolo": "Il ladro di fulmini",
+            "type": "libro"
+        },
+        {
+            "anno": 2025,
+            "autore": "Papa Francesco",
+            "capitoli": 12,
+            "casaEditrice": "Mondadori",
+            "codice": "PFB000",
+            "copie": 1,
+            "descrizione": "Autobiografia di Papa Francesco",
+            "genere": "Storico",
+            "lingua": "Italiano",
+            "pagine": 400,
+            "titolo": "Spera",
+            "type": "libro"
+        },
+        {
+            "anno": 1958,
+            "autore": "Giuseppe Tomasi",
+            "capitoli": 17,
+            "casaEditrice": "Feltrinelli",
+            "codice": "GAT321",
+            "copie": 4,
+            "descrizione": "Principe Fabrizio Salina in sicilia",
+            "genere": "Giallo",
+            "lingua": "Italiano",
+            "pagine": 272,
+            "titolo": "Il Gattopardo",
+            "type": "libro"
+        },
+        {
+            "anno": 1996,
+            "attori": "Ewan McGregor",
+            "codice": "DRG960",
+            "copie": 2,
+            "descrizione": "L'eroina non è una bella cosa",
+            "durata": 94,
+            "genere": "Horror",
+            "lingua": "Inglese",
+            "produttore": "Channel Four Films",
+            "regista": "Danny Boyle",
+            "titolo": "Trainspotting",
+            "type": "film"
+        },
+        {
+            "anno": 1995,
+            "attori": "Kevin Spacey",
+            "codice": "DEC999",
+            "copie": 20,
+            "descrizione": "Kevin Spacey ist Keyser Söze",
+            "durata": 106,
+            "genere": "Thriller",
+            "lingua": "Tedesco",
+            "produttore": "Gramercy Pictures",
+            "regista": "Bryan Singer",
+            "titolo": "Die üblichen Verdächtigen",
+            "type": "film"
+        },
+        {
+            "anno": 1993,
+            "codice": "int001",
+            "copie": 9,
+            "descrizione": "Prima edizione stampata dell serie",
+            "difficolta": 1,
+            "editore": "Internazionale S.p.A.",
+            "edizione": 1,
+            "genere": "Storico",
+            "intervalloPubblicazione": "Mensile",
+            "lingua": "Italiano",
+            "pagine": 150,
+            "pubblicatore": "Internazionale S.p.A.",
+            "titolo": "Internazionale",
+            "type": "rivista"
+        }
+    ]
+}
