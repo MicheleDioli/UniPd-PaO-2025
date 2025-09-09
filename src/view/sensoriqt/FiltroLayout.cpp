@@ -2,8 +2,6 @@
 
 FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent), l1(LA) {
 
-
-
     main = new QVBoxLayout(this);
 
     std::list<Articolo*> art;
@@ -12,7 +10,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
 
     layout2 = new QHBoxLayout();
 
-    QGroupBox* gruppoFiltri = new QGroupBox();
+    gruppoFiltri = new QGroupBox();
 
     splitter = new QSplitter(Qt::Vertical);
 
@@ -42,13 +40,14 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     filtro2->addItem("Nome A-Z");
 
     filtri->addWidget(label2);
-    filtri->addWidget(filtro);
-
     filtri->addWidget(label3);
     filtri->addWidget(filtro2);
 
     gruppoFiltri->setLayout(filtri);
     layout2->addWidget(gruppoFiltri);
+
+
+    gruppoFiltri->hide();
 
     l = new ListaQT(l1->getArticoli());
 
@@ -57,7 +56,6 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     filtri->addItem(spacer);
-
 
     layout->addLayout(layout2);
 
@@ -110,10 +108,10 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
         tmp = l->soloFilm(tmp);
     }
 
-        prev = filtro->currentIndex();
-        lista = l->getArticoli(tmp);
-        layout2->addLayout(lista);
-        layout->addLayout(layout2);
+    prev = filtro->currentIndex();
+    lista = l->getArticoli(tmp);
+    layout2->addLayout(lista);
+    layout->addLayout(layout2);
 
 }
 
@@ -126,6 +124,12 @@ void FiltroLayout::nuovoSalvato(){
 }
 
 void FiltroLayout::aggiorna() {
+
+    if (l1->size()==0){
+        gruppoFiltri->hide();
+    }else{
+        gruppoFiltri->show();
+    }
 
     lista = l->getArticoli(l1->getArticoli());
     layout2->addLayout(lista);

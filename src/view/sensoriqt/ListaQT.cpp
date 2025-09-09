@@ -3,15 +3,36 @@
 ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
   	gruppo = new QGroupBox();
 	tmp = new QVBoxLayout(gruppo);
-    l = new QLabel(
-    "Per creare un nuovo Articolo -> <span style='color: blue;'><b>CTRL + N</b></span><br>"
-    "Per importare un Articolo -> <span style='color: blue;'><b>CTRL + O</b></span>"
-    );
-	l->setStyleSheet("QLabel { color: blue; }");
 
-	l->setStyleSheet("b { color: blue; }");
-    l->setAlignment(Qt::AlignCenter);
-    tmp->addWidget(l);
+    l = new QVBoxLayout();
+
+    QHBoxLayout *b1l = new QHBoxLayout();
+    QHBoxLayout *b2l = new QHBoxLayout();
+
+    QLabel *b1Label = new QLabel();
+    QLabel *b2Label = new QLabel();
+
+    b1Label->setText("Crea un articolo nuovo");
+    b1Label->setText("Importa una libreria");
+
+    QPushButton* b1 = new QPushButton("CTRL + N");
+    b1->setFlat(true);
+    b1->setStyleSheet("color: blue; font-weight: bold; text-align: left;");
+
+    QPushButton* b2 = new QPushButton("CTRL + 0");
+    b2->setFlat(true);
+    b2->setStyleSheet("color: blue; font-weight: bold; text-align: left;");
+
+    b1l->addWidget(b1Label);
+    b1l->addWidget(b1);
+
+    b2l->addWidget(b2Label);
+    b2l->addWidget(b2);
+
+    l->addLayout(b1l);
+    l->addLayout(b2l);
+
+    tmp->addLayout(l);
     gruppo->setStyleSheet("QGroupBox {border: 1px solid grey; border-radius: 5px; margin-top: 1ex;}");
     layout->addWidget(gruppo);
 }

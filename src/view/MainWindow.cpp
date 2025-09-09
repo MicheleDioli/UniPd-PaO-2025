@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     status = new QStatusBar();
     status->showMessage("Status bar: ...");
     status->setStyleSheet("QStatusBar {border: 1px solid black; border-radius: 5px;}");
+    status->setMaximumHeight(status->sizeHint().height());
     main->addWidget(status);
 
     widgetmain = new QWidget();

@@ -25,6 +25,9 @@ public:
   void clear();
   std::list<Articolo*> ordinaLista(std::list<Articolo*>,char);
   ~ListaArticoli();
+  int size()const{
+    return articoliL.size();
+  }
 };
 
 #endif //LISTAARTICOLI_H

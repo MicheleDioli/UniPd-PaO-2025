@@ -41,13 +41,14 @@ private:
     QVBoxLayout* v;
 
     QPushButton* salva;
+    QGroupBox* gruppoFiltri;
     QComboBox* filtro;
     QComboBox* filtro2;
 
     QHBoxLayout* lista;
     QLineEdit* ricerca;
     QSplitter* splitter;
-
+    
 public:
     FiltroLayout(QWidget* parent = nullptr, ListaArticoli* LA = nullptr);
     void filtra(std::list<Articolo*>);
