@@ -464,7 +464,6 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -547,7 +546,7 @@ TARGET        = src.app/Contents/MacOS/src
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 15.5
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Library/Developer/CommandLineTools
-EXPORT__QMAKE_STASH_ = /Users/jeff/Desktop/UniPd-PaO-2025/src/.qmake.stash
+EXPORT__QMAKE_STASH_ = 
 EXPORT_VALID_ARCHS = arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -906,7 +905,6 @@ Makefile: src.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /opt/home
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -1284,7 +1282,6 @@ Makefile: src.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /opt/home
 /opt/homebrew/share/qt/mkspecs/features/qt_config.prf:
 /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf:
 /opt/homebrew/share/qt/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf:
 /opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf:
 /opt/homebrew/share/qt/mkspecs/features/toolchain.prf:
@@ -1355,7 +1352,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r src.app
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -1377,6 +1373,66 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
 		/opt/homebrew/share/qt/libexec/rcc \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
 		asset/images/tes.png \
 		asset/images/tes.png \
 		asset/images/tes.png \
@@ -1887,6 +1943,8 @@ moc_MainWindow.cpp: view/MainWindow.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		view/sensoriqt/ListaArticoli.h \
 		view/sensoriqt/filtroSpecifico.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
@@ -2257,6 +2315,8 @@ moc_FiltroLayout.cpp: view/sensoriqt/FiltroLayout.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		view/sensoriqt/ListaArticoli.h \
 		view/sensoriqt/filtroSpecifico.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
@@ -2279,23 +2339,24 @@ moc_filtroSpecifico.cpp: view/sensoriqt/filtroSpecifico.h \
 		Libro.h \
 		Film.h \
 		view/sensoriqt/ListaArticoli.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QSlider \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSlider \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
 		moc_predefs.h \
 		/opt/homebrew/share/qt/libexec/moc
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/src/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/src -I/Users/jeff/Desktop/UniPd-PaO-2025/src -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/17/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib view/sensoriqt/filtroSpecifico.h -o moc_filtroSpecifico.cpp
@@ -2448,6 +2509,8 @@ main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		view/sensoriqt/ListaArticoli.h \
 		view/sensoriqt/filtroSpecifico.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
@@ -2560,6 +2623,8 @@ MainWindow.o: view/MainWindow.cpp view/MainWindow.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		view/sensoriqt/ListaArticoli.h \
 		view/sensoriqt/filtroSpecifico.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
@@ -3055,6 +3120,8 @@ FiltroLayout.o: view/sensoriqt/FiltroLayout.cpp view/sensoriqt/FiltroLayout.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		view/sensoriqt/ListaArticoli.h \
 		view/sensoriqt/filtroSpecifico.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
@@ -3075,23 +3142,24 @@ filtroSpecifico.o: view/sensoriqt/filtroSpecifico.cpp view/sensoriqt/filtroSpeci
 		Libro.h \
 		Film.h \
 		view/sensoriqt/ListaArticoli.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QSlider \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qstackedwidget.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSlider \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o filtroSpecifico.o view/sensoriqt/filtroSpecifico.cpp
 
 ListaArticoli.o: view/sensoriqt/ListaArticoli.cpp view/sensoriqt/ListaArticoli.h \

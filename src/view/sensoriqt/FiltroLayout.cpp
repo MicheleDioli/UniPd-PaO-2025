@@ -1,5 +1,5 @@
 #include "FiltroLayout.h"
-#include "filtroSpecifico.h"
+
 
 FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent), l1(LA) {
 
@@ -42,6 +42,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
 
     fitriSpecificiCombo = new QGroupBox();
     filtroS = new filtroSpecifico(nullptr, l1);
+    filtroS->backNormale();
     QVBoxLayout* layoutSpecifico = new QVBoxLayout();
     layoutSpecifico->addWidget(filtroS);
     fitriSpecificiCombo->setLayout(layoutSpecifico);
@@ -116,16 +117,18 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
 
     if (filtro->currentText() == "Libri") {
         tmp = l->soloLibri(tmp);
-        //filtroS->setLayoutSpecifico(tmp.front());
+        filtroS->setLayoutSpecifico(tmp.front());
     } else if (filtro->currentText() == "Riviste") {
         tmp = l->soloRiviste(tmp);
-        //filtroS->setLayoutSpecifico(tmp.front());
+        filtroS->setLayoutSpecifico(tmp.front());
     } else if (filtro->currentText() == "Film") {
         tmp = l->soloFilm(tmp);
-       // filtroS->setLayoutSpecifico(tmp.front());
+        filtroS->setLayoutSpecifico(tmp.front());
+    } else if(filtro->currentText() == "Tutti"){
+        filtroS->backNormale();
     }
     
-//    filtroS->aggiorna();
+    filtroS->aggiorna();
 
     prev = filtro->currentIndex();
     lista = l->getArticoli(tmp);

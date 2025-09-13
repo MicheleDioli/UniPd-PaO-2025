@@ -5,62 +5,101 @@
 #include "../../Rivista.h"
 #include "../../Libro.h"
 #include "../../Film.h"
-
 #include "../sensoriqt/ListaArticoli.h"
 
-#include<QDial>
-#include<QSlider>
-#include<QComboBox>
-#include<QVBoxLayout>
-#include<QWidget>
-#include<QLabel>
-#include<QLineEdit>
-#include<QHBoxLayout>
-#include<QGroupBox>
+#include <QWidget>
+#include <QVBoxLayout>
+#include <QStackedWidget>
+#include <QLabel>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QDial>
+#include <QPushButton>
 
-
+#include <QSlider>
 
 class filtroSpecifico : public QWidget {
     Q_OBJECT
+
 private:
+    ListaArticoli* l1;
 
-    ListaArticoli *l1;
+    QVBoxLayout* mainFiltroSpecifico;
 
-    QVBoxLayout *mainFiltroSpecifico;
-    QVBoxLayout *layoutFilm;
-    QVBoxLayout *layoutLibro;
-    QVBoxLayout *layoutRivista;
-    QVBoxLayout *layoutSpecifico;
+    QStackedWidget* stackedWidget;
+    QWidget* paginaFilm;
+    QWidget* paginaLibro;
+    QWidget* paginaRivista;
 
-    QSlider *annoSplitter;
-    QSlider *copieSplitter;
-    QComboBox *linguaCombo;
-    QComboBox *categoria;
-    
-    QDial *minutaggioDial;
-    QComboBox *attoreCombo;
-    QComboBox *produCombo;
+    // widget generici
+    QSlider* annoSplitter;
+    QSlider* copieSplitter;
+    QComboBox* linguaCombo;
+    QComboBox* categoria;
 
-    QDial *pagineDial;
-    QDial *capitoliDial;
-    QComboBox *autoreCombo;
-    QComboBox *casaEditriceCombo;
+    // Film
+    QDial* minutaggioDial;
+    QComboBox* attoreCombo;
+    QComboBox* produCombo;
 
-    QSlider *pagineRivistaSlider;
-    QComboBox *periodicoCombo;
-    QComboBox *difficoltaCombo;
+    // Libro
+    QDial* pagineDial;
+    QDial* capitoliDial;
+    QComboBox* autoreCombo;
+    QComboBox* casaEditriceCombo;
 
+    // Rivista
+    QSlider* pagineRivistaSlider;
+    QComboBox* periodicoCombo;
+    QComboBox* difficoltaCombo;
 
+    void setupPaginaFilm();
+    void setupPaginaLibro();
+    void setupPaginaRivista();
 
 public:
-
     filtroSpecifico(QWidget* parent = nullptr, ListaArticoli* LA = nullptr);
-    void filtroFilm(ListaArticoli* LA);
-    void filtroLibro(ListaArticoli* LA);
-    void filtroRivista(ListaArticoli* LA);
     void setLayoutSpecifico(Articolo* a);
+    void backNormale();
     void aggiorna();
+/*
+    public slots:
+    void annoChanged(int);
+    void copieChanged(int);
+    void linguaChanged(const QString&);
+    void categoriaChanged(const QString&);
+
+    void minutaggioChanged(int);
+    void attoreChanged(const QString&);
+    void produChanged(const QString&);
+
+    void pagineChanged(int);
+    void capitoliChanged(int);
+    void autoreChanged(const QString&);
+    void casaEditriceChanged(const QString&);
+
+    void pagineRivistaChanged(int);
+    void periodicoChanged(const QString&);
+    void difficoltaChanged(const QString&);
+    
+    signals:
+    int annoValueChanged(int);
+    int copieValueChanged(int);
+    QString linguaValueChanged(const QString&);
+    QString categoriaValueChanged(const QString&);
+
+    int minutaggioValueChanged(int);
+    QString attoreValueChanged(const QString&);
+    QString produValueChanged(const QString&);
+
+    int pagineValueChanged(int);
+    int capitoliValueChanged(int);
+    QString autoreValueLibroChanged(const QString&);
+    QString casaEditriceValueChanged(const QString&);
+
+    int pagineRivistaValueChanged(int);
+    QString periodicoValueChanged(const QString&);
+    QString difficoltaValueChanged(const QString&);*/
 };
 
-#endif // LISTAQT_H
-
+#endif // FILTROSPECIFICO_H
