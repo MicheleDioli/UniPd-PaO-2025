@@ -23,7 +23,7 @@ filtroSpecifico::filtroSpecifico(QWidget* parent, ListaArticoli* LA) : QWidget(p
     linguaCombo = new QComboBox();
     categoria = new QComboBox();
 
-    annoSplitter->setRange(0, l1->maxAnni());
+    annoSplitter->setRange(l1->minAnni(), l1->maxAnni());
     copieSplitter->setRange(0, l1->maxCopie());
     copieSplitter->setValue(0);
 
@@ -48,12 +48,22 @@ filtroSpecifico::filtroSpecifico(QWidget* parent, ListaArticoli* LA) : QWidget(p
     mainFiltroSpecifico->addWidget(linguaCombo);
     mainFiltroSpecifico->addWidget(categoria);
     mainFiltroSpecifico->addWidget(stackedWidget);
-    /*
-    connect(annoSplitter, &QSlider::valueChanged, this, &filtroSpecifico::annoChanged);
-    connect(copieSplitter, &QSlider::valueChanged, this, &filtroSpecifico::copieChanged);
-    connect(linguaCombo, &QComboBox::currentTextChanged, this, &filtroSpecifico::linguaChanged);
-    connect(categoria, &QComboBox::currentTextChanged, this, &filtroSpecifico::categoriaChanged);
-    */
+        
+    connect(annoSplitter, &QSlider::valueChanged, this, [this](int value){
+        emit annoValueChanged(value);
+    });
+
+    connect(copieSplitter, &QSlider::valueChanged, this, [this](int value){
+        emit copieValueChanged(value);
+    });
+
+    connect(linguaCombo, &QComboBox::currentTextChanged, this, [this](const QString &text){
+        emit linguaValueChanged(text);
+    });
+
+    connect(categoria, &QComboBox::currentTextChanged, this, [this](const QString &text){
+        emit categoriaValueChanged(text);
+    });
 
 
 }
@@ -86,12 +96,19 @@ void filtroSpecifico::setupPaginaFilm() {
     connect(minutaggioDial, &QDial::valueChanged, [minutaggioLabel](int value){
         minutaggioLabel->setText(QString("Minutaggio: %1").arg(value));
     });
-/*
-    connect(minutaggioDial, &QDial::valueChanged, this, &filtroSpecifico::minutaggioChanged);
-    connect(attoreCombo, &QComboBox::currentTextChanged, this, &filtroSpecifico::attoreChanged);
-    connect(produCombo, &QComboBox::currentTextChanged, this, &filtroSpecifico::produChanged);
-    connect(casaEditriceCombo, &QComboBox::currentTextChanged, this, &filtroSpecifico::casaEditriceChanged);
-    */
+
+    connect(minutaggioDial, &QDial::valueChanged, this, [this](int value){
+    emit minutaggioValueChanged(value);
+    });
+
+    connect(attoreCombo, &QComboBox::currentTextChanged, this, [this](const QString &text){
+        emit attoreValueChanged(text);
+    });
+
+    connect(produCombo, &QComboBox::currentTextChanged, this, [this](const QString &text){
+        emit produValueChanged(text);
+    });
+
 }
 
 void filtroSpecifico::setupPaginaLibro() {
@@ -130,12 +147,23 @@ void filtroSpecifico::setupPaginaLibro() {
     connect(capitoliDial, &QDial::valueChanged, [capitoliLabel](int value){
         capitoliLabel->setText(QString("Capitoli: %1").arg(value));
     });
-/*
-    connect(pagineDial, &QDial::valueChanged, this, &filtroSpecifico::pagineChanged);
-    connect(capitoliDial, &QDial::valueChanged, this, &filtroSpecifico::capitoliChanged);
-    connect(autoreCombo, &QComboBox::currentTextChanged, this, &filtroSpecifico::autoreChanged);
-    connect(casaEditriceCombo, &QComboBox::currentTextChanged, this, &filtroSpecifico::casaEditriceChanged);
-    */
+
+    connect(pagineDial, &QDial::valueChanged, this, [this](int value){
+        emit pagineValueChanged(value);
+    });
+
+    connect(capitoliDial, &QDial::valueChanged, this, [this](int value){
+        emit capitoliValueChanged(value);
+    });
+
+    connect(autoreCombo, &QComboBox::currentTextChanged, this, [this](const QString &text){
+        emit autoreValueLibroChanged(text);
+    });
+
+    connect(casaEditriceCombo, &QComboBox::currentTextChanged, this, [this](const QString &text){
+        emit casaEditriceValueChanged(text);
+    });
+
 }
 
 void filtroSpecifico::setupPaginaRivista() {
@@ -166,11 +194,19 @@ void filtroSpecifico::setupPaginaRivista() {
     connect(pagineRivistaSlider, &QSlider::valueChanged, [pagineLabel](int value){
         pagineLabel->setText(QString("Pagine Rivista: %1").arg(value));
     });
-    /*
-    connect(pagineRivistaSlider, &QSlider::valueChanged, this, &filtroSpecifico::pagineRivistaChanged);
-    connect(periodicoCombo, &QComboBox::currentTextChanged, this, &filtroSpecifico::periodicoChanged);
-    connect(difficoltaCombo, &QComboBox::currentTextChanged, this, &filtroSpecifico::difficoltaChanged);
-    */
+
+    connect(pagineRivistaSlider, &QSlider::valueChanged, this, [this](int value){
+    emit pagineRivistaValueChanged(value);
+    });
+
+    connect(periodicoCombo, &QComboBox::currentTextChanged, this, [this](const QString &text){
+        emit periodicoValueChanged(text);
+    });
+
+    connect(difficoltaCombo, &QComboBox::currentTextChanged, this, [this](const QString &text){
+        emit difficoltaValueChanged(text);
+    });
+
 }
 
 void filtroSpecifico::setLayoutSpecifico(Articolo* a) {
@@ -190,7 +226,7 @@ void filtroSpecifico::backNormale() {
 void filtroSpecifico::aggiorna() {
     if (!l1) return;
 
-    annoSplitter->setRange(0, l1->maxAnni());
+    annoSplitter->setRange(l1->minAnni(), l1->maxAnni());
     copieSplitter->setRange(0, l1->maxCopie());
     copieSplitter->setValue(0);
 
@@ -207,90 +243,4 @@ void filtroSpecifico::aggiorna() {
     if(periodicoCombo) { periodicoCombo->clear(); for(auto p: l1->allPeriodici()) periodicoCombo->addItem(QString::fromStdString(*p)); }
     if(difficoltaCombo) difficoltaCombo->setCurrentIndex(0);
 }
-/*
-// SLOT
-void filtroSpecifico::annoChanged(int value) {
-    emit annoValueChanged(value);
-}
-void filtroSpecifico::copieChanged(int value) {
-    emit copieValueChanged(value);
-}
-void filtroSpecifico::linguaChanged(const QString& text) {
-    emit linguaValueChanged(text);
-}
-void filtroSpecifico::categoriaChanged(const QString& text) {
-    emit categoriaValueChanged(text);
-}
-void filtroSpecifico::minutaggioChanged(int value) {
-    emit minutaggioValueChanged(value);
-}
-void filtroSpecifico::attoreChanged(const QString& text) {
-    emit attoreValueChanged(text);
-}
-void filtroSpecifico::produChanged(const QString& text) {
-    emit produValueChanged(text);
-}
-void filtroSpecifico::pagineChanged(int value) {
-    emit pagineValueChanged(value);
-}
-void filtroSpecifico::capitoliChanged(int value) {
-    emit capitoliValueChanged(value);
-}
-void filtroSpecifico::autoreChanged(const QString& text) {
-    emit autoreValueLibroChanged(text);
-}
-void filtroSpecifico::casaEditriceChanged(const QString& text) {
-    emit casaEditriceValueChanged(text);
-}
-void filtroSpecifico::pagineRivistaChanged(int value) {
-    emit pagineRivistaValueChanged(value);
-}
-void filtroSpecifico::periodicoChanged(const QString& text) {
-    emit periodicoValueChanged(text);
-}
-void filtroSpecifico::difficoltaChanged(const QString& text) {
-    emit difficoltaValueChanged(text);
-}
-// SIGNALS
-int filtroSpecifico::annoValueChanged(int value) {
-    return value;
-}
-int filtroSpecifico::copieValueChanged(int value) {
-    return value;
-}
-QString filtroSpecifico::linguaValueChanged(const QString& text) {
-    return text;
-}
-QString filtroSpecifico::categoriaValueChanged(const QString& text) {
-    return text;
-}
-int filtroSpecifico::minutaggioValueChanged(int value) {
-    return value;
-}
-QString filtroSpecifico::attoreValueChanged(const QString& text) {
-    return text;
-}
-QString filtroSpecifico::produValueChanged(const QString& text) {
-    return text;
-}
-int filtroSpecifico::pagineValueChanged(int value) {
-    return value;
-}
-int filtroSpecifico::capitoliValueChanged(int value) {
-    return value;
-}
-QString filtroSpecifico::autoreValueLibroChanged(const QString& text) {
-    return text;
-}
-QString filtroSpecifico::casaEditriceValueChanged(const QString& text) {
-    return text;
-}
-int filtroSpecifico::pagineRivistaValueChanged(int value) {
-    return value;
-}
-QString filtroSpecifico::periodicoValueChanged(const QString& text) {
-    return text;
-}
-QString filtroSpecifico::difficoltaValueChanged(const QString& text) {
-    return text;
-}*/
+

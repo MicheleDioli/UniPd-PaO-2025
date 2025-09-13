@@ -72,4 +72,3 @@ signals:
 };
 
 #endif // LISTAQT_H
-

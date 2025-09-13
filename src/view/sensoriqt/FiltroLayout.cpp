@@ -56,7 +56,6 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     gruppoFiltri->setLayout(filtri);
     layout2->addWidget(gruppoFiltri);
 
-
     gruppoFiltri->hide();
 
     l = new ListaQT(l1->getArticoli());
@@ -90,7 +89,97 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     connect(filtro2, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::filtraggio);
 
 
+    connect(filtroS, &filtroSpecifico::annoValueChanged, this, &FiltroLayout::annoFiltrato);
+    connect(filtroS, &filtroSpecifico::copieValueChanged, this, &FiltroLayout::copieFiltrato);
+    connect(filtroS, &filtroSpecifico::linguaValueChanged, this, &FiltroLayout::linguaFiltrato);
+    connect(filtroS, &filtroSpecifico::categoriaValueChanged, this, &FiltroLayout::categoriaFiltrato);
+
+    connect(filtroS, &filtroSpecifico::minutaggioValueChanged, this, &FiltroLayout::minutaggioFiltrato);
+    connect(filtroS, &filtroSpecifico::attoreValueChanged, this, &FiltroLayout::attoreFiltrato);
+    connect(filtroS, &filtroSpecifico::produValueChanged, this, &FiltroLayout::produFiltrato);
+
+
 }
+
+void FiltroLayout::minutaggioFiltrato(int value) {
+
+}
+
+void FiltroLayout::attoreFiltrato(const QString& text) {
+
+}
+
+void FiltroLayout::produFiltrato(const QString& text) {
+
+    std::list<Articolo*> tmp;
+    tmp = l->soloFilm(l1->getArticoli());
+    std::list<Articolo*> tmp1;
+
+    for(auto a : tmp){
+        if(Film* f = dynamic_cast<Film*>(a)) {
+            if(f->getProduttore() == text.toStdString()) {
+                tmp1.push_back(a);
+            }
+        }
+    }
+
+    prev = filtro->currentIndex();
+    lista = (l->getArticoli(tmp1));
+    layout2->addLayout(lista);
+    layout->addLayout(layout2);
+
+
+
+}
+
+
+
+
+void FiltroLayout::annoFiltrato(int value) {
+
+    std::list<Articolo*> tmp;
+    for (Articolo* a : l1->getArticoli()) {
+        if (a->getAnno() <= value) {
+            tmp.push_back(a);
+        }
+    }
+    filtra(tmp);
+    filtroS->aggiorna();
+}
+
+void FiltroLayout::copieFiltrato(int value) {
+    std::list<Articolo*> tmp;
+    for (Articolo* a : l1->getArticoli()) {
+        if (a->getCopie() <= value) {
+            tmp.push_back(a);
+        }
+    }
+    filtra(tmp);
+    filtroS->aggiorna();
+}
+
+void FiltroLayout::linguaFiltrato(const QString& text) {
+    std::list<Articolo*> tmp;
+    for (Articolo* a : l1->getArticoli()) {
+        if (a->getLingua() == text.toStdString()) {
+            tmp.push_back(a);
+        }
+    }
+    filtra(tmp);
+    filtroS->aggiorna();
+}
+
+void FiltroLayout::categoriaFiltrato(const QString& text) {
+    std::list<Articolo*> tmp;
+    for (Articolo* a : l1->getArticoli()) {
+        if (a->getGenere() == text.toStdString()) {
+            tmp.push_back(a);
+        }
+    }
+    filtra(tmp);
+    filtroS->aggiorna();
+}
+
 
 void FiltroLayout::ricercaScelta() {
     std::list<Articolo*> tmp = l->ricerca(l1->getArticoli(), ricerca->text().toStdString());
@@ -102,6 +191,7 @@ void FiltroLayout::importa(){
 }
 
 void FiltroLayout::filtraggio() {
+    filtroS->aggiorna();
     std::list<Articolo*> tmp;
 
     if(filtro2->currentText() == "Nome A-Z"){
@@ -131,7 +221,7 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
     filtroS->aggiorna();
 
     prev = filtro->currentIndex();
-    lista = l->getArticoli(tmp);
+    lista = (l->getArticoli(tmp));
     layout2->addLayout(lista);
     layout->addLayout(layout2);
 
@@ -152,8 +242,8 @@ void FiltroLayout::aggiorna() {
     } else {
         gruppoFiltri->show();
     }
-    filtroS->aggiorna();
-    lista = l->getArticoli(l1->getArticoli());
+
+    lista = (l->getArticoli(l1->getArticoli()));
     layout2->addLayout(lista);
     layout->addLayout(layout2);
 

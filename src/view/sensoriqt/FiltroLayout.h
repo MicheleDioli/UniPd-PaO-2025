@@ -58,6 +58,17 @@ public:
     FiltroLayout(QWidget* parent = nullptr, ListaArticoli* LA = nullptr);
     void filtra(std::list<Articolo*>);
 
+    void annoFiltrato(int);
+    void copieFiltrato(int);
+    void linguaFiltrato(const QString&);
+    void categoriaFiltrato(const QString&);
+
+    void minutaggioFiltrato(int);
+    void attoreFiltrato(const QString&);
+    void produFiltrato(const QString&);
+
+    
+
 public slots:
     void filtraggio();
     void ricercaScelta();

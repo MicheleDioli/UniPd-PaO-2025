@@ -62,44 +62,27 @@ public:
     void setLayoutSpecifico(Articolo* a);
     void backNormale();
     void aggiorna();
-/*
-    public slots:
-    void annoChanged(int);
-    void copieChanged(int);
-    void linguaChanged(const QString&);
-    void categoriaChanged(const QString&);
 
-    void minutaggioChanged(int);
-    void attoreChanged(const QString&);
-    void produChanged(const QString&);
+signals:
+    void annoValueChanged(int value);
+    void copieValueChanged(int value);
+    void linguaValueChanged(const QString& text);
+    void categoriaValueChanged(const QString& text);
 
-    void pagineChanged(int);
-    void capitoliChanged(int);
-    void autoreChanged(const QString&);
-    void casaEditriceChanged(const QString&);
+    void minutaggioValueChanged(int value);
+    void attoreValueChanged(const QString& text);
+    void produValueChanged(const QString& text);
 
-    void pagineRivistaChanged(int);
-    void periodicoChanged(const QString&);
-    void difficoltaChanged(const QString&);
-    
-    signals:
-    int annoValueChanged(int);
-    int copieValueChanged(int);
-    QString linguaValueChanged(const QString&);
-    QString categoriaValueChanged(const QString&);
+    void pagineValueChanged(int value);
+    void capitoliValueChanged(int value);
+    void autoreValueLibroChanged(const QString& text);
+    void casaEditriceValueChanged(const QString& text);
 
-    int minutaggioValueChanged(int);
-    QString attoreValueChanged(const QString&);
-    QString produValueChanged(const QString&);
+    void pagineRivistaValueChanged(int value);
+    void periodicoValueChanged(const QString& text);
+    void difficoltaValueChanged(const QString& text);
 
-    int pagineValueChanged(int);
-    int capitoliValueChanged(int);
-    QString autoreValueLibroChanged(const QString&);
-    QString casaEditriceValueChanged(const QString&);
 
-    int pagineRivistaValueChanged(int);
-    QString periodicoValueChanged(const QString&);
-    QString difficoltaValueChanged(const QString&);*/
 };
 
 #endif // FILTROSPECIFICO_H

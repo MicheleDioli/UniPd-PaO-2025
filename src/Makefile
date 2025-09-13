@@ -68,6 +68,7 @@ SOURCES       = Articolo.cpp \
 		view/modifica/ModificaFilm.cpp \
 		view/modifica/ModificaLibro.cpp \
 		view/modifica/ModificaRivista.cpp \
+		view/mostra/MostraListraVisitor.cpp \
 		view/mostra/MostraVisitor.cpp \
 		view/sensoriqt/Cliccabile.cpp \
 		view/sensoriqt/FiltroLayout.cpp \
@@ -102,6 +103,7 @@ OBJECTS       = Articolo.o \
 		ModificaFilm.o \
 		ModificaLibro.o \
 		ModificaRivista.o \
+		MostraListraVisitor.o \
 		MostraVisitor.o \
 		Cliccabile.o \
 		FiltroLayout.o \
@@ -464,6 +466,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -509,6 +512,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		view/modifica/ModificaFilm.h \
 		view/modifica/ModificaLibro.h \
 		view/modifica/ModificaRivista.h \
+		view/mostra/MostraListaVisitor.h \
 		view/mostra/MostraVisitor.h \
 		view/sensoriqt/Cliccabile.h \
 		view/sensoriqt/FiltroLayout.h \
@@ -531,6 +535,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		view/modifica/ModificaFilm.cpp \
 		view/modifica/ModificaLibro.cpp \
 		view/modifica/ModificaRivista.cpp \
+		view/mostra/MostraListraVisitor.cpp \
 		view/mostra/MostraVisitor.cpp \
 		view/sensoriqt/Cliccabile.cpp \
 		view/sensoriqt/FiltroLayout.cpp \
@@ -546,7 +551,7 @@ TARGET        = src.app/Contents/MacOS/src
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 15.5
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Library/Developer/CommandLineTools
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/jeff/Desktop/UniPd-PaO-2025/src/.qmake.stash
 EXPORT_VALID_ARCHS = arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -905,6 +910,7 @@ Makefile: src.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /opt/home
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -1282,6 +1288,7 @@ Makefile: src.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /opt/home
 /opt/homebrew/share/qt/mkspecs/features/qt_config.prf:
 /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf:
 /opt/homebrew/share/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf:
 /opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf:
 /opt/homebrew/share/qt/mkspecs/features/toolchain.prf:
@@ -1341,8 +1348,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Articolo.h ConstVisitorInterface.h Film.h Libro.h Rivista.h VisitorInterface.h view/MainWindow.h view/crea/Nuovo.h view/json/Json.h view/json/JsonImporter.h view/json/JsonVisitor.h view/modifica/Edit.h view/modifica/EditVisitor.h view/modifica/ModificaArticolo.h view/modifica/ModificaFilm.h view/modifica/ModificaLibro.h view/modifica/ModificaRivista.h view/mostra/MostraVisitor.h view/sensoriqt/Cliccabile.h view/sensoriqt/FiltroLayout.h view/sensoriqt/filtroSpecifico.h view/sensoriqt/ListaArticoli.h view/sensoriqt/ListaQT.h view/sensoriqt/ListaVisitor.h $(DISTDIR)/
-	$(COPY_FILE) --parents Articolo.cpp Film.cpp Libro.cpp main.cpp Rivista.cpp view/MainWindow.cpp view/crea/Nuovo.cpp view/json/Json.cpp view/json/JsonImporter.cpp view/json/JsonVisitor.cpp view/modifica/Edit.cpp view/modifica/EditVisitor.cpp view/modifica/ModificaArticolo.cpp view/modifica/ModificaFilm.cpp view/modifica/ModificaLibro.cpp view/modifica/ModificaRivista.cpp view/mostra/MostraVisitor.cpp view/sensoriqt/Cliccabile.cpp view/sensoriqt/FiltroLayout.cpp view/sensoriqt/filtroSpecifico.cpp view/sensoriqt/ListaArticoli.cpp view/sensoriqt/ListaQT.cpp view/sensoriqt/ListaVisitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Articolo.h ConstVisitorInterface.h Film.h Libro.h Rivista.h VisitorInterface.h view/MainWindow.h view/crea/Nuovo.h view/json/Json.h view/json/JsonImporter.h view/json/JsonVisitor.h view/modifica/Edit.h view/modifica/EditVisitor.h view/modifica/ModificaArticolo.h view/modifica/ModificaFilm.h view/modifica/ModificaLibro.h view/modifica/ModificaRivista.h view/mostra/MostraListaVisitor.h view/mostra/MostraVisitor.h view/sensoriqt/Cliccabile.h view/sensoriqt/FiltroLayout.h view/sensoriqt/filtroSpecifico.h view/sensoriqt/ListaArticoli.h view/sensoriqt/ListaQT.h view/sensoriqt/ListaVisitor.h $(DISTDIR)/
+	$(COPY_FILE) --parents Articolo.cpp Film.cpp Libro.cpp main.cpp Rivista.cpp view/MainWindow.cpp view/crea/Nuovo.cpp view/json/Json.cpp view/json/JsonImporter.cpp view/json/JsonVisitor.cpp view/modifica/Edit.cpp view/modifica/EditVisitor.cpp view/modifica/ModificaArticolo.cpp view/modifica/ModificaFilm.cpp view/modifica/ModificaLibro.cpp view/modifica/ModificaRivista.cpp view/mostra/MostraListraVisitor.cpp view/mostra/MostraVisitor.cpp view/sensoriqt/Cliccabile.cpp view/sensoriqt/FiltroLayout.cpp view/sensoriqt/filtroSpecifico.cpp view/sensoriqt/ListaArticoli.cpp view/sensoriqt/ListaQT.cpp view/sensoriqt/ListaVisitor.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1352,6 +1359,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r src.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -1373,6 +1381,162 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
 		/opt/homebrew/share/qt/libexec/rcc \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
 		asset/images/tes.png \
 		asset/images/tes.png \
 		asset/images/tes.png \
@@ -3005,6 +3169,28 @@ ModificaRivista.o: view/modifica/ModificaRivista.cpp view/modifica/ModificaRivis
 		Libro.h \
 		Rivista.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ModificaRivista.o view/modifica/ModificaRivista.cpp
+
+MostraListraVisitor.o: view/mostra/MostraListraVisitor.cpp view/mostra/MostraListaVisitor.h \
+		VisitorInterface.h \
+		Libro.h \
+		Articolo.h \
+		ConstVisitorInterface.h \
+		Rivista.h \
+		Film.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/opt/homebrew/lib/QtGui.framework/Headers/QPixmap \
+		/opt/homebrew/lib/QtGui.framework/Headers/qpixmap.h \
+		/opt/homebrew/lib/QtCore.framework/Headers/QString \
+		/opt/homebrew/lib/QtCore.framework/Headers/qstring.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QPushButton \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qpushbutton.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MostraListraVisitor.o view/mostra/MostraListraVisitor.cpp
 
 MostraVisitor.o: view/mostra/MostraVisitor.cpp view/mostra/MostraVisitor.h \
 		VisitorInterface.h \
