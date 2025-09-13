@@ -41,11 +41,13 @@ public:
     ListaQT () = default;
 
     QHBoxLayout* getArticoli(std::list<Articolo*>);
+    QVBoxLayout* getArticoliLista();
 
     std::list<Articolo*> soloLibri(std::list<Articolo*>);
     std::list<Articolo*> soloRiviste(std::list<Articolo*>);
     std::list<Articolo*> soloFilm(std::list<Articolo*>);
     std::list<Articolo*> ricerca(std::list<Articolo*>, std::string);
+
 
     void pulisciLayout(QLayout* layout);
 public slots:
