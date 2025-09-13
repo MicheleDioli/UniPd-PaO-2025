@@ -32,6 +32,9 @@ private:
     QVBoxLayout *l;
     QVBoxLayout *tmp;
     QGroupBox *gruppo;
+
+    QPushButton* b1, *b2;
+    
     std::list<Articolo*> articoli;
 public:
     ListaQT(std::list<Articolo*> articoli = {});
@@ -47,6 +50,7 @@ public:
     void pulisciLayout(QLayout* layout);
 public slots:
     void clicatoNuovo();
+    void importaNuovo();
     void itemClicked(Articolo* articolo);
 
     void salva(Articolo* articolo);
@@ -60,7 +64,7 @@ signals:
     void salvaclic(Articolo* articolo);
     void cancellaclic(Articolo* articolo);
     void modificlic(Articolo* articolo);
-
+    void importaClickedLista();
     void nuovoClicked();
 
 };

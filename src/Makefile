@@ -71,6 +71,7 @@ SOURCES       = Articolo.cpp \
 		view/mostra/MostraVisitor.cpp \
 		view/sensoriqt/Cliccabile.cpp \
 		view/sensoriqt/FiltroLayout.cpp \
+		view/sensoriqt/filtroSpecifico.cpp \
 		view/sensoriqt/ListaArticoli.cpp \
 		view/sensoriqt/ListaQT.cpp \
 		view/sensoriqt/ListaVisitor.cpp qrc_resources.cpp \
@@ -83,6 +84,7 @@ SOURCES       = Articolo.cpp \
 		moc_ModificaRivista.cpp \
 		moc_Cliccabile.cpp \
 		moc_FiltroLayout.cpp \
+		moc_filtroSpecifico.cpp \
 		moc_ListaQT.cpp
 OBJECTS       = Articolo.o \
 		Film.o \
@@ -103,6 +105,7 @@ OBJECTS       = Articolo.o \
 		MostraVisitor.o \
 		Cliccabile.o \
 		FiltroLayout.o \
+		filtroSpecifico.o \
 		ListaArticoli.o \
 		ListaQT.o \
 		ListaVisitor.o \
@@ -116,6 +119,7 @@ OBJECTS       = Articolo.o \
 		moc_ModificaRivista.o \
 		moc_Cliccabile.o \
 		moc_FiltroLayout.o \
+		moc_filtroSpecifico.o \
 		moc_ListaQT.o
 DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/device_config.prf \
@@ -460,6 +464,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -508,6 +513,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		view/mostra/MostraVisitor.h \
 		view/sensoriqt/Cliccabile.h \
 		view/sensoriqt/FiltroLayout.h \
+		view/sensoriqt/filtroSpecifico.h \
 		view/sensoriqt/ListaArticoli.h \
 		view/sensoriqt/ListaQT.h \
 		view/sensoriqt/ListaVisitor.h Articolo.cpp \
@@ -529,6 +535,7 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		view/mostra/MostraVisitor.cpp \
 		view/sensoriqt/Cliccabile.cpp \
 		view/sensoriqt/FiltroLayout.cpp \
+		view/sensoriqt/filtroSpecifico.cpp \
 		view/sensoriqt/ListaArticoli.cpp \
 		view/sensoriqt/ListaQT.cpp \
 		view/sensoriqt/ListaVisitor.cpp
@@ -540,7 +547,7 @@ TARGET        = src.app/Contents/MacOS/src
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 15.5
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Library/Developer/CommandLineTools
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/jeff/Desktop/UniPd-PaO-2025/src/.qmake.stash
 EXPORT_VALID_ARCHS = arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -899,6 +906,7 @@ Makefile: src.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /opt/home
 		/opt/homebrew/share/qt/mkspecs/features/qt_config.prf \
 		/opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf \
 		/opt/homebrew/share/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf \
 		/opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf \
 		/opt/homebrew/share/qt/mkspecs/features/toolchain.prf \
@@ -1276,6 +1284,7 @@ Makefile: src.pro /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf /opt/home
 /opt/homebrew/share/qt/mkspecs/features/qt_config.prf:
 /opt/homebrew/share/qt/mkspecs/macx-clang/qmake.conf:
 /opt/homebrew/share/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /opt/homebrew/share/qt/mkspecs/features/exclusive_builds.prf:
 /opt/homebrew/share/qt/mkspecs/features/mac/sdk.prf:
 /opt/homebrew/share/qt/mkspecs/features/toolchain.prf:
@@ -1335,8 +1344,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Articolo.h ConstVisitorInterface.h Film.h Libro.h Rivista.h VisitorInterface.h view/MainWindow.h view/crea/Nuovo.h view/json/Json.h view/json/JsonImporter.h view/json/JsonVisitor.h view/modifica/Edit.h view/modifica/EditVisitor.h view/modifica/ModificaArticolo.h view/modifica/ModificaFilm.h view/modifica/ModificaLibro.h view/modifica/ModificaRivista.h view/mostra/MostraVisitor.h view/sensoriqt/Cliccabile.h view/sensoriqt/FiltroLayout.h view/sensoriqt/ListaArticoli.h view/sensoriqt/ListaQT.h view/sensoriqt/ListaVisitor.h $(DISTDIR)/
-	$(COPY_FILE) --parents Articolo.cpp Film.cpp Libro.cpp main.cpp Rivista.cpp view/MainWindow.cpp view/crea/Nuovo.cpp view/json/Json.cpp view/json/JsonImporter.cpp view/json/JsonVisitor.cpp view/modifica/Edit.cpp view/modifica/EditVisitor.cpp view/modifica/ModificaArticolo.cpp view/modifica/ModificaFilm.cpp view/modifica/ModificaLibro.cpp view/modifica/ModificaRivista.cpp view/mostra/MostraVisitor.cpp view/sensoriqt/Cliccabile.cpp view/sensoriqt/FiltroLayout.cpp view/sensoriqt/ListaArticoli.cpp view/sensoriqt/ListaQT.cpp view/sensoriqt/ListaVisitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Articolo.h ConstVisitorInterface.h Film.h Libro.h Rivista.h VisitorInterface.h view/MainWindow.h view/crea/Nuovo.h view/json/Json.h view/json/JsonImporter.h view/json/JsonVisitor.h view/modifica/Edit.h view/modifica/EditVisitor.h view/modifica/ModificaArticolo.h view/modifica/ModificaFilm.h view/modifica/ModificaLibro.h view/modifica/ModificaRivista.h view/mostra/MostraVisitor.h view/sensoriqt/Cliccabile.h view/sensoriqt/FiltroLayout.h view/sensoriqt/filtroSpecifico.h view/sensoriqt/ListaArticoli.h view/sensoriqt/ListaQT.h view/sensoriqt/ListaVisitor.h $(DISTDIR)/
+	$(COPY_FILE) --parents Articolo.cpp Film.cpp Libro.cpp main.cpp Rivista.cpp view/MainWindow.cpp view/crea/Nuovo.cpp view/json/Json.cpp view/json/JsonImporter.cpp view/json/JsonVisitor.cpp view/modifica/Edit.cpp view/modifica/EditVisitor.cpp view/modifica/ModificaArticolo.cpp view/modifica/ModificaFilm.cpp view/modifica/ModificaLibro.cpp view/modifica/ModificaRivista.cpp view/mostra/MostraVisitor.cpp view/sensoriqt/Cliccabile.cpp view/sensoriqt/FiltroLayout.cpp view/sensoriqt/filtroSpecifico.cpp view/sensoriqt/ListaArticoli.cpp view/sensoriqt/ListaQT.cpp view/sensoriqt/ListaVisitor.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1346,6 +1355,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r src.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -1367,6 +1377,421 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
 		/opt/homebrew/share/qt/libexec/rcc \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
 		asset/images/libro.png \
 		asset/images/rivista.png \
 		asset/images/biblioteca.png \
@@ -1394,9 +1819,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp
 	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra -dM -E -o moc_predefs.h /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_MainWindow.cpp moc_Nuovo.cpp moc_Edit.cpp moc_ModificaArticolo.cpp moc_ModificaFilm.cpp moc_ModificaLibro.cpp moc_ModificaRivista.cpp moc_Cliccabile.cpp moc_FiltroLayout.cpp moc_ListaQT.cpp
+compiler_moc_header_make_all: moc_MainWindow.cpp moc_Nuovo.cpp moc_Edit.cpp moc_ModificaArticolo.cpp moc_ModificaFilm.cpp moc_ModificaLibro.cpp moc_ModificaRivista.cpp moc_Cliccabile.cpp moc_FiltroLayout.cpp moc_filtroSpecifico.cpp moc_ListaQT.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_MainWindow.cpp moc_Nuovo.cpp moc_Edit.cpp moc_ModificaArticolo.cpp moc_ModificaFilm.cpp moc_ModificaLibro.cpp moc_ModificaRivista.cpp moc_Cliccabile.cpp moc_FiltroLayout.cpp moc_ListaQT.cpp
+	-$(DEL_FILE) moc_MainWindow.cpp moc_Nuovo.cpp moc_Edit.cpp moc_ModificaArticolo.cpp moc_ModificaFilm.cpp moc_ModificaLibro.cpp moc_ModificaRivista.cpp moc_Cliccabile.cpp moc_FiltroLayout.cpp moc_filtroSpecifico.cpp moc_ListaQT.cpp
 moc_MainWindow.cpp: view/MainWindow.h \
 		view/sensoriqt/FiltroLayout.h \
 		view/crea/Nuovo.h \
@@ -1461,6 +1886,9 @@ moc_MainWindow.cpp: view/MainWindow.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		view/sensoriqt/ListaArticoli.h \
+		view/sensoriqt/filtroSpecifico.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedLayout \
@@ -1828,6 +2256,9 @@ moc_FiltroLayout.cpp: view/sensoriqt/FiltroLayout.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		view/sensoriqt/ListaArticoli.h \
+		view/sensoriqt/filtroSpecifico.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedLayout \
@@ -1839,6 +2270,35 @@ moc_FiltroLayout.cpp: view/sensoriqt/FiltroLayout.h \
 		moc_predefs.h \
 		/opt/homebrew/share/qt/libexec/moc
 	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/src/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/src -I/Users/jeff/Desktop/UniPd-PaO-2025/src -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/17/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib view/sensoriqt/FiltroLayout.h -o moc_FiltroLayout.cpp
+
+moc_filtroSpecifico.cpp: view/sensoriqt/filtroSpecifico.h \
+		Articolo.h \
+		VisitorInterface.h \
+		ConstVisitorInterface.h \
+		Rivista.h \
+		Libro.h \
+		Film.h \
+		view/sensoriqt/ListaArticoli.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSlider \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		moc_predefs.h \
+		/opt/homebrew/share/qt/libexec/moc
+	/opt/homebrew/share/qt/libexec/moc $(DEFINES) --include /Users/jeff/Desktop/UniPd-PaO-2025/src/moc_predefs.h -I/opt/homebrew/share/qt/mkspecs/macx-clang -I/Users/jeff/Desktop/UniPd-PaO-2025/src -I/Users/jeff/Desktop/UniPd-PaO-2025/src -I/opt/homebrew/lib/QtWidgets.framework/Headers -I/opt/homebrew/lib/QtGui.framework/Headers -I/opt/homebrew/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/17/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/opt/homebrew/lib view/sensoriqt/filtroSpecifico.h -o moc_filtroSpecifico.cpp
 
 moc_ListaQT.cpp: view/sensoriqt/ListaQT.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
@@ -1987,6 +2447,9 @@ main.o: main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		view/sensoriqt/ListaArticoli.h \
+		view/sensoriqt/filtroSpecifico.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedLayout \
@@ -2096,6 +2559,9 @@ MainWindow.o: view/MainWindow.cpp view/MainWindow.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		view/sensoriqt/ListaArticoli.h \
+		view/sensoriqt/filtroSpecifico.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedLayout \
@@ -2588,6 +3054,9 @@ FiltroLayout.o: view/sensoriqt/FiltroLayout.cpp view/sensoriqt/FiltroLayout.h \
 		/opt/homebrew/lib/QtGui.framework/Headers/QAction \
 		/opt/homebrew/lib/QtGui.framework/Headers/qaction.h \
 		view/sensoriqt/ListaArticoli.h \
+		view/sensoriqt/filtroSpecifico.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QSplitter \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qsplitter.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/QStackedLayout \
@@ -2598,10 +3067,40 @@ FiltroLayout.o: view/sensoriqt/FiltroLayout.cpp view/sensoriqt/FiltroLayout.h \
 		/opt/homebrew/lib/QtWidgets.framework/Headers/qerrormessage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FiltroLayout.o view/sensoriqt/FiltroLayout.cpp
 
+filtroSpecifico.o: view/sensoriqt/filtroSpecifico.cpp view/sensoriqt/filtroSpecifico.h \
+		Articolo.h \
+		VisitorInterface.h \
+		ConstVisitorInterface.h \
+		Rivista.h \
+		Libro.h \
+		Film.h \
+		view/sensoriqt/ListaArticoli.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QDial \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qdial.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QSlider \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qslider.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QComboBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qwidget.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLabel \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlabel.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QLineEdit \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QGroupBox \
+		/opt/homebrew/lib/QtWidgets.framework/Headers/qgroupbox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o filtroSpecifico.o view/sensoriqt/filtroSpecifico.cpp
+
 ListaArticoli.o: view/sensoriqt/ListaArticoli.cpp view/sensoriqt/ListaArticoli.h \
 		Articolo.h \
 		VisitorInterface.h \
-		ConstVisitorInterface.h
+		ConstVisitorInterface.h \
+		Film.h \
+		Libro.h \
+		Rivista.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ListaArticoli.o view/sensoriqt/ListaArticoli.cpp
 
 ListaQT.o: view/sensoriqt/ListaQT.cpp view/sensoriqt/ListaQT.h \
@@ -2695,6 +3194,9 @@ moc_Cliccabile.o: moc_Cliccabile.cpp
 
 moc_FiltroLayout.o: moc_FiltroLayout.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_FiltroLayout.o moc_FiltroLayout.cpp
+
+moc_filtroSpecifico.o: moc_filtroSpecifico.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_filtroSpecifico.o moc_filtroSpecifico.cpp
 
 moc_ListaQT.o: moc_ListaQT.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ListaQT.o moc_ListaQT.cpp

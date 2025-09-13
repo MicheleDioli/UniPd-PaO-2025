@@ -12,14 +12,17 @@ ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
     QLabel *b1Label = new QLabel();
     QLabel *b2Label = new QLabel();
 
-    b1Label->setText("Crea un articolo nuovo");
-    b1Label->setText("Importa una libreria");
+    b1Label->setAlignment(Qt::AlignRight|Qt::AlignCenter);
+    b2Label->setAlignment(Qt::AlignRight|Qt::AlignCenter);
 
-    QPushButton* b1 = new QPushButton("CTRL + N");
+    b1Label->setText("Crea un articolo nuovo");
+    b2Label->setText("Importa una libreria");
+
+    b1 = new QPushButton("CTRL + N");
     b1->setFlat(true);
     b1->setStyleSheet("color: blue; font-weight: bold; text-align: left;");
 
-    QPushButton* b2 = new QPushButton("CTRL + 0");
+    b2 = new QPushButton("CTRL + 0");
     b2->setFlat(true);
     b2->setStyleSheet("color: blue; font-weight: bold; text-align: left;");
 
@@ -35,10 +38,18 @@ ListaQT::ListaQT(std::list<Articolo*> articoli) : articoli(articoli){
     tmp->addLayout(l);
     gruppo->setStyleSheet("QGroupBox {border: 1px solid grey; border-radius: 5px; margin-top: 1ex;}");
     layout->addWidget(gruppo);
+
+    connect(b2, &QPushButton::clicked, this, &ListaQT::importaNuovo);
+    connect(b1, &QPushButton::clicked, this, &ListaQT::nuovoClicked);
+
 }
 
 void ListaQT::clicatoNuovo() {
     emit nuovoClicked();
+}
+
+void ListaQT::importaNuovo() {
+    emit importaClickedLista();
 }
 
 void ListaQT::itemClicked(Articolo* articolo) {

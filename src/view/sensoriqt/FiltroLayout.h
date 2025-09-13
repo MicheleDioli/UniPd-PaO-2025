@@ -2,7 +2,7 @@
 #define FILTROLAYOUT_H
 
 #include "../crea/Nuovo.h"
-#include "../sensoriqt/ListaArticoli.h"
+#include "filtroSpecifico.h"
 
 #include <QComboBox>
 #include <QLineEdit>
@@ -22,6 +22,7 @@ private:
     int prev = 0;
     std::list<Articolo*> articoli;
     ListaArticoli *l1;
+    filtroSpecifico* filtroS;
 
     Nuovo* creazioneArticolo;
     ListaQT *l;
@@ -42,12 +43,15 @@ private:
 
     QPushButton* salva;
     QGroupBox* gruppoFiltri;
+    QGroupBox *fitriSpecifici;
     QComboBox* filtro;
     QComboBox* filtro2;
 
     QHBoxLayout* lista;
     QLineEdit* ricerca;
     QSplitter* splitter;
+
+    QGroupBox* fitriSpecificiCombo;
     
 public:
     FiltroLayout(QWidget* parent = nullptr, ListaArticoli* LA = nullptr);
@@ -60,13 +64,14 @@ public slots:
     void nuovoSalvato();
     void aggiorna();
     void dettaglio(Articolo*);
-
+    void importa();
     void salvaSlot(Articolo*);
     void cancellaSlot(Articolo*);
     void modificaSlot(Articolo*);
 
 signals:
     void dettaglioClicked(Articolo*);
+    void importaClicked();
     void nuovo();
     void listanuova();
 

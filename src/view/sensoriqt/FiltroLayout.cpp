@@ -1,4 +1,5 @@
 #include "FiltroLayout.h"
+#include "filtroSpecifico.h"
 
 FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent), l1(LA) {
 
@@ -39,9 +40,17 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     filtro2->addItem("Nome Z-A");
     filtro2->addItem("Nome A-Z");
 
+    fitriSpecificiCombo = new QGroupBox();
+    filtroS = new filtroSpecifico(nullptr, l1);
+    QVBoxLayout* layoutSpecifico = new QVBoxLayout();
+    layoutSpecifico->addWidget(filtroS);
+    fitriSpecificiCombo->setLayout(layoutSpecifico);
+
     filtri->addWidget(label2);
+    filtri->addWidget(filtro);
     filtri->addWidget(label3);
     filtri->addWidget(filtro2);
+    filtri->addWidget(fitriSpecificiCombo);
 
     gruppoFiltri->setLayout(filtri);
     layout2->addWidget(gruppoFiltri);
@@ -68,6 +77,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
 
     connect(l, &ListaQT::nuovoClicked, this, &FiltroLayout::nuovoClicked);
     connect(l, &ListaQT::dettaglioClicked, this, &FiltroLayout::dettaglio);
+    connect(l, &ListaQT::importaClickedLista, this, &FiltroLayout::importa);
 
     connect(creazioneArticolo, &Nuovo::annullatoCliked, this, &FiltroLayout::nuovoSalvato);
     connect(creazioneArticolo, &Nuovo::salvaClicked, this, &FiltroLayout::nuovoSalvato);
@@ -86,6 +96,10 @@ void FiltroLayout::ricercaScelta() {
     filtra(tmp);
 }
 
+void FiltroLayout::importa(){
+    emit importaClicked();
+}
+
 void FiltroLayout::filtraggio() {
     std::list<Articolo*> tmp;
 
@@ -102,11 +116,16 @@ void FiltroLayout::filtra(std::list<Articolo*> tmp) {
 
     if (filtro->currentText() == "Libri") {
         tmp = l->soloLibri(tmp);
+        //filtroS->setLayoutSpecifico(tmp.front());
     } else if (filtro->currentText() == "Riviste") {
         tmp = l->soloRiviste(tmp);
+        //filtroS->setLayoutSpecifico(tmp.front());
     } else if (filtro->currentText() == "Film") {
         tmp = l->soloFilm(tmp);
+       // filtroS->setLayoutSpecifico(tmp.front());
     }
+    
+//    filtroS->aggiorna();
 
     prev = filtro->currentIndex();
     lista = l->getArticoli(tmp);
@@ -125,15 +144,16 @@ void FiltroLayout::nuovoSalvato(){
 
 void FiltroLayout::aggiorna() {
 
-    if (l1->size()==0){
+    if (l1->size() == 0) {
         gruppoFiltri->hide();
-    }else{
+    } else {
         gruppoFiltri->show();
     }
-
+    filtroS->aggiorna();
     lista = l->getArticoli(l1->getArticoli());
     layout2->addLayout(lista);
     layout->addLayout(layout2);
+
 }
 
 void FiltroLayout::dettaglio(Articolo* a) {

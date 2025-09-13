@@ -6,6 +6,10 @@
 
 #include "../../Articolo.h"
 
+#include "../../Film.h"
+#include "../../Libro.h"
+#include "../../Rivista.h"
+
 class ListaArticoli {
 private:
   std::list<Articolo*> articoliL;
@@ -23,6 +27,23 @@ public:
   std::string getPath(Articolo*);
   int controlla(Articolo*);
   void clear();
+
+  int maxAnni()const;
+  int minAnni() const;
+  int maxCopie()const;
+  std::list<std::string*> allAttori()const;
+  std::list<std::string*> allProdu()const;
+
+  int maxPagine()const;
+  int maxCapitoli()const;
+  std::list<std::string*> allAutoriLibri()const;
+  std::list<std::string*> allCaseEditrici()const;
+
+  int maxPagineRivista()const;
+  std::list<std::string*> allPeriodici()const;
+
+  int maxMinutaggio()const;
+
   std::list<Articolo*> ordinaLista(std::list<Articolo*>,char);
   ~ListaArticoli();
   int size()const{

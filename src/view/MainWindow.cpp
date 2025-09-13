@@ -54,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
     connect(salvan, &QAction::triggered, this, &MainWindow::salvaListaSlot);
     connect(importa, &QAction::triggered, this, &MainWindow::importaSlot);
+    connect(f, &FiltroLayout::importaClicked, this, &MainWindow::importaSlot);
 
     connect(f,  &FiltroLayout::nuovo, this, &MainWindow::nuovoClicked);
 

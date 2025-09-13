@@ -17,6 +17,7 @@ private:
     int anno;
     int copie;
     std::string lingua;
+    std::string image;
 public:
     Articolo(const std::string& titolo, const std::string& codice, const std::string& descrizione, const std::string& genere, int anno, int copie, const std::string& lingua);
     virtual ~Articolo();
@@ -29,6 +30,7 @@ public:
     std::string getLingua() const;
     int getCopie() const;
     std::string getTitolo() const;
+    std::string getImg() const;
 
     void setCodice(const std::string& codice);
     void setDescrizione(const std::string& descrizione);
@@ -37,6 +39,7 @@ public:
     void setLingua(const std::string& lingua);
     void setCopie(int copie);
     void setTitolo(const std::string& titolo);
+    void setImg(const std::string& img);
 
     virtual void accept(VisitorInterface& visitor) = 0;
     virtual void accept(ConstVisitorInterface& visitor) const = 0;
