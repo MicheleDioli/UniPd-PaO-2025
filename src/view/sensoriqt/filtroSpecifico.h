@@ -49,7 +49,7 @@ private:
     QComboBox* casaEditriceCombo;
 
     // Rivista
-    QSlider* pagineRivistaSlider;
+    QDial* pagineRivistaSlider;
     QComboBox* periodicoCombo;
     QComboBox* difficoltaCombo;
 

@@ -67,7 +67,14 @@ public:
     void attoreFiltrato(const QString&);
     void produFiltrato(const QString&);
 
-    
+    void pagineFiltrato(int);
+    void capitoliFiltrato(int);
+    void autoreiltrato(const QString&);
+    void casaFiltrato(const QString&);
+
+    void pagineRivistaFiltrato(int);
+    void periodicoFiltrato(const QString&);
+    void difficoltaFiltrato(const QString&);
 
 public slots:
     void filtraggio();

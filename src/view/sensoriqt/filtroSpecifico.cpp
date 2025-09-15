@@ -170,9 +170,9 @@ void filtroSpecifico::setupPaginaRivista() {
     paginaRivista = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(paginaRivista);
 
-    pagineRivistaSlider = new QSlider(Qt::Horizontal);
+    pagineRivistaSlider = new QDial();
     pagineRivistaSlider->setRange(0, l1->maxPagineRivista());
-    QLabel* pagineLabel = new QLabel(QString("Pagine Rivista: %1").arg(pagineRivistaSlider->value()));
+    QLabel* pagineLabel = new QLabel(QString("Pg. Rivista: %1").arg(pagineRivistaSlider->value()));
 
     difficoltaCombo = new QComboBox();
     difficoltaCombo->addItems({"Tutti","1","2","3","4","5"});
@@ -192,7 +192,7 @@ void filtroSpecifico::setupPaginaRivista() {
     layout->addWidget(difficoltaCombo);
 
     connect(pagineRivistaSlider, &QSlider::valueChanged, [pagineLabel](int value){
-        pagineLabel->setText(QString("Pagine Rivista: %1").arg(value));
+        pagineLabel->setText(QString("Pg. Rivista: %1").arg(value));
     });
 
     connect(pagineRivistaSlider, &QSlider::valueChanged, this, [this](int value){
