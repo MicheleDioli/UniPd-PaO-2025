@@ -17,7 +17,6 @@ filtroSpecifico::filtroSpecifico(QWidget* parent, ListaArticoli* LA) : QWidget(p
 
     stackedWidget->setCurrentWidget(nullptr);
 
-    // widget comuni
     annoSplitter = new QSlider(Qt::Horizontal, this);
     copieSplitter = new QSlider(Qt::Horizontal, this);
     linguaCombo = new QComboBox();
@@ -224,6 +223,7 @@ void filtroSpecifico::backNormale() {
 }
 
 void filtroSpecifico::aggiorna() {
+    
     if (!l1) return;
 
     annoSplitter->setRange(l1->minAnni(), l1->maxAnni());
