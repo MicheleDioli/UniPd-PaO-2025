@@ -73,7 +73,6 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     creazioneArticolo = new Nuovo(nullptr,l1);
 
     connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::ricercaScelta);
-    connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::allFiltri);
     connect(ricerca, &QLineEdit::textChanged, this, &FiltroLayout::ricercaScelta);
 
     connect(l, &ListaQT::nuovoClicked, this, &FiltroLayout::nuovoClicked);
@@ -90,7 +89,6 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     connect(filtro2, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::filtraggio);
 
     connect(filtroS, &filtroSpecifico::annoValueChanged, this, &FiltroLayout::annoFiltrato);
-    
     connect(filtroS, &filtroSpecifico::copieValueChanged, this, &FiltroLayout::copieFiltrato);
     connect(filtroS, &filtroSpecifico::linguaValueChanged, this, &FiltroLayout::linguaFiltrato);
     connect(filtroS, &filtroSpecifico::categoriaValueChanged, this, &FiltroLayout::categoriaFiltrato);
@@ -98,125 +96,177 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     connect(filtroS, &filtroSpecifico::minutaggioValueChanged, this, &FiltroLayout::minutaggioFiltrato);
     connect(filtroS, &filtroSpecifico::attoreValueChanged, this, &FiltroLayout::attoreFiltrato);
     connect(filtroS, &filtroSpecifico::produValueChanged, this, &FiltroLayout::produFiltrato);
+    connect(filtroS, &filtroSpecifico::produValueChanged, this, &FiltroLayout::produFiltrato);
 
     connect(filtroS, &filtroSpecifico::pagineValueChanged, this, &FiltroLayout::pagineFiltrato);
     connect(filtroS, &filtroSpecifico::capitoliValueChanged, this, &FiltroLayout::capitoliFiltrato);
     connect(filtroS, &filtroSpecifico::autoreValueLibroChanged, this, &FiltroLayout::autoreiltrato);
     connect(filtroS, &filtroSpecifico::casaEditriceValueChanged, this, &FiltroLayout::casaFiltrato);
+    connect(filtroS, &filtroSpecifico::pagineValueChanged, this, &FiltroLayout::allFil);
 
     connect(filtroS, &filtroSpecifico::pagineRivistaValueChanged, this, &FiltroLayout::pagineRivistaFiltrato);
     connect(filtroS, &filtroSpecifico::periodicoValueChanged, this, &FiltroLayout::periodicoFiltrato);
     connect(filtroS, &filtroSpecifico::difficoltaValueChanged, this, &FiltroLayout::difficoltaFiltrato);
 }
 
+
+void FiltroLayout::allFil(){
+
+        filtroS->aggiorna();
+
+      /*  std::list<Articolo*>tmp;
+
+        std::list<Articolo*>tmpL = l->soloLibri(l1->getArticoli());
+        std::list<Articolo*>tmpR = l->soloRiviste(l1->getArticoli());
+        std::list<Articolo*>tmpF = l->soloFilm(l1->getArticoli());
+
+        for(auto a : tmpL){
+            Libro *l = dynamic_cast<Libro*>(a);
+            
+            if(l == nullptr){
+                std::cout<<"Nullptre";
+            }
+            if(l){
+                filtroS->setLayoutSpecifico(l);
+                if(l->getCapitoli() >= capitoli || l->getAutore() == autore.toStdString() || l->getPagine() == pagineL)
+                    tmp.push_back(l);
+                 int a = 0;
+            }
+        }
+
+        for(auto a : tmpR){
+            Rivista *r = dynamic_cast<Rivista*>(a);
+                        if(r == nullptr){
+                std::cout<<"Nullptre";
+            }
+            if(r){
+                filtroS->setLayoutSpecifico(r);
+            int d = diff.toInt();
+            if(r->getPagine() == pagineR || r->getIntervalloPubblicazione() ==perd.toStdString() || r->getDifficolta() == d)
+                tmp.push_back(r);  
+                int a = 0;
+            }
+        }
+
+        for(auto a : tmpF){
+            Film *f = dynamic_cast<Film*>(a);
+                        if(f == nullptr){
+                std::cout<<"Nullptre";
+            }
+            if(f){
+                filtroS->setLayoutSpecifico(f);
+            if(f->getAttori() == attore.toStdString() || f->getDurata() ==  minuti || f->getProduttore() == produ.toStdString())
+              tmp.push_back(f);  
+              int a = 0;
+            }
+        }
+        filtra(tmp);*/
+
+}
+
 void FiltroLayout::allFiltri() {
-/*
+    // Aggiorna i valori dei filtri dalla UI
     filtroS->aggiorna();
 
-    std::list<Articolo*> tmp;
+    // Lista che conterrà il risultato finale
+    std::list<Articolo*> risultatoFiltrato;
 
-    if (filtro->currentText() == "Film") {
-        for (auto a : l1->getArticoli()) {
-            if (Film* f = dynamic_cast<Film*>(a)) {
-                if (f->getAttori() == attore.toStdString() ||
-                    f->getProduttore() == produ.toStdString() ||
-                    f->getDurata() >= minuti) 
-                {
-                    tmp.push_back(a);
-                }
+    // Unico ciclo su tutti gli articoli originali
+    for (auto articolo : l1->getArticoli()) {
+
+        // --- FASE 1: CONTROLLO FILTRI GENERICI ---
+        // Se anche solo uno di questi non corrisponde, salta al prossimo articolo
+        
+        bool linguaCorrisponde = (lang == "Tutti" || QString::fromStdString(articolo->getLingua()) == lang);
+        if (!linguaCorrisponde) {
+            continue; // Salta al prossimo articolo
+        }
+
+        bool categoriaCorrisponde = (cat == "Tutti" || QString::fromStdString(articolo->getGenere()) == cat);
+        if (!categoriaCorrisponde) {
+            continue;
+        }
+
+        // Per i numeri, il filtro si applica solo se il valore è > 0
+        bool annoCorrisponde = (anno <= 0 || articolo->getAnno() >= anno);
+        if (!annoCorrisponde) {
+            continue;
+        }
+
+        bool copieCorrispondono = (copie <= 0 || articolo->getCopie() >= copie);
+        if (!copieCorrispondono) {
+            continue;
+        }
+
+        // Se siamo arrivati qui, l'articolo ha superato TUTTI i filtri generici.
+        // Ora possiamo controllare i filtri specifici.
+
+        // --- FASE 2: CONTROLLO FILTRI SPECIFICI ---
+        
+        bool corrispondenzaSpecifica = true; // Assumiamo che passi, a meno che non fallisca un test
+
+        // Provo a fare il cast a Libro
+        if (Libro* libro = dynamic_cast<Libro*>(articolo)) {
+            // È un libro, applico i filtri per i libri
+            // Nota: uso la logica AND. Un libro deve soddisfare TUTTI i filtri specifici attivi.
+            
+            // Se l'utente ha inserito un autore, controllalo
+            if (!autore.isEmpty() && libro->getAutore() != autore.toStdString()) {
+                corrispondenzaSpecifica = false;
+            }
+            // Se l'utente ha inserito un numero di capitoli, controllalo
+            if (capitoli > 0 && libro->getCapitoli() < capitoli) {
+                corrispondenzaSpecifica = false;
+            }
+            // Se l'utente ha inserito un numero di pagine, controllalo
+            if (pagineL > 0 && libro->getPagine() < pagineL) {
+                corrispondenzaSpecifica = false;
             }
         }
-    } else if (filtro->currentText() == "Libri") {
-        for (auto a : l1->getArticoli()) {
-            if (Libro* f = dynamic_cast<Libro*>(a)) {
-                if (f->getPagine() >= pagineL ||
-                    f->getCapitoli() >= capitoli ||
-                    f->getAutore() == autore.toStdString() ||
-                    f->getCasaEditrice() == casa.toStdString()) 
-                {
-                    tmp.push_back(a);
-                }
+        // Altrimenti, provo a fare il cast a Rivista
+        else if (Rivista* rivista = dynamic_cast<Rivista*>(articolo)) {
+            // È una rivista, applico i filtri per le riviste
+            int d = diff.toInt();
+
+            if (!perd.isEmpty() && rivista->getIntervalloPubblicazione() != perd.toStdString()) {
+                corrispondenzaSpecifica = false;
+            }
+            if (pagineR > 0 && rivista->getPagine() < pagineR) {
+                corrispondenzaSpecifica = false;
+            }
+            if (d > 0 && rivista->getDifficolta() != d) {
+                corrispondenzaSpecifica = false;
             }
         }
-    } else if (filtro->currentText() == "Riviste") {
-        int di = diff.toInt();
-        for (auto a : l1->getArticoli()) {
-            if (Rivista* f = dynamic_cast<Rivista*>(a)) {
-                if (f->getIntervalloPubblicazione() == perd.toStdString() ||
-                    f->getDifficolta() == di ||
-                    f->getPagine() >= pagineR) 
-                {
-                    tmp.push_back(a);
-                }
+        // Altrimenti, provo a fare il cast a Film
+        else if (Film* film = dynamic_cast<Film*>(articolo)) {
+            // È un film, applico i filtri per i film
+
+            if (!attore.isEmpty() && film->getAttori() != attore.toStdString()) {
+                corrispondenzaSpecifica = false;
+            }
+            if (!produ.isEmpty() && film->getProduttore() != produ.toStdString()) {
+                corrispondenzaSpecifica = false;
+            }
+            if (minuti > 0 && film->getDurata() < minuti) {
+                corrispondenzaSpecifica = false;
             }
         }
-    } else if (filtro->currentText() == "Tutti") {
-               
-    filtroS->backNormale();
-    tmp = l1->getArticoli();
-    }
-    */
-    /*
-    for(auto a : tmp){
-        if (a->getAnno() >= anno ||
-                a->getCopie() >= copie ||
-                a->getGenere() == cat.toStdString() ||
-                a->getLingua() == lang.toStdString())
-                
-            {
-                tmp.push_back(a);
-            }
+
+        // --- FASE 3: AGGIUNTA ALLA LISTA FINALE ---
+        // Se l'articolo ha superato sia i filtri generici (siamo ancora nel loop)
+        // sia quelli specifici (corrispondenzaSpecifica è ancora true), lo aggiungo.
+        if (corrispondenzaSpecifica) {
+            risultatoFiltrato.push_back(articolo);
+        }
     }
 
-    std::list<Articolo*> tmp;
-
-    for(auto a : l1->getArticoli()){
-        if (a->getAnno() >= anno ||
-                a->getCopie() >= copie ||
-                a->getGenere() == cat.toStdString() ||
-                a->getLingua() == if (a->getAnno() >= anno)
-                
-            {
-                tmp.push_back(a);
-            }
-    }
-
-    if (!tmp.empty()) 
-        filtroS->setLayoutSpecifico(tmp.front());
-    else
-        filtroS->backNormale();
-    filtra(tmp);*/
-    // Lista di destinazione dove metteremo i risultati
-    filtroS->aggiorna();
-    std::list<Articolo*> tmp; 
-    // Definiamo la lingua che vogliamo escludere (es. "Inglese")
+    // Ora che abbiamo la lista corretta, la passiamo alla funzione che aggiorna la vista
+    filtra(risultatoFiltrato);
+}
     
-for (auto a : l1->getArticoli()) {
-
-    // Filtri esistenti
-    bool linguaCorrisponde = (lang == "Tutti" || QString::fromStdString(a->getLingua()) == lang);
-    bool categoriaCorrisponde = (cat == "Tutti" || QString::fromStdString(a->getGenere()) == cat);
-
-    // NUOVI FILTRI: anno e copie
-    // Il filtro è "passato" se il valore è <= 0 (inattivo),
-    // oppure se l'anno/copie dell'articolo è maggiore o uguale a quello specificato.
-    bool annoCorrisponde = (anno <= 0 || a->getAnno() >= anno);
-    bool copieCorrispondono = (copie <= 0 || a->getCopie() >= copie);
-
-    // L'articolo viene aggiunto alla lista finale SOLO SE passa TUTTI E QUATTRO i filtri.
-    if (linguaCorrisponde && categoriaCorrisponde && annoCorrisponde && copieCorrispondono) {
-        tmp.push_back(a);
-    }
-}
 
 
-
-    filtroS->aggiorna();
-    filtra(tmp);
-
-// Alla fine di questo ciclo, 'tmp' conterrà tutti gli articoli non in inglese.
-
-}
 
 void FiltroLayout::periodicoFiltrato(const QString& text){
     perd = text;
@@ -301,7 +351,16 @@ void FiltroLayout::filtraggio() {
 }
 
 void FiltroLayout::filtra(std::list<Articolo*> tmp) {
-    
+
+    if (filtro->currentText() == "Libri") {
+        tmp = l->soloLibri(tmp);
+    } else if (filtro->currentText() == "Riviste") {
+        tmp = l->soloRiviste(tmp);
+    } else if (filtro->currentText() == "Film") {
+        tmp = l->soloFilm(tmp);
+    }
+
+    filtroS->setLayoutSpecifico(tmp.front());
     prev = filtro->currentIndex();
     lista = (l->getArticoli(tmp));
     layout2->addLayout(lista);

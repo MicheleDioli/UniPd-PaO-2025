@@ -85,6 +85,7 @@ public:
     void pagineRivistaFiltrato(int);
     void periodicoFiltrato(const QString&);
     void difficoltaFiltrato(const QString&);
+    void allFil();
 
 public slots:
     void filtraggio();
