@@ -56,8 +56,11 @@ private:
 
     void applicaTuttiIFiltri();
 
+     void aggiornaListaFiltrata();
+     void gestisciVisibilitaFiltriSpecifici();
+
     int copie=0,anno=0,minuti=0,pagineL=0,capitoli=0,pagineR=0;
-    QString cat,lang,produ,attore,autore,casa,diff,perd;
+    QString cat= "Tutti",lang= "Tutti",produ,attore,autore,casa,diff,perd;
     
 public:
     FiltroLayout(QWidget* parent = nullptr, ListaArticoli* LA = nullptr);

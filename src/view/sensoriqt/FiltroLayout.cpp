@@ -90,6 +90,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     connect(filtro2, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::filtraggio);
 
     connect(filtroS, &filtroSpecifico::annoValueChanged, this, &FiltroLayout::annoFiltrato);
+    
     connect(filtroS, &filtroSpecifico::copieValueChanged, this, &FiltroLayout::copieFiltrato);
     connect(filtroS, &filtroSpecifico::linguaValueChanged, this, &FiltroLayout::linguaFiltrato);
     connect(filtroS, &filtroSpecifico::categoriaValueChanged, this, &FiltroLayout::categoriaFiltrato);
@@ -109,7 +110,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
 }
 
 void FiltroLayout::allFiltri() {
-
+/*
     filtroS->aggiorna();
 
     std::list<Articolo*> tmp;
@@ -150,28 +151,63 @@ void FiltroLayout::allFiltri() {
             }
         }
     } else if (filtro->currentText() == "Tutti") {
-       
-
-    for(auto a : tmp){
-        if (a->getAnno() >= anno ||
-                    a->getCopie() >= copie ||
-                    a->getGenere() == cat.toStdString() ||
-                    a->getLingua() == lang.toStdString())
-                {
-                    tmp.push_back(a);
-                }
-    }
-        
+               
     filtroS->backNormale();
     tmp = l1->getArticoli();
+    }
+    */
+    /*
+    for(auto a : tmp){
+        if (a->getAnno() >= anno ||
+                a->getCopie() >= copie ||
+                a->getGenere() == cat.toStdString() ||
+                a->getLingua() == lang.toStdString())
+                
+            {
+                tmp.push_back(a);
+            }
+    }
+
+    std::list<Articolo*> tmp;
+
+    for(auto a : l1->getArticoli()){
+        if (a->getAnno() >= anno ||
+                a->getCopie() >= copie ||
+                a->getGenere() == cat.toStdString() ||
+                a->getLingua() == if (a->getAnno() >= anno)
+                
+            {
+                tmp.push_back(a);
+            }
     }
 
     if (!tmp.empty()) 
         filtroS->setLayoutSpecifico(tmp.front());
+    else
+        filtroS->backNormale();
+    filtra(tmp);*/
+    // Lista di destinazione dove metteremo i risultati
+    filtroS->aggiorna();
+    std::list<Articolo*> tmp; 
+    // Definiamo la lingua che vogliamo escludere (es. "Inglese")
+    
+    if(lang == "Tutti" && cat == "Tutti"){
+        tmp=l1->getArticoli();}
+    else{
 
-    lista = l->getArticoli(tmp);
-    layout2->addLayout(lista);
-    layout->addLayout(layout2);
+        for(auto a : l1->getArticoli()){
+        
+                if (a->getLingua() == lang && lang!="Tutti" && a->getGenere() == cat.toStdString() && cat!="Tutti"){
+                    tmp.push_back(a); 
+                }else if()
+            }
+    }
+
+
+    
+    filtra(tmp);
+
+// Alla fine di questo ciclo, 'tmp' conterrà tutti gli articoli non in inglese.
 
 }
 
@@ -181,8 +217,7 @@ void FiltroLayout::periodicoFiltrato(const QString& text){
 }
 
 void FiltroLayout::difficoltaFiltrato(const QString& v){
-    diff = v;
-    
+    diff = v;    
 }
 
 void FiltroLayout::pagineRivistaFiltrato(int value){
@@ -197,7 +232,6 @@ void FiltroLayout::casaFiltrato(const QString& text){
 
 void FiltroLayout::autoreiltrato(const QString& text){
     autore = text;
-    
 }
 
 void FiltroLayout::capitoliFiltrato(int value){
@@ -231,19 +265,17 @@ void FiltroLayout::annoFiltrato(int value) {
 
 void FiltroLayout::copieFiltrato(int value) {
     copie=value;
-    
-    
+    allFiltri();
 }
 
 void FiltroLayout::linguaFiltrato(const QString& text) {
     lang = text;
-   
-    
+    allFiltri();
 }
 
 void FiltroLayout::categoriaFiltrato(const QString& text) {
     cat = text;
-   
+    allFiltri();
     
 }
 
@@ -257,7 +289,6 @@ void FiltroLayout::importa(){
 }
 
 void FiltroLayout::filtraggio() {
-
     allFiltri();
 }
 

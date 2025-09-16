@@ -46,7 +46,17 @@
         "variant": "cpp",
         "vector": "cpp",
         "algorithm": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "map": "cpp",
+        "__tree": "cpp",
+        "charconv": "cpp",
+        "memory": "cpp",
+        "forward_list": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp",
+        "set": "cpp",
+        "sstream": "cpp",
+        "unordered_set": "cpp"
     }
 
     
