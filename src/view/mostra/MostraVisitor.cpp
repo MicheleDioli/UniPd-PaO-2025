@@ -30,12 +30,6 @@ void MostraVisitor::visitLibro(Libro& l) {
     image = image.scaled(120, 120, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     QLabel* imageLabel = new QLabel();
 
-    if (!l.getImg().empty()) {
-        std::string imageVera = l.getImg();
-        QString path = QString(":/asset/images/%1").arg(QString::fromStdString(imageVera));
-        QPixmap image(path);
-    }
-
     imageLabel->setPixmap(image);
     imageLabel->setAlignment(Qt::AlignCenter);
 

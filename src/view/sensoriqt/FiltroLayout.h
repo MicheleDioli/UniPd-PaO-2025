@@ -52,6 +52,8 @@ private:
     QLineEdit* ricerca;
     QSplitter* splitter;
 
+    QPushButton* applicaBtn;
+
     QGroupBox* fitriSpecificiCombo;
 
     void applicaTuttiIFiltri();

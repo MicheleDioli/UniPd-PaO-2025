@@ -13,7 +13,6 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QComboBox>
-#include <QDial>
 #include <QPushButton>
 
 #include <QSlider>
@@ -38,18 +37,18 @@ private:
     QComboBox* categoria;
 
     // Film
-    QDial* minutaggioDial;
+    QSlider* minutaggioDial;
     QComboBox* attoreCombo;
     QComboBox* produCombo;
 
     // Libro
-    QDial* pagineDial;
-    QDial* capitoliDial;
+    QSlider* pagineDial;
+    QSlider* capitoliDial;
     QComboBox* autoreCombo;
     QComboBox* casaEditriceCombo;
 
     // Rivista
-    QDial* pagineRivistaSlider;
+    QSlider* pagineRivistaSlider;
     QComboBox* periodicoCombo;
     QComboBox* difficoltaCombo;
 

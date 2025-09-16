@@ -44,7 +44,9 @@ filtroSpecifico::filtroSpecifico(QWidget* parent, ListaArticoli* LA) : QWidget(p
     mainFiltroSpecifico->addWidget(annoSplitter);
     mainFiltroSpecifico->addWidget(copieLabel);
     mainFiltroSpecifico->addWidget(copieSplitter);
+    mainFiltroSpecifico->addWidget(new QLabel("Lingua:"));
     mainFiltroSpecifico->addWidget(linguaCombo);
+    mainFiltroSpecifico->addWidget(new QLabel("Categoria:"));
     mainFiltroSpecifico->addWidget(categoria);
     mainFiltroSpecifico->addWidget(stackedWidget);
         
@@ -73,7 +75,7 @@ void filtroSpecifico::setupPaginaFilm() {
     QLabel* labelFilm = new QLabel("FILM");
     labelFilm->setAlignment(Qt::AlignCenter);
 
-    minutaggioDial = new QDial();
+    minutaggioDial = new QSlider(Qt::Horizontal, this);
     minutaggioDial->setRange(0, l1->maxMinutaggio());
     QLabel* minutaggioLabel = new QLabel(QString("Minutaggio: %1").arg(minutaggioDial->value()));
 
@@ -91,11 +93,11 @@ void filtroSpecifico::setupPaginaFilm() {
     layout->addWidget(new QLabel("Produttore:"));
     layout->addWidget(produCombo);
 
-    connect(minutaggioDial, &QDial::valueChanged, [minutaggioLabel](int value){
+    connect(minutaggioDial, &QSlider::valueChanged, [minutaggioLabel](int value){
         minutaggioLabel->setText(QString("Minutaggio: %1").arg(value));
     });
 
-    connect(minutaggioDial, &QDial::valueChanged, this, [this](int value){
+    connect(minutaggioDial, &QSlider::valueChanged, this, [this](int value){
     emit minutaggioValueChanged(value);
     });
 
@@ -113,11 +115,11 @@ void filtroSpecifico::setupPaginaLibro() {
     paginaLibro = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(paginaLibro);
 
-    pagineDial = new QDial();
+    pagineDial = new QSlider(Qt::Horizontal, this);
     pagineDial->setRange(0, l1->maxPagine());
     QLabel* pagineLabel = new QLabel(QString("Pagine: %1").arg(pagineDial->value()));
 
-    capitoliDial = new QDial();
+    capitoliDial = new QSlider(Qt::Horizontal, this);
     capitoliDial->setRange(0, l1->maxCapitoli());
     QLabel* capitoliLabel = new QLabel(QString("Capitoli: %1").arg(capitoliDial->value()));
 
@@ -139,18 +141,18 @@ void filtroSpecifico::setupPaginaLibro() {
     layout->addWidget(new QLabel("Casa Editrice:"));
     layout->addWidget(casaEditriceCombo);
 
-    connect(pagineDial, &QDial::valueChanged, [pagineLabel](int value){
+    connect(pagineDial, &QSlider::valueChanged, [pagineLabel](int value){
         pagineLabel->setText(QString("Pagine: %1").arg(value));
     });
-    connect(capitoliDial, &QDial::valueChanged, [capitoliLabel](int value){
+    connect(capitoliDial, &QSlider::valueChanged, [capitoliLabel](int value){
         capitoliLabel->setText(QString("Capitoli: %1").arg(value));
     });
 
-    connect(pagineDial, &QDial::valueChanged, this, [this](int value){
+    connect(pagineDial, &QSlider::valueChanged, this, [this](int value){
         emit pagineValueChanged(value);
     });
 
-    connect(capitoliDial, &QDial::valueChanged, this, [this](int value){
+    connect(capitoliDial, &QSlider::valueChanged, this, [this](int value){
         emit capitoliValueChanged(value);
     });
 
@@ -168,7 +170,7 @@ void filtroSpecifico::setupPaginaRivista() {
     paginaRivista = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(paginaRivista);
 
-    pagineRivistaSlider = new QDial();
+    pagineRivistaSlider = new QSlider(Qt::Horizontal, this);
     pagineRivistaSlider->setRange(0, l1->maxPagineRivista());
     QLabel* pagineLabel = new QLabel(QString("Pg. Rivista: %1").arg(pagineRivistaSlider->value()));
 

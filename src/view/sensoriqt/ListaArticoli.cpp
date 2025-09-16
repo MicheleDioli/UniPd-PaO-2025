@@ -8,7 +8,6 @@ void ListaArticoli::addArticolo(Articolo* a) {
 
     if (controlla(a) == 0) {
         articoliL.push_back(a);
-        a->setImg("tes.png");
     } else {
         std::cerr << "Articolo già presente" << std::endl;
     }

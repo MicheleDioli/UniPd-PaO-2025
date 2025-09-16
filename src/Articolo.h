@@ -39,7 +39,6 @@ public:
     void setLingua(const std::string& lingua);
     void setCopie(int copie);
     void setTitolo(const std::string& titolo);
-    void setImg(const std::string& img);
 
     virtual void accept(VisitorInterface& visitor) = 0;
     virtual void accept(ConstVisitorInterface& visitor) const = 0;

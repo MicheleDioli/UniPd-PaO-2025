@@ -37,30 +37,6 @@ std::string Articolo::getImg()const{
     return image;
 }
 
-void Articolo::setImg(const std::string& img){
-    this->image = img;
-
-    std::ifstream in("resources.qrc"); 
-    std::vector<std::string> righe;
-    std::string riga;
-    while (std::getline(in, riga)) {
-        righe.push_back(riga);
-    }
-    in.close();
-
-    if (righe.size() < 3) return;
-
-    std::string nuovaRiga = "        <file>asset/images/" + img + "</file>";
-
-    righe.insert(righe.end() - 2, nuovaRiga);
-
-    std::ofstream out("resources.qrc");
-    for (const auto& line : righe) {
-        out << line << "\n";
-    }
-    out.close();
-}
-
 int Articolo::getCopie() const {
     return copie;
 }
