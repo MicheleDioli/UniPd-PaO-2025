@@ -114,11 +114,9 @@ void FiltroLayout::allFiltri() {
 
     std::list<Articolo*> tmp;
 
-    // Seleziona la categoria di filtro
     if (filtro->currentText() == "Film") {
         for (auto a : l1->getArticoli()) {
             if (Film* f = dynamic_cast<Film*>(a)) {
-                // Aggiungi il film se soddisfa ALMENO UNA delle condizioni (logica OR)
                 if (f->getAttori() == attore.toStdString() ||
                     f->getProduttore() == produ.toStdString() ||
                     f->getDurata() >= minuti) 
@@ -130,7 +128,6 @@ void FiltroLayout::allFiltri() {
     } else if (filtro->currentText() == "Libri") {
         for (auto a : l1->getArticoli()) {
             if (Libro* f = dynamic_cast<Libro*>(a)) {
-                // Aggiungi il libro se soddisfa ALMENO UNA delle condizioni
                 if (f->getPagine() >= pagineL ||
                     f->getCapitoli() >= capitoli ||
                     f->getAutore() == autore.toStdString() ||
@@ -144,7 +141,6 @@ void FiltroLayout::allFiltri() {
         int di = diff.toInt();
         for (auto a : l1->getArticoli()) {
             if (Rivista* f = dynamic_cast<Rivista*>(a)) {
-                // Aggiungi la rivista se soddisfa ALMENO UNA delle condizioni
                 if (f->getIntervalloPubblicazione() == perd.toStdString() ||
                     f->getDifficolta() == di ||
                     f->getPagine() >= pagineR) 
@@ -154,29 +150,29 @@ void FiltroLayout::allFiltri() {
             }
         }
     } else if (filtro->currentText() == "Tutti") {
-        // Se si seleziona "Tutti", si ripristina la vista normale e si usano tutti gli articoli
-        filtroS->backNormale();
-        tmp = l1->getArticoli();
+       
+
+    for(auto a : tmp){
+        if (a->getAnno() >= anno ||
+                    a->getCopie() >= copie ||
+                    a->getGenere() == cat.toStdString() ||
+                    a->getLingua() == lang.toStdString())
+                {
+                    tmp.push_back(a);
+                }
+    }
+        
+    filtroS->backNormale();
+    tmp = l1->getArticoli();
     }
 
-    // --- Operazioni comuni spostate fuori dal blocco if/else ---
-
-    // Aggiorna il layout specifico solo se sono stati trovati risultati
-    if (!tmp.empty()) {
+    if (!tmp.empty()) 
         filtroS->setLayoutSpecifico(tmp.front());
-    } else {
-        // Opzionale: gestisci il caso in cui nessun articolo corrisponda al filtro
-        // Potresti voler mostrare un messaggio o pulire la vista
-        // filtroS->mostraVistaVuota(); // Esempio
-    }
 
-    // Aggiorna il layout principale con la lista filtrata (che potrebbe essere vuota)
-    lista = l->getArticoli(tmp); // Assumo che questa funzione crei un layout dalla lista
+    lista = l->getArticoli(tmp);
     layout2->addLayout(lista);
     layout->addLayout(layout2);
-    
-    // tmp.clear() non è necessario qui perché 'tmp' è una variabile locale
-    // e verrà distrutta automaticamente alla fine della funzione.
+
 }
 
 void FiltroLayout::periodicoFiltrato(const QString& text){
@@ -211,7 +207,6 @@ void FiltroLayout::capitoliFiltrato(int value){
 
 void FiltroLayout::pagineFiltrato(int value) {
     pagineL = value;
-    
 }
 
 void FiltroLayout::minutaggioFiltrato(int value) {
@@ -231,8 +226,7 @@ void FiltroLayout::produFiltrato(const QString& text) {
 
 void FiltroLayout::annoFiltrato(int value) {
     anno = value;
-    
-    
+    allFiltri();
 }
 
 void FiltroLayout::copieFiltrato(int value) {
