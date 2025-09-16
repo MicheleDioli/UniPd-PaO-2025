@@ -73,6 +73,7 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     creazioneArticolo = new Nuovo(nullptr,l1);
 
     connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::ricercaScelta);
+    connect(filtro, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &FiltroLayout::allFiltri);
     connect(ricerca, &QLineEdit::textChanged, this, &FiltroLayout::ricercaScelta);
 
     connect(l, &ListaQT::nuovoClicked, this, &FiltroLayout::nuovoClicked);
@@ -107,185 +108,153 @@ FiltroLayout::FiltroLayout(QWidget* parent, ListaArticoli* LA) : QWidget(parent)
     connect(filtroS, &filtroSpecifico::difficoltaValueChanged, this, &FiltroLayout::difficoltaFiltrato);
 }
 
-void FiltroLayout::allFiltri(){
+void FiltroLayout::allFiltri() {
 
-    std::list<Articolo*> tmp = l1->getArticoli();
-    std::list<Articolo*> tmp1;
+    filtroS->aggiorna();
 
+    std::list<Articolo*> tmp;
+
+    // Seleziona la categoria di filtro
     if (filtro->currentText() == "Film") {
-        filtroS->setLayoutSpecifico(tmp.front());
-        filtroS->filtroSpecifico::aggiorna();
-
-        for(auto a : tmp){
-            std::cout<<a->getTitolo();
-            if(Film* f = dynamic_cast<Film*>(a)) {
-                if(f->getProduttore() == produ.toStdString() && produ.toStdString() != "Tutti") {
-                    tmp1.push_back(a);
+        for (auto a : l1->getArticoli()) {
+            if (Film* f = dynamic_cast<Film*>(a)) {
+                // Aggiungi il film se soddisfa ALMENO UNA delle condizioni (logica OR)
+                if (f->getAttori() == attore.toStdString() ||
+                    f->getProduttore() == produ.toStdString() ||
+                    f->getDurata() >= minuti) 
+                {
+                    tmp.push_back(a);
                 }
-
-                if(f->getAttori() == attore.toStdString() && attore.toStdString() != "Tutti") {
-                    tmp1.push_back(a);
-                }
-
-                if(f->getDurata() >= minuti) {
-                    tmp1.push_back(a);
-                }
-
             }
-            
-        }   
-
+        }
     } else if (filtro->currentText() == "Libri") {
-        filtroS->setLayoutSpecifico(tmp.front());
-        filtroS->aggiorna();
-
-        for(auto a : tmp){
-
-            if(Libro* f = dynamic_cast<Libro*>(a)) {
-                if(f->getPagine() >= pagineL) {
-                    tmp1.push_back(a);
+        for (auto a : l1->getArticoli()) {
+            if (Libro* f = dynamic_cast<Libro*>(a)) {
+                // Aggiungi il libro se soddisfa ALMENO UNA delle condizioni
+                if (f->getPagine() >= pagineL ||
+                    f->getCapitoli() >= capitoli ||
+                    f->getAutore() == autore.toStdString() ||
+                    f->getCasaEditrice() == casa.toStdString()) 
+                {
+                    tmp.push_back(a);
                 }
-
-                if(f->getCapitoli() >= capitoli) {
-                    tmp1.push_back(a);
-                }
-
-                if(f->getAutore() == autore.toStdString() && autore.toStdString() != "Tutti") {
-                    tmp1.push_back(a);
-                }
-
-                if(f->getCasaEditrice() == casa.toStdString() && casa.toStdString() != "Tutti") {
-                    tmp1.push_back(a);
-                }
-                
-
             }
         }
-        
-        
     } else if (filtro->currentText() == "Riviste") {
-        filtroS->setLayoutSpecifico(tmp.front());
-
-        int durata = diff.toInt();
-
-        for(auto a : tmp){
-
-            if(Rivista* f = dynamic_cast<Rivista*>(a)) {
-
-                if(f->getPagine() >= pagineR) {
-                    tmp1.push_back(a);
+        int di = diff.toInt();
+        for (auto a : l1->getArticoli()) {
+            if (Rivista* f = dynamic_cast<Rivista*>(a)) {
+                // Aggiungi la rivista se soddisfa ALMENO UNA delle condizioni
+                if (f->getIntervalloPubblicazione() == perd.toStdString() ||
+                    f->getDifficolta() == di ||
+                    f->getPagine() >= pagineR) 
+                {
+                    tmp.push_back(a);
                 }
-
-                if(f->getDifficolta() == durata) {
-                    tmp1.push_back(a);
-                }
-
-                if(f->getIntervalloPubblicazione() == perd.toStdString() && perd.toStdString() != "Tutti") {
-                    tmp1.push_back(a);
-                }                
-
-            }   
-
+            }
         }
-        
-    } else if(filtro->currentText() == "Tutti"){
+    } else if (filtro->currentText() == "Tutti") {
+        // Se si seleziona "Tutti", si ripristina la vista normale e si usano tutti gli articoli
         filtroS->backNormale();
+        tmp = l1->getArticoli();
     }
 
-    
-    if(filtro2->currentText() == "Nome A-Z"){
-        tmp1 = l1->ordinaLista(l1->getArticoli(), 't');
-    } else if (filtro2->currentText() == "Nome Z-A") {
-        tmp1 = l1->ordinaLista(l1->getArticoli(), 'T');
+    // --- Operazioni comuni spostate fuori dal blocco if/else ---
+
+    // Aggiorna il layout specifico solo se sono stati trovati risultati
+    if (!tmp.empty()) {
+        filtroS->setLayoutSpecifico(tmp.front());
+    } else {
+        // Opzionale: gestisci il caso in cui nessun articolo corrisponda al filtro
+        // Potresti voler mostrare un messaggio o pulire la vista
+        // filtroS->mostraVistaVuota(); // Esempio
     }
 
-
-
-    lista = (l->getArticoli(tmp));
+    // Aggiorna il layout principale con la lista filtrata (che potrebbe essere vuota)
+    lista = l->getArticoli(tmp); // Assumo che questa funzione crei un layout dalla lista
     layout2->addLayout(lista);
     layout->addLayout(layout2);
-
-
+    
+    // tmp.clear() non è necessario qui perché 'tmp' è una variabile locale
+    // e verrà distrutta automaticamente alla fine della funzione.
 }
 
 void FiltroLayout::periodicoFiltrato(const QString& text){
     perd = text;
-    allFiltri();
+    
 }
 
 void FiltroLayout::difficoltaFiltrato(const QString& v){
     diff = v;
-    allFiltri();
+    
 }
 
 void FiltroLayout::pagineRivistaFiltrato(int value){
     pagineR = value;
-    allFiltri();
+    
 }
 
 void FiltroLayout::casaFiltrato(const QString& text){
     casa = text;
-    allFiltri();
+    
 }
 
 void FiltroLayout::autoreiltrato(const QString& text){
     autore = text;
-    allFiltri();
+    
 }
 
 void FiltroLayout::capitoliFiltrato(int value){
     capitoli = value;
-    allFiltri();
+    
 }
 
 void FiltroLayout::pagineFiltrato(int value) {
     pagineL = value;
-    allFiltri();
+    
 }
 
 void FiltroLayout::minutaggioFiltrato(int value) {
     minuti = value;
-    allFiltri();
+    
 }
 
 void FiltroLayout::attoreFiltrato(const QString& text) {
     attore = text;
-    allFiltri();
+    
 }
 
 void FiltroLayout::produFiltrato(const QString& text) {
     produ = text;
-    allFiltri();
+    
 }
 
 void FiltroLayout::annoFiltrato(int value) {
     anno = value;
-    allFiltri();
+    
     
 }
 
 void FiltroLayout::copieFiltrato(int value) {
     copie=value;
-    allFiltri();
+    
     
 }
 
 void FiltroLayout::linguaFiltrato(const QString& text) {
     lang = text;
-    allFiltri();
+   
     
 }
 
 void FiltroLayout::categoriaFiltrato(const QString& text) {
     cat = text;
-    allFiltri();
+   
     
 }
 
-
 void FiltroLayout::ricercaScelta() {
     std::list<Articolo*> tmp = l->ricerca(l1->getArticoli(), ricerca->text().toStdString());
-    allFiltri();
     filtra(tmp);
 }
 
@@ -295,12 +264,7 @@ void FiltroLayout::importa(){
 
 void FiltroLayout::filtraggio() {
 
-    std::list<Articolo*> tmp = l1->getArticoli();
     allFiltri();
-    prev = filtro->currentIndex();
-    lista = (l->getArticoli(tmp));
-    layout2->addLayout(lista);
-    layout->addLayout(layout2);
 }
 
 void FiltroLayout::filtra(std::list<Articolo*> tmp) {

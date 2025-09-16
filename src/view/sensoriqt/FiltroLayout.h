@@ -54,6 +54,8 @@ private:
 
     QGroupBox* fitriSpecificiCombo;
 
+    void applicaTuttiIFiltri();
+
     int copie=0,anno=0,minuti=0,pagineL=0,capitoli=0,pagineR=0;
     QString cat,lang,produ,attore,autore,casa,diff,perd;
     
