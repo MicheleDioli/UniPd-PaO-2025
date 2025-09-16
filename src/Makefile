@@ -2632,6 +2632,54 @@ qrc_resources.cpp: resources.qrc \
 		asset/images/tes.png \
 		asset/images/tes.png \
 		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
+		asset/images/tes.png \
 		asset/images/libro.png \
 		asset/images/rivista.png \
 		asset/images/biblioteca.png \

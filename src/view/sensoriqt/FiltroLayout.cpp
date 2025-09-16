@@ -191,20 +191,27 @@ void FiltroLayout::allFiltri() {
     std::list<Articolo*> tmp; 
     // Definiamo la lingua che vogliamo escludere (es. "Inglese")
     
-    if(lang == "Tutti" && cat == "Tutti"){
-        tmp=l1->getArticoli();}
-    else{
+for (auto a : l1->getArticoli()) {
 
-        for(auto a : l1->getArticoli()){
-        
-                if (a->getLingua() == lang && lang!="Tutti" && a->getGenere() == cat.toStdString() && cat!="Tutti"){
-                    tmp.push_back(a); 
-                }else if()
-            }
+    // Filtri esistenti
+    bool linguaCorrisponde = (lang == "Tutti" || QString::fromStdString(a->getLingua()) == lang);
+    bool categoriaCorrisponde = (cat == "Tutti" || QString::fromStdString(a->getGenere()) == cat);
+
+    // NUOVI FILTRI: anno e copie
+    // Il filtro è "passato" se il valore è <= 0 (inattivo),
+    // oppure se l'anno/copie dell'articolo è maggiore o uguale a quello specificato.
+    bool annoCorrisponde = (anno <= 0 || a->getAnno() >= anno);
+    bool copieCorrispondono = (copie <= 0 || a->getCopie() >= copie);
+
+    // L'articolo viene aggiunto alla lista finale SOLO SE passa TUTTI E QUATTRO i filtri.
+    if (linguaCorrisponde && categoriaCorrisponde && annoCorrisponde && copieCorrispondono) {
+        tmp.push_back(a);
     }
+}
 
 
-    
+
+    filtroS->aggiorna();
     filtra(tmp);
 
 // Alla fine di questo ciclo, 'tmp' conterrà tutti gli articoli non in inglese.
@@ -264,8 +271,9 @@ void FiltroLayout::annoFiltrato(int value) {
 }
 
 void FiltroLayout::copieFiltrato(int value) {
-    copie=value;
+    copie = value;
     allFiltri();
+    filtroS->aggiorna();
 }
 
 void FiltroLayout::linguaFiltrato(const QString& text) {

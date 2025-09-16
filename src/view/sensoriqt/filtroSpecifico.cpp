@@ -27,7 +27,7 @@ filtroSpecifico::filtroSpecifico(QWidget* parent, ListaArticoli* LA) : QWidget(p
     copieSplitter->setValue(0);
 
     linguaCombo->addItems({"Tutti","Italiano","Inglese","Spagnolo","Francese","Tedesco"});
-    categoria->addItems({"Tutti","Fantascienza","Giallo","Horror","Scienza","Storico","Thriller"});
+    categoria->addItems({"Tutti","Fantascenza","Giallo","Horror","Scienza","Storico","Thriller"});
 
     QLabel* annoLabel = new QLabel(QString("Anno: %1").arg(annoSplitter->value()));
     QLabel* copieLabel = new QLabel(QString("Copie: %1").arg(copieSplitter->value()));
@@ -63,7 +63,6 @@ filtroSpecifico::filtroSpecifico(QWidget* parent, ListaArticoli* LA) : QWidget(p
     connect(categoria, &QComboBox::currentTextChanged, this, [this](const QString &text){
         emit categoriaValueChanged(text);
     });
-
 
 }
 
@@ -228,7 +227,6 @@ void filtroSpecifico::aggiorna() {
 
     annoSplitter->setRange(l1->minAnni(), l1->maxAnni());
     copieSplitter->setRange(0, l1->maxCopie());
-    copieSplitter->setValue(0);
 
     if(attoreCombo) { attoreCombo->clear(); for(auto a: l1->allAttori()) attoreCombo->addItem(QString::fromStdString(*a)); }
     if(produCombo) { produCombo->clear(); for(auto p: l1->allProdu()) produCombo->addItem(QString::fromStdString(*p)); }
